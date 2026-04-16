@@ -74,7 +74,46 @@
   background-color: #0F4D96;
 }
 
-/* ─── 4. Link color ─── */
+/* ─── 4. Hero feature image ─── */
+.hero-feature-image-wrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(22, 100, 191, 0.14);
+}
+
+.hero-feature-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  border-radius: 20px;
+}
+
+@media (max-width: 767px) {
+  .hero-feature-image {
+    height: 240px;
+  }
+}
+
+/* ─── 5. About image override (plumber) ─── */
+.about-content-image-01 {
+  border-radius: 16px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* ─── 6. Logo size normalization ─── */
+.nav-logo-link img,
+.navbar-logo img {
+  height: 32px;
+  width: auto;
+}
+
+/* ─── 7. Link color ─── */
 a {
   color: #1664BF;
 }
