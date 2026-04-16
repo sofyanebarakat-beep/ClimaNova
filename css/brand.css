@@ -60,9 +60,28 @@
   background-image: linear-gradient(#fff, #F0F4FB);
 }
 
-/* Service card text block */
-.service-text-block {
-  background-image: linear-gradient(#F0F4FB, #fff);
+/* ─── Service cards: image only — hide title, arrow, pricing ─── */
+.service-card .service-text-block,
+.service-card .service-pricing-block {
+  display: none;
+}
+
+.service-card .service-image-block {
+  width: 100%;
+  height: 100%;
+}
+
+.service-card .service-image,
+.service-card .service-image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.service-card {
+  overflow: hidden;
+  border-radius: 16px;
 }
 
 /* CTA gradient overlay — blue for strong CTA impact */
