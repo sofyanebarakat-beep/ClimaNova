@@ -4,46 +4,45 @@
  * Add this file to every page AFTER the base CSS link:
  *   <link href="css/brand.css" rel="stylesheet" type="text/css">
  *
- * Primary:   #1664BF  (ClimaNova Blue)
- * Secondary: #03BE63  (ClimaNova Green)
- * Tint Blue: #EAF1FC
+ * Primary:   #03BE63  (ClimaNova Green)
+ * Dark Green: #029950
  * Tint Green:#E6FBF1
- * BG:        #F0F4FB
+ * BG:        #F0FAF5
  */
 
 /* ─── 1. CSS Variable Overrides ─── */
 :root {
-  /* Orange accent → ClimaNova Green (icons, borders, highlights) */
+  /* Primary accent → ClimaNova Green */
   --_🎨color-styles---base-color--primarycolor:  #03BE63;
 
-  /* Orange light tint → green tint */
+  /* Light tint → green tint */
   --_🎨color-styles---base-color--lightorange:   #E6FBF1;
 
-  /* Yellow tertiary → ClimaNova Blue (secondary accent) */
-  --_🎨color-styles---base-color--tertiarycolor: #1664BF;
+  /* Secondary accent → also green (darker) */
+  --_🎨color-styles---base-color--tertiarycolor: #03BE63;
 
-  /* Replace warm off-white BG with cool blue-tinted BG */
-  --_🎨color-styles---base-color--bgcolor:       #F0F4FB;
+  /* Background → light green tint */
+  --_🎨color-styles---base-color--bgcolor:       #F0FAF5;
 }
 
-/* Primary buttons and CTAs stay blue */
+/* Buttons and CTAs — green */
 [class*="button-primary"],
 .w-button,
 .btn-primary {
-  background-color: #1664BF !important;
+  background-color: #03BE63 !important;
   color: #fff !important;
 }
 [class*="button-primary"]:hover,
 .w-button:hover,
 .btn-primary:hover {
-  background-color: #0F4D96 !important;
+  background-color: #029950 !important;
 }
 
 /* ─── 2. Hardcoded Gradient Overrides ─── */
 
 /* Color palette card */
 .linear-color-card.linear-1 {
-  background-image: linear-gradient(#F0F4FB, #fff);
+  background-image: linear-gradient(#F0FAF5, #fff);
 }
 
 .linear-color-card.linear-2 {
@@ -52,12 +51,12 @@
 
 /* Hero section background */
 .hero-section {
-  background-image: linear-gradient(#F0F4FB, #fff);
+  background-image: linear-gradient(#F0FAF5, #fff);
 }
 
 /* Why-choose section background */
 .why-choose-section {
-  background-image: linear-gradient(#fff, #F0F4FB);
+  background-image: linear-gradient(#fff, #F0FAF5);
 }
 
 /* ─── Service cards: image only — hide title, arrow, pricing ─── */
@@ -84,19 +83,19 @@
   border-radius: 16px;
 }
 
-/* CTA gradient overlay — blue for strong CTA impact */
+/* CTA gradient overlay — green */
 .cta-gradient {
-  background-image: linear-gradient(90deg, #1664BF, #0F4D96cc);
+  background-image: linear-gradient(90deg, #03BE63, #029950cc);
 }
 
 /* FAQ gradient */
 .faq-gradient-color {
-  background-image: linear-gradient(#F0F4FB, #fff);
+  background-image: linear-gradient(#F0FAF5, #fff);
 }
 
 /* Projects section background */
 .project-section {
-  background-image: linear-gradient(#F0F4FB, #fff);
+  background-image: linear-gradient(#F0FAF5, #fff);
 }
 
 /* ─── 4. Marquee ClimaNova images — fit correctly in ticker ─── */
@@ -112,7 +111,7 @@
   width: 100%;
 }
 
-/* ─── 6. Process arrows — make visible and branded ─── */
+/* ─── 6. Process arrows — green ─── */
 .process-arrow-icon-block._01,
 .process-arrow-icon-block._02 {
   color: #03BE63 !important;
@@ -128,9 +127,9 @@
 
 /* ─── 8. Link & nav active colors ─── */
 a {
-  color: #1664BF;
+  color: #03BE63;
 }
 
 a:hover {
-  color: #0F4D96;
+  color: #029950;
 }
