@@ -1,0 +1,84 @@
+/*
+ * ClimaNova Brand Override
+ * Applies brand guidelines on top of the base Webflow stylesheet.
+ * Add this file to every page AFTER the base CSS link:
+ *   <link href="css/brand.css" rel="stylesheet" type="text/css">
+ *
+ * Primary:   #1664BF  (ClimaNova Blue)
+ * Secondary: #03BE63  (ClimaNova Green)
+ * Tint Blue: #EAF1FC
+ * Tint Green:#E6FBF1
+ * BG:        #F0F4FB
+ */
+
+/* ─── 1. CSS Variable Overrides ─── */
+:root {
+  /* Replace orange primary with ClimaNova Blue */
+  --_🎨color-styles---base-color--primarycolor:  #1664BF;
+
+  /* Replace light-orange tint with blue tint */
+  --_🎨color-styles---base-color--lightorange:   #EAF1FC;
+
+  /* Replace yellow tertiary with ClimaNova Green */
+  --_🎨color-styles---base-color--tertiarycolor: #03BE63;
+
+  /* Replace warm off-white BG with cool blue-tinted BG */
+  --_🎨color-styles---base-color--bgcolor:       #F0F4FB;
+}
+
+/* ─── 2. Hardcoded Gradient Overrides ─── */
+
+/* Color palette card — linear-2 (was red fade) */
+.linear-color-card.linear-1 {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+
+.linear-color-card.linear-2 {
+  background-image: linear-gradient(#1664BF, #1664bf00);
+}
+
+/* Hero section background */
+.hero-section {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+
+/* Why-choose section background */
+.why-choose-section {
+  background-image: linear-gradient(#fff, #F0F4FB);
+}
+
+/* Service card text block */
+.service-text-block {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+
+/* CTA gradient overlay */
+.cta-gradient {
+  background-image: linear-gradient(90deg, #1664BF, #1664bfa6);
+}
+
+/* FAQ gradient */
+.faq-gradient-color {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+
+/* Projects section background */
+.project-section {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+
+/* ─── 3. Button hover states ─── */
+.btn-primary:hover,
+.w-button:hover,
+[class*="btn"]:hover {
+  background-color: #0F4D96;
+}
+
+/* ─── 4. Link color ─── */
+a {
+  color: #1664BF;
+}
+
+a:hover {
+  color: #0F4D96;
+}
