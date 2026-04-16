@@ -13,28 +13,41 @@
 
 /* ─── 1. CSS Variable Overrides ─── */
 :root {
-  /* Replace orange primary with ClimaNova Blue */
-  --_🎨color-styles---base-color--primarycolor:  #1664BF;
+  /* Orange accent → ClimaNova Green (icons, borders, highlights) */
+  --_🎨color-styles---base-color--primarycolor:  #03BE63;
 
-  /* Replace light-orange tint with blue tint */
-  --_🎨color-styles---base-color--lightorange:   #EAF1FC;
+  /* Orange light tint → green tint */
+  --_🎨color-styles---base-color--lightorange:   #E6FBF1;
 
-  /* Replace yellow tertiary with ClimaNova Green */
-  --_🎨color-styles---base-color--tertiarycolor: #03BE63;
+  /* Yellow tertiary → ClimaNova Blue (secondary accent) */
+  --_🎨color-styles---base-color--tertiarycolor: #1664BF;
 
   /* Replace warm off-white BG with cool blue-tinted BG */
   --_🎨color-styles---base-color--bgcolor:       #F0F4FB;
 }
 
+/* Primary buttons and CTAs stay blue */
+[class*="button-primary"],
+.w-button,
+.btn-primary {
+  background-color: #1664BF !important;
+  color: #fff !important;
+}
+[class*="button-primary"]:hover,
+.w-button:hover,
+.btn-primary:hover {
+  background-color: #0F4D96 !important;
+}
+
 /* ─── 2. Hardcoded Gradient Overrides ─── */
 
-/* Color palette card — linear-2 (was red fade) */
+/* Color palette card */
 .linear-color-card.linear-1 {
   background-image: linear-gradient(#F0F4FB, #fff);
 }
 
 .linear-color-card.linear-2 {
-  background-image: linear-gradient(#1664BF, #1664bf00);
+  background-image: linear-gradient(#03BE63, #03be6300);
 }
 
 /* Hero section background */
@@ -52,9 +65,9 @@
   background-image: linear-gradient(#F0F4FB, #fff);
 }
 
-/* CTA gradient overlay */
+/* CTA gradient overlay — blue for strong CTA impact */
 .cta-gradient {
-  background-image: linear-gradient(90deg, #1664BF, #1664bfa6);
+  background-image: linear-gradient(90deg, #1664BF, #0F4D96cc);
 }
 
 /* FAQ gradient */
@@ -67,36 +80,10 @@
   background-image: linear-gradient(#F0F4FB, #fff);
 }
 
-/* ─── 3. Button hover states ─── */
-.btn-primary:hover,
-.w-button:hover,
-[class*="btn"]:hover {
-  background-color: #0F4D96;
-}
-
-/* ─── 4. Hero feature image ─── */
-.hero-feature-image-wrap {
-  width: 100%;
-  max-width: 900px;
-  margin: 40px auto 0;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 16px 48px rgba(22, 100, 191, 0.14);
-}
-
-.hero-feature-image {
-  width: 100%;
-  height: 420px;
+/* ─── 4. Marquee ClimaNova images — fit correctly in ticker ─── */
+.marquee-image {
+  height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  display: block;
-  border-radius: 20px;
-}
-
-@media (max-width: 767px) {
-  .hero-feature-image {
-    height: 240px;
-  }
 }
 
 /* ─── 5. About image override (plumber) ─── */
@@ -106,14 +93,21 @@
   width: 100%;
 }
 
-/* ─── 6. Logo size normalization ─── */
+/* ─── 6. Process arrows — make visible and branded ─── */
+.process-arrow-icon-block._01,
+.process-arrow-icon-block._02 {
+  color: #03BE63 !important;
+  opacity: 0.7;
+}
+
+/* ─── 7. Logo size normalization ─── */
 .nav-logo-link img,
 .navbar-logo img {
   height: 32px;
   width: auto;
 }
 
-/* ─── 7. Link color ─── */
+/* ─── 8. Link & nav active colors ─── */
 a {
   color: #1664BF;
 }
