@@ -60,12 +60,9 @@
   background-image: linear-gradient(#fff, #F0F4FB);
 }
 
-/* ─── Service cards: show name, hide pricing and arrow ─── */
+/* ─── Service cards: image only — hide title, arrow, pricing ─── */
+.service-card .service-text-block,
 .service-card .service-pricing-block {
-  display: none;
-}
-
-.service-card .service-card-arrow-icon {
   display: none;
 }
 
