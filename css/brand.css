@@ -97,7 +97,7 @@
   margin: 0;
 }
 
-/* ─── 5. Process section: photo steps + clean arrow ─── */
+/* ─── 5. Process section: circular photo steps + clean arrow ─── */
 .process-arrow-icon.w-embed {
   display: none;
 }
@@ -116,11 +116,21 @@
   opacity: 0.6;
 }
 
+.process-step-image-block {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 4px solid #1664BF;
+  flex-shrink: 0;
+}
+
 .process-step-image-block img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 0;
 }
 
 /* ─── 6. Marquee images ─── */
