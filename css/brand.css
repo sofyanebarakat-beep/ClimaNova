@@ -97,40 +97,30 @@
   margin: 0;
 }
 
-/* ─── 5. Process section: circular photo steps + clean arrow ─── */
-.process-arrow-icon.w-embed {
-  display: none;
-}
-
-.process-arrow-icon-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1664BF;
-}
-
-.process-arrow-icon-block::after {
-  content: "→";
-  font-size: 2rem;
-  color: #1664BF;
-  opacity: 0.6;
-}
-
+/* ─── 5. Process section: plain image steps (no circle) ─── */
 .process-step-image-block {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+  border-radius: 16px !important;
+  border: none !important;
+  width: 180px !important;
+  height: 180px !important;
   overflow: hidden;
-  margin: 0 auto;
-  border: 4px solid #1664BF;
-  flex-shrink: 0;
+  padding: 0 !important;
 }
 
 .process-step-image-block img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
+  border-radius: 16px;
+}
+
+.process-step-count-block {
+  display: none !important;
+}
+
+/* ─── Footer: hide social icons block ─── */
+.footer-social-block {
+  display: none !important;
 }
 
 /* ─── 6. Marquee images ─── */

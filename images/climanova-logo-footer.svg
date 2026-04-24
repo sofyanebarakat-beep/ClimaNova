@@ -13,5 +13,5 @@
   <text x="38" y="24" font-family="Instrument Sans, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.4">
     <tspan fill="#FFFFFF">Clima</tspan><tspan fill="#03BE63">Nova</tspan>
   </text>
-  <text x="97" y="37" font-family="Instrument Sans, sans-serif" font-size="10" font-weight="600" fill="#90BFF1" letter-spacing="0.3">Energie</text>
+  <text x="97" y="37" font-family="Instrument Sans, sans-serif" font-size="10" font-weight="600" font-style="italic" fill="#90BFF1" letter-spacing="0.3">Energie</text>
 </svg>
