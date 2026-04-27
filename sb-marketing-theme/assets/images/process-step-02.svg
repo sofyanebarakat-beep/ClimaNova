@@ -1,0 +1,18 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="80" cy="80" r="80" fill="#E6FBF1"/>
+  <!-- Document body -->
+  <rect x="45" y="38" width="58" height="74" rx="8" fill="#03BE63" opacity="0.12"/>
+  <rect x="45" y="38" width="58" height="74" rx="8" stroke="#03BE63" stroke-width="3.5"/>
+  <!-- Folded corner -->
+  <path d="M87 38 L103 54 L87 54 Z" fill="#E6FBF1" stroke="#03BE63" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Lines on document -->
+  <line x1="57" y1="66" x2="91" y2="66" stroke="#03BE63" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="57" y1="76" x2="91" y2="76" stroke="#03BE63" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="57" y1="86" x2="79" y2="86" stroke="#03BE63" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Euro sign -->
+  <circle cx="88" cy="94" r="10" fill="#03BE63" opacity="0.15"/>
+  <text x="84" y="98" font-family="Instrument Sans, sans-serif" font-size="13" font-weight="700" fill="#03BE63">€</text>
+  <!-- Checkmark badge -->
+  <circle cx="108" cy="108" r="18" fill="#1664BF"/>
+  <path d="M100 108 L106 114 L117 102" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

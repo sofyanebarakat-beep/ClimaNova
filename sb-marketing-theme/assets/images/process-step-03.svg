@@ -1,0 +1,16 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="80" cy="80" r="80" fill="#EAF1FC"/>
+  <!-- House outline -->
+  <path d="M52 80 L80 52 L108 80 L108 112 L52 112 Z" fill="#1664BF" opacity="0.10" stroke="#1664BF" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Door -->
+  <rect x="71" y="92" width="18" height="20" rx="3" fill="#1664BF" opacity="0.3" stroke="#1664BF" stroke-width="2.5"/>
+  <!-- Wrench tool -->
+  <g transform="translate(88, 56) rotate(45)">
+    <rect x="-5" y="-18" width="10" height="36" rx="5" fill="#03BE63"/>
+    <circle cx="0" cy="-18" r="8" fill="none" stroke="#03BE63" stroke-width="3"/>
+    <circle cx="0" cy="18" r="5" fill="#03BE63"/>
+  </g>
+  <!-- Sparkle/done badge -->
+  <circle cx="108" cy="108" r="18" fill="#03BE63"/>
+  <path d="M100 108 L106 114 L117 102" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

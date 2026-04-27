@@ -1,0 +1,157 @@
+/*
+ * ClimaNova Brand Override
+ * Applies brand guidelines on top of the base Webflow stylesheet.
+ * Add this file to every page AFTER the base CSS link:
+ *   <link href="css/brand.css" rel="stylesheet" type="text/css">
+ *
+ * Primary:   #1664BF  (ClimaNova Blue)
+ * Dark Blue:  #1250A0
+ * Tint Blue:  #EBF2FB
+ * BG:         #F0F4FB
+ */
+
+/* ─── 1. CSS Variable Overrides ─── */
+:root {
+  --_🎨color-styles---base-color--primarycolor:  #1664BF;
+  --_🎨color-styles---base-color--lightorange:   #EBF2FB;
+  --_🎨color-styles---base-color--tertiarycolor: #1664BF;
+  --_🎨color-styles---base-color--bgcolor:       #F0F4FB;
+}
+
+/* ─── 2. Buttons and CTAs ─── */
+[class*="button-primary"],
+.w-button,
+.btn-primary {
+  background-color: #1664BF !important;
+  color: #fff !important;
+}
+[class*="button-primary"]:hover,
+.w-button:hover,
+.btn-primary:hover {
+  background-color: #1250A0 !important;
+}
+
+/* ─── 3. Hardcoded Gradient Overrides ─── */
+.linear-color-card.linear-1 {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+.linear-color-card.linear-2 {
+  background-image: linear-gradient(#1664BF, #1664bf00);
+}
+.hero-section {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+.why-choose-section {
+  background-image: linear-gradient(#fff, #F0F4FB);
+}
+.cta-gradient {
+  background-image: linear-gradient(90deg, #1664BF, #1250A0cc);
+}
+.faq-gradient-color {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+.project-section {
+  background-image: linear-gradient(#F0F4FB, #fff);
+}
+
+/* ─── 4. Service cards: full-bleed image with title overlay ─── */
+.service-card .service-pricing-block,
+.service-card .service-card-arrow-icon {
+  display: none;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.service-card .service-image-block {
+  width: 100%;
+  height: 100%;
+}
+
+.service-card .service-image,
+.service-card .service-image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.service-card .service-text-block {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  border-radius: 0 0 16px 16px;
+  z-index: 2;
+}
+
+.service-card .service-card-title {
+  color: #fff !important;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ─── 5. Process section: plain image steps (no circle) ─── */
+.process-step-image-block {
+  border-radius: 16px !important;
+  border: none !important;
+  width: 180px !important;
+  height: 180px !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.process-step-image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.process-step-count-block {
+  display: none !important;
+}
+
+/* ─── Footer: hide social icons block ─── */
+.footer-social-block {
+  display: none !important;
+}
+
+/* ─── 6. Marquee images ─── */
+.marquee-image {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── 7. About image ─── */
+.about-content-image-01 {
+  border-radius: 16px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* ─── 8. Logo ─── */
+.nav-logo-link img,
+.navbar-logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* ─── 9. Links ─── */
+a {
+  color: #1664BF;
+}
+a:hover {
+  color: #1250A0;
+}
+
+/* ─── 10. Hide Webflow badge ─── */
+.w-webflow-badge {
+  display: none !important;
+}
