@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "wordpress": {
-      "command": "node",
+      "command": "/usr/local/bin/node",
       "args": ["/Users/sof/ClimaNova/wordpress-mcp/src/index.js"],
       "env": {}
     }
