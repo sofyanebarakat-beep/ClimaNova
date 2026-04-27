@@ -333,9 +333,47 @@
 .section-subtitle { color: #1664BF; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
 .section-description { color: #64748b; max-width: 540px; line-height: 1.7; }
 
-/* ── Nav CTA ───────────────────────────────────────────────── */
-.nav-cta-wrap { display: flex; align-items: center; margin-left: 24px; }
-.nav-cta-button { font-size: 14px !important; padding: 10px 20px !important; }
+/* ── Nav CTA — compact button sized for the header bar ─────── */
+.nav-cta-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+}
+
+/* Outer button shell: shrink left padding (text area) and side gaps */
+.nav-cta-button.button-primary {
+  padding: 3px 3px 3px 18px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  gap: 8px !important;
+  background-color: #16A34A !important;
+}
+.nav-cta-button.button-primary:hover {
+  background-color: #15803D !important;
+}
+
+/* Text label */
+.nav-cta-button .button-text-wrapper {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+}
+
+/* Arrow circle: smaller + green */
+.nav-cta-button .button-arrow-wrap {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  background-color: #15803D !important;
+}
+
+/* Arrow icon inside circle */
+.nav-cta-button .button-right-arrow,
+.nav-cta-button .material-icons-round {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
 
 /* ── Single post layout ────────────────────────────────────── */
 .single-content-container { max-width: 800px; margin: 0 auto; }

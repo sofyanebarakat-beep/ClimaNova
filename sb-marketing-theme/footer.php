@@ -1,3 +1,21 @@
+<?php
+// ── Footer nav walker — must be declared before wp_nav_menu() is called ──────
+if ( ! class_exists( 'SBMT_Footer_Walker' ) ) {
+	class SBMT_Footer_Walker extends Walker_Nav_Menu {
+		public function start_lvl( &$output, $depth = 0, $args = null ) {}
+		public function end_lvl( &$output, $depth = 0, $args = null ) {}
+
+		public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ) {
+			$item  = $data_object;
+			$url   = $item->url;
+			$title = apply_filters( 'the_title', $item->title, $item->ID );
+			$output .= '<li><a href="' . esc_url( $url ) . '">' . esc_html( $title ) . '</a></li>';
+		}
+
+		public function end_el( &$output, $data_object, $depth = 0, $args = null ) {}
+	}
+}
+?>
 </main><!-- /#main-content -->
 
 <!-- ══════════════════════════════════════════════════
@@ -208,22 +226,6 @@
 
 <?php wp_footer(); ?>
 
-<?php
-// ── Footer nav walker ─────────────────────────────────────────────────────────
-class SBMT_Footer_Walker extends Walker_Nav_Menu {
-	public function start_lvl( &$output, $depth = 0, $args = null ) {}
-	public function end_lvl( &$output, $depth = 0, $args = null ) {}
-
-	public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ) {
-		$item  = $data_object;
-		$url   = $item->url;
-		$title = apply_filters( 'the_title', $item->title, $item->ID );
-		$output .= '<li><a href="' . esc_url( $url ) . '">' . esc_html( $title ) . '</a></li>';
-	}
-
-	public function end_el( &$output, $data_object, $depth = 0, $args = null ) {}
-}
-?>
-
+</div><!-- /page-wrapper -->
 </body>
 </html>
