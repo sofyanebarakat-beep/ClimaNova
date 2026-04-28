@@ -1,157 +1,261 @@
 /*
- * ClimaNova Brand Override
- * Applies brand guidelines on top of the base Webflow stylesheet.
- * Add this file to every page AFTER the base CSS link:
- *   <link href="css/brand.css" rel="stylesheet" type="text/css">
+ * ClimaNova Brand CSS — v2.0
+ * Strictly follows BRAND_GUIDELINES.md v1.0
  *
- * Primary:   #1664BF  (ClimaNova Blue)
- * Dark Blue:  #1250A0
- * Tint Blue:  #EBF2FB
- * BG:         #F0F4FB
+ * Primary Blue : #1664BF
+ * Primary Dark : #0F4D96
+ * Primary Tint : #EAF1FC
+ * Green        : #03BE63
+ * Green Dark   : #029C52
+ * BG / Light   : #F0F4FB
+ * Font         : Instrument Sans
  */
 
-/* ─── 1. CSS Variable Overrides ─── */
+/* ── 1. CSS Variable Overrides ───────────────────────────────────────────── */
 :root {
+  /* Brand palette */
+  --cn-blue:        #1664BF;
+  --cn-blue-dark:   #0F4D96;
+  --cn-blue-tint:   #EAF1FC;
+  --cn-green:       #03BE63;
+  --cn-green-dark:  #029C52;
+  --cn-green-tint:  #E6FBF1;
+  --cn-bg:          #F0F4FB;
+
+  /* Neutrals */
+  --cn-n1:  #0B0B0B;
+  --cn-n2:  #222222;
+  --cn-n3:  #3A3A39;
+  --cn-n4:  #515150;
+  --cn-n10: #DEDDD9;
+  --cn-n11: #E9E8E5;
+
+  /* Webflow variable overrides */
   --_🎨color-styles---base-color--primarycolor:  #1664BF;
-  --_🎨color-styles---base-color--lightorange:   #EBF2FB;
+  --_🎨color-styles---base-color--lightorange:   #EAF1FC;
   --_🎨color-styles---base-color--tertiarycolor: #1664BF;
   --_🎨color-styles---base-color--bgcolor:       #F0F4FB;
 }
 
-/* ─── 2. Buttons and CTAs ─── */
+/* ── 2. Global Base ──────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Instrument Sans", sans-serif;
+  color: var(--cn-n2);
+  background: #fff;
+}
+
+/* ── 3. Typography ───────────────────────────────────────────────────────── */
+h1 {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.0263em;
+  line-height: 1.1;
+  color: var(--cn-n1);
+}
+h2 {
+  font-size: 43px;
+  font-weight: 700;
+  letter-spacing: -0.027em;
+  line-height: 1.15;
+  color: var(--cn-n1);
+}
+h3 {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.027em;
+  line-height: 1.2;
+  color: var(--cn-n1);
+}
+h4 { font-size: 26px; font-weight: 600; line-height: 1.3; color: var(--cn-n1); }
+h5 { font-size: 24px; font-weight: 500; line-height: 1.4; color: var(--cn-n1); }
+h6 { font-size: 20px; font-weight: 500; line-height: 1.4; color: var(--cn-n1); }
+
+p, li { color: var(--cn-n2); line-height: 1.6; }
+
+a {
+  color: var(--cn-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--cn-blue-dark); }
+
+/* ── 4. Buttons ──────────────────────────────────────────────────────────── */
 [class*="button-primary"],
 .w-button,
 .btn-primary {
-  background-color: #1664BF !important;
+  background-color: var(--cn-blue) !important;
   color: #fff !important;
+  font-family: "Instrument Sans", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 100px !important;
+  padding: 14px 28px !important;
+  border: none !important;
+  letter-spacing: 0em !important;
+  transition: background 0.2s ease, transform 0.15s ease !important;
+  cursor: pointer;
 }
 [class*="button-primary"]:hover,
 .w-button:hover,
 .btn-primary:hover {
-  background-color: #1250A0 !important;
+  background-color: var(--cn-blue-dark) !important;
+}
+[class*="button-primary"]:active,
+.w-button:active,
+.btn-primary:active {
+  background-color: #0A3A72 !important;
+  transform: scale(0.98) !important;
 }
 
-/* ─── 3. Hardcoded Gradient Overrides ─── */
-.linear-color-card.linear-1 {
-  background-image: linear-gradient(#F0F4FB, #fff);
+/* Secondary / outlined button */
+.button-secondary,
+.btn-secondary {
+  background: transparent !important;
+  color: var(--cn-blue) !important;
+  border: 1.5px solid var(--cn-blue) !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 100px !important;
+  padding: 14px 28px !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
 }
-.linear-color-card.linear-2 {
-  background-image: linear-gradient(#1664BF, #1664bf00);
-}
-.hero-section {
-  background-image: linear-gradient(#F0F4FB, #fff);
-}
-.why-choose-section {
-  background-image: linear-gradient(#fff, #F0F4FB);
-}
+.button-secondary:hover { background: var(--cn-blue-tint) !important; }
+
+/* ── 5. Section Background Gradients ────────────────────────────────────── */
+.hero-section         { background-image: linear-gradient(var(--cn-bg), #fff); }
+.why-choose-section   { background-image: linear-gradient(#fff, var(--cn-bg)); }
+.faq-gradient-color   { background-image: linear-gradient(var(--cn-bg), #fff); }
+.project-section      { background-image: linear-gradient(var(--cn-bg), #fff); }
+
+.linear-color-card.linear-1 { background-image: linear-gradient(var(--cn-bg), #fff); }
+.linear-color-card.linear-2 { background-image: linear-gradient(var(--cn-blue), #1664bf00); }
+
+/* CTA gradient — brand primary */
 .cta-gradient {
-  background-image: linear-gradient(90deg, #1664BF, #1250A0cc);
-}
-.faq-gradient-color {
-  background-image: linear-gradient(#F0F4FB, #fff);
-}
-.project-section {
-  background-image: linear-gradient(#F0F4FB, #fff);
+  background-image: linear-gradient(135deg, var(--cn-blue) 0%, var(--cn-blue-dark) 100%);
 }
 
-/* ─── 4. Service cards: full-bleed image with title overlay ─── */
+/* ── 6. Cards ────────────────────────────────────────────────────────────── */
+.card,
+.service-card,
+.project-card,
+.blog-card,
+.team-card,
+[class*="-card"]:not(.cta-card):not(.counter-card) {
+  background: #fff;
+  border: 1px solid var(--cn-n11);
+  border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover,
+.service-card:hover,
+.project-card:hover,
+.blog-card:hover {
+  box-shadow: 0 8px 32px rgba(22,100,191,0.10);
+  transform: translateY(-2px);
+}
+
+/* ── 7. Service Cards — full-bleed image with title overlay ─────────────── */
 .service-card .service-pricing-block,
-.service-card .service-card-arrow-icon {
-  display: none;
-}
-
-.service-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-.service-card .service-image-block {
-  width: 100%;
-  height: 100%;
-}
-
+.service-card .service-card-arrow-icon { display: none; }
+.service-card { position: relative; overflow: hidden; border-radius: 16px; }
+.service-card .service-image-block { width: 100%; height: 100%; }
 .service-card .service-image,
 .service-card .service-image-block img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
+  width: 100%; height: 100%; object-fit: cover; border-radius: 16px;
 }
-
 .service-card .service-text-block {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: absolute; bottom: 0; left: 0; right: 0;
   padding: 16px 20px;
   background: linear-gradient(transparent, rgba(0,0,0,0.7));
-  border-radius: 0 0 16px 16px;
-  z-index: 2;
+  border-radius: 0 0 16px 16px; z-index: 2;
 }
-
 .service-card .service-card-title {
-  color: #fff !important;
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0;
+  color: #fff !important; font-size: 1rem; font-weight: 600; margin: 0;
 }
 
-/* ─── 5. Process section: plain image steps (no circle) ─── */
+/* ── 8. Process Section ─────────────────────────────────────────────────── */
 .process-step-image-block {
-  border-radius: 16px !important;
-  border: none !important;
-  width: 180px !important;
-  height: 180px !important;
-  overflow: hidden;
-  padding: 0 !important;
+  border-radius: 16px !important; border: none !important;
+  width: 180px !important; height: 180px !important;
+  overflow: hidden; padding: 0 !important;
 }
-
 .process-step-image-block img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
+  width: 100%; height: 100%; object-fit: cover; border-radius: 16px;
+}
+.process-step-count-block { display: none !important; }
+
+/* ── 9. Form Inputs ──────────────────────────────────────────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select,
+.w-input,
+.w-select {
+  height: 52px;
+  padding: 0 16px;
+  border: 1.5px solid var(--cn-n10) !important;
+  border-radius: 12px !important;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--cn-n2);
+  background: #fff;
+  font-family: "Instrument Sans", sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+textarea { height: auto; padding: 16px; }
+input:focus, textarea:focus, select:focus,
+.w-input:focus, .w-select:focus {
+  border-color: var(--cn-blue) !important;
+  box-shadow: 0 0 0 3px rgba(22,100,191,0.12) !important;
 }
 
-.process-step-count-block {
-  display: none !important;
-}
-
-/* ─── Footer: hide social icons block ─── */
-.footer-social-block {
-  display: none !important;
-}
-
-/* ─── 6. Marquee images ─── */
-.marquee-image {
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ─── 7. About image ─── */
-.about-content-image-01 {
-  border-radius: 16px;
-  object-fit: cover;
-  width: 100%;
-}
-
-/* ─── 8. Logo ─── */
+/* ── 10. Navigation ──────────────────────────────────────────────────────── */
 .nav-logo-link img,
-.navbar-logo img {
-  height: 40px;
-  width: auto;
+.navbar-logo img,
+.nav-logo { height: 40px; width: auto; }
+
+.nav-menu-link { transition: color 0.2s ease; }
+.nav-menu-link:hover,
+.nav-menu-link.w--current { color: var(--cn-blue) !important; }
+
+/* ── 11. Marquee / Gallery Images ───────────────────────────────────────── */
+.marquee-image { height: 100%; object-fit: cover; }
+.about-content-image-01 {
+  border-radius: 16px; object-fit: cover; width: 100%;
 }
 
-/* ─── 9. Links ─── */
-a {
-  color: #1664BF;
-}
-a:hover {
-  color: #1250A0;
-}
+/* ── 12. Footer ──────────────────────────────────────────────────────────── */
+.footer-social-block { display: none !important; }
 
-/* ─── 10. Hide Webflow badge ─── */
-.w-webflow-badge {
-  display: none !important;
+/* ── 13. Accessibility & Utilities ──────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--cn-blue); outline-offset: 3px; }
+
+.text-primary { color: var(--cn-blue) !important; }
+.text-green   { color: var(--cn-green) !important; }
+.bg-tint      { background-color: var(--cn-blue-tint) !important; }
+
+/* ── 14. Hide Webflow badge ──────────────────────────────────────────────── */
+.w-webflow-badge { display: none !important; }
+
+/* ── 15. Responsive Section Spacing ─────────────────────────────────────── */
+@media (max-width: 767px) {
+  section { padding-top: 60px !important; padding-bottom: 60px !important; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 22px; }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  section { padding-top: 70px !important; padding-bottom: 70px !important; }
+  h1 { font-size: 44px; }
+  h2 { font-size: 34px; }
+}
+@media (min-width: 992px) {
+  section { padding-top: 100px !important; padding-bottom: 100px !important; }
 }
