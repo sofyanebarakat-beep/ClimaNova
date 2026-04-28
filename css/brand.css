@@ -247,6 +247,21 @@ input:focus, textarea:focus, select:focus,
 /* ── 15. Webflow animation override (GitHub Pages — JS animations don't fire) */
 [data-w-id] { opacity: 1 !important; }
 
+/* ── 17. Nav CTA Button — compact size ──────────────────────────────────── */
+.nav-cta-button-wrap .button-primary,
+.nav-cta-button-wrap .w-button {
+  font-size: 14px !important;
+  padding: 10px 20px !important;
+}
+/* Even smaller on tablet / mobile menu breakpoint */
+@media (max-width: 991px) {
+  .nav-cta-button-wrap .button-primary,
+  .nav-cta-button-wrap .w-button {
+    padding: 4px 4px 4px 24px !important;
+    font-size: 13px !important;
+  }
+}
+
 /* ── 16. Responsive Section Spacing ─────────────────────────────────────── */
 @media (max-width: 767px) {
   section { padding-top: 60px !important; padding-bottom: 60px !important; }
