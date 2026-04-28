@@ -244,7 +244,10 @@ input:focus, textarea:focus, select:focus,
 /* ── 14. Hide Webflow badge ──────────────────────────────────────────────── */
 .w-webflow-badge { display: none !important; }
 
-/* ── 15. Responsive Section Spacing ─────────────────────────────────────── */
+/* ── 15. Webflow animation override (GitHub Pages — JS animations don't fire) */
+[data-w-id] { opacity: 1 !important; }
+
+/* ── 16. Responsive Section Spacing ─────────────────────────────────────── */
 @media (max-width: 767px) {
   section { padding-top: 60px !important; padding-bottom: 60px !important; }
   h1 { font-size: 36px; }
