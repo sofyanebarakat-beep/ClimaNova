@@ -1,0 +1,11 @@
+/*
+ * Footer component styles.
+ * Visual rules are intentionally inherited from the Webflow export.
+ */
+
+.footer-section a:focus-visible,
+.header a:focus-visible,
+.top-bar a:focus-visible {
+  outline: 2px solid var(--cn-green);
+  outline-offset: 4px;
+}

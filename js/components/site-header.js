@@ -1,0 +1,118 @@
+import { assetUrl, currentPath } from "../utils/paths.js";
+
+function withAssetUrls(html) {
+  return html.replaceAll("__ASSET__/", assetUrl(""));
+}
+
+function markCurrentNav(container) {
+  const path = currentPath();
+
+  container.querySelectorAll(".nav-menu-link").forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    const normalizedHref = href.replace(/\.html$/, "").replace(/\/$/, "");
+    const isCurrent = path === normalizedHref || path.endsWith(normalizedHref.replace(/^\/ClimaNova/, ""));
+
+    link.classList.toggle("w--current", isCurrent);
+    if (isCurrent) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+export function renderHeader(target) {
+  target.outerHTML = withAssetUrls(HEADER_TEMPLATE);
+  const header = document.querySelector(".header");
+
+  if (header) {
+    markCurrentNav(header);
+  }
+}
+
+const HEADER_TEMPLATE = `<div class="top-bar">
+    <div class="container">
+      <div class="top-bar-content-wrapper">
+        <div class="top-bar-text-block-wrap">
+          <a href="https://www.google.com/maps/place/12+Rue+de+la+Paix,+06000+Nice" target="_blank" class="top-bar-text-block w-inline-block">
+            <div class="top-bar-icon w-embed">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M15.7597 15C16.5212 16.14 16.8434 16.8358 16.5727 17.4166C16.5395 17.4878 16.5006 17.5566 16.4564 17.6222C15.9777 18.3333 14.7402 18.3333 12.2655 18.3333H7.73584C5.26108 18.3333 4.02369 18.3333 3.54491 17.6222C3.50069 17.5566 3.46181 17.4878 3.42861 17.4166C3.15789 16.8358 3.48004 16.14 4.24161 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.5 7.91406C12.5 9.29481 11.3807 10.4141 10 10.4141C8.61925 10.4141 7.5 9.29481 7.5 7.91406C7.5 6.53335 8.61925 5.41406 10 5.41406C11.3807 5.41406 12.5 6.53335 12.5 7.91406Z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M10 1.66406C13.3823 1.66406 16.25 4.52075 16.25 7.98648C16.25 11.5074 13.3357 13.9782 10.6437 15.6584C10.4476 15.7713 10.2257 15.8307 10 15.8307C9.77425 15.8307 9.55242 15.7713 9.35625 15.6584C6.66937 13.9618 3.75 11.5196 3.75 7.98648C3.75 4.52075 6.61767 1.66406 10 1.66406Z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="text-sm text-light">12 Rue de la Paix, 06000 Nice, France</div>
+          </a>
+          <a href="tel:+33493000000" class="top-bar-text-block w-inline-block">
+            <div class="top-bar-icon w-embed">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.63188 4.76019L7.29633 4.00521C7.07693 3.51157 6.96723 3.26473 6.80317 3.07584C6.59756 2.83912 6.32956 2.66495 6.02973 2.57321C5.79049 2.5 5.52038 2.5 4.98017 2.5C4.18992 2.5 3.7948 2.5 3.46311 2.65191C3.07239 2.83085 2.71953 3.2194 2.57894 3.6255C2.45959 3.97024 2.49378 4.32453 2.56215 5.03308C3.28992 12.5752 7.42485 16.7101 14.9669 17.4378C15.6755 17.5063 16.0298 17.5404 16.3745 17.4211C16.7806 17.2805 17.1691 16.9276 17.3481 16.5369C17.5 16.2052 17.5 15.8101 17.5 15.0198C17.5 14.4796 17.5 14.2095 17.4268 13.9703C17.335 13.6704 17.1609 13.4024 16.9241 13.1968C16.7353 13.0328 16.4885 12.9231 15.9948 12.7037L15.2398 12.3681C14.7052 12.1305 14.4379 12.0118 14.1663 11.9859C13.9063 11.9612 13.6442 11.9977 13.4009 12.0924C13.1466 12.1914 12.922 12.3787 12.4725 12.7532C12.0251 13.126 11.8015 13.3124 11.5281 13.4123C11.2858 13.5008 10.9655 13.5336 10.7103 13.4959C10.4224 13.4535 10.202 13.3358 9.76105 13.1001C8.38938 12.3671 7.63294 11.6107 6.89989 10.2389C6.66428 9.79808 6.54648 9.57758 6.50406 9.28975C6.46645 9.0345 6.49923 8.71417 6.58775 8.47192C6.6876 8.19857 6.87401 7.97488 7.24682 7.5275C7.62135 7.07807 7.80861 6.85335 7.90762 6.59909C8.00237 6.35578 8.03885 6.09367 8.01412 5.83373C7.98828 5.5621 7.86948 5.2948 7.63188 4.76019Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="text-sm text-light">+33 4 93 00 00 00</div>
+          </a>
+        </div>
+        <div class="top-bar-text-block">
+          <div class="top-bar-icon w-embed">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M7.82814 2.20055C8.88964 1.64237 9.42045 1.36328 10.0009 1.36328C10.5813 1.36328 11.1121 1.64237 12.1737 2.20055L13.6509 2.97734C14.7528 3.55674 15.3038 3.84645 15.6068 4.33094C15.91 4.81543 15.91 5.40634 15.91 6.58816V7.95657C15.91 9.13838 15.91 9.72929 15.6068 10.2138C15.3038 10.6983 14.7528 10.988 13.6509 11.5674L12.1737 12.3442C11.1121 12.9024 10.5813 13.1815 10.0009 13.1815C9.42045 13.1815 8.88964 12.9024 7.82814 12.3442L6.35087 11.5674C5.24897 10.988 4.69803 10.6983 4.39492 10.2138C4.0918 9.72929 4.0918 9.13838 4.0918 7.95657V6.58816C4.0918 5.40634 4.0918 4.81543 4.39492 4.33094C4.69803 3.84645 5.24897 3.55674 6.35087 2.97734L7.82814 2.20055Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M7.72656 7.94448C7.72656 7.94448 8.35156 7.94447 8.97656 9.16667C8.97656 9.16667 10.9619 6.11111 12.7266 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14.0688 12.5L14.6273 15.1749C14.9861 16.8936 15.1655 17.7529 14.7969 18.1602C14.4284 18.5675 13.7883 18.2172 12.5083 17.5165L10.6137 16.4794C10.3112 16.3138 10.1599 16.2311 10 16.2311C9.84008 16.2311 9.68883 16.3138 9.38633 16.4794L7.49173 17.5165C6.21164 18.2172 5.5716 18.5675 5.20304 18.1602C4.83449 17.7529 5.01391 16.8936 5.37276 15.1749L5.93127 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="text-sm text-light">Certifié RGE — Qualibat — QualiPAC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="header w-nav">
+    <div class="container">
+      <div class="menu-wrapper">
+        <a href="/ClimaNova/" class="nav-brand w-nav-brand">
+          <img loading="lazy" src="__ASSET__/images/climanova-logo.png" alt="ClimaNova Energie" class="nav-logo">
+        </a>
+        <nav role="navigation" class="nav-wrapper w-nav-menu">
+          <div class="nav-main-menu">
+            <div class="nav-menu-item">
+              <a href="/ClimaNova/" class="nav-menu-link">Accueil</a>
+              <div class="nav-border"></div>
+            </div>
+            <div class="nav-menu-item">
+              <a href="/ClimaNova/innerpages/about-us" aria-current="page" class="nav-menu-link w--current">À propos</a>
+              <div class="nav-border"></div>
+            </div>
+            <div class="nav-menu-item">
+              <a href="/ClimaNova/innerpages/services" class="nav-menu-link">Services</a>
+              <div class="nav-border"></div>
+            </div>
+            <div class="nav-menu-item">
+              <a href="/ClimaNova/innerpages/projects" class="nav-menu-link">Réalisations</a>
+              <div class="nav-border"></div>
+            </div>
+            <div class="nav-menu-item">
+              <a href="/ClimaNova/innerpages/blog" class="nav-menu-link">Blog</a>
+              <div class="nav-border"></div>
+            </div>
+            <div class="nav-menu-item">
+              <a href="/ClimaNova/innerpages/faq" class="nav-menu-link">FAQ</a>
+              <div class="nav-border"></div>
+            </div>
+          </div>
+        </nav>
+        <div class="nav-cta-button-wrap">
+          <a href="/ClimaNova/innerpages/contact-us" class="button-primary w-inline-block">
+            <div class="button-text-wrapper"><div class="button-text">Contactez-nous</div><div class="button-text absolute">Contactez-nous</div></div>
+            <div class="button-arrow-wrap"><div class="button-arrow-block"><div class="button-right-arrow w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="button-right-arrow absolute w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+          </a>
+        </div>
+        <div class="nav-toggle w-nav-button">
+          <div class="nav-toggle-block">
+            <div class="nav-toggle-top"></div>
+            <div class="nav-toggle-middle"></div>
+            <div class="nav-toggle-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;

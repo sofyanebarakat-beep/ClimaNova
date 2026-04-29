@@ -1,0 +1,8 @@
+/*
+ * Header component styles.
+ * Visual rules are intentionally inherited from the Webflow export.
+ */
+
+.nav-menu-link.w--current {
+  color: var(--cn-blue);
+}

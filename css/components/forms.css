@@ -1,0 +1,10 @@
+/*
+ * Shared form styles.
+ * Webflow handles interaction states; this file is reserved for reusable form
+ * refinements that should apply across pages.
+ */
+
+.w-input:focus,
+.w-select:focus {
+  border-color: var(--cn-blue) !important;
+}

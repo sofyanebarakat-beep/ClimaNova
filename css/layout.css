@@ -1,0 +1,16 @@
+/*
+ * Shared layout layer.
+ * Keep structural fixes here and leave Webflow's generated stylesheet intact.
+ */
+
+.page-wrapper {
+  min-height: 100vh;
+}
+
+[data-component] {
+  display: contents;
+}
+
+.cn-section-hidden {
+  display: none !important;
+}
