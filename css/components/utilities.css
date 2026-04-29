@@ -1,0 +1,137 @@
+/*
+ * Reusable UI component utilities.
+ * Cards, badges, icons, image helpers, and typography modifiers
+ * extracted from formerly inline styles.
+ */
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.cn-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px;
+  border: 1px solid #E9E8E5;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.cn-card-centered {
+  text-align: center;
+  padding: 36px 28px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #E9E8E5;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.cn-card-dark {
+  background: #0B0B0B;
+  border-radius: 20px;
+  padding: 40px;
+}
+.cn-card-accent {
+  background: #fff;
+  border: 1px solid #E9E8E5;
+  border-top: 3px solid #1664BF;
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* ── Badges / Labels ─────────────────────────────────────────────────────── */
+.cn-badge {
+  display: inline-block;
+  background: #EAF1FC;
+  color: #1664BF;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.cn-badge--primary {
+  display: inline-block;
+  background: #1664BF;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.cn-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1664BF;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+/* ── Icons ───────────────────────────────────────────────────────────────── */
+.cn-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #0a3d62;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cn-icon-lg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+.cn-emoji {
+  font-size: 40px;
+  color: currentColor;
+}
+
+/* ── Avatars / Images ────────────────────────────────────────────────────── */
+.cn-avatar-sm {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #EAF1FC;
+}
+.cn-img-card {
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  max-height: 340px;
+}
+
+/* ── Typography modifiers ────────────────────────────────────────────────── */
+.cn-text-white      { color: #fff; }
+.cn-text-dark       { color: rgb(34,34,34); }
+.cn-text-white-dim  { color: rgba(255,255,255,0.55); }
+.cn-text-white-body { color: #fff; line-height: 1.7; }
+.cn-text-sm-muted   { font-size: 13px; color: #515150; }
+.cn-text-body       { color: #515150; line-height: 1.65; font-size: 15px; }
+.cn-text-meta       { font-size: 11px; color: #515150; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; }
+.cn-text-quote      { color: #3A3A39; line-height: 1.75; font-size: 16px; margin-bottom: 28px; font-style: italic; }
+.cn-text-name       { font-size: 20px; font-weight: 800; color: #0B0B0B; letter-spacing: -0.02em; margin-bottom: 6px; }
+.cn-text-author     { font-weight: 700; font-size: 15px; color: #0B0B0B; }
+.cn-text-card-title { font-size: 22px; font-weight: 600; color: #0B0B0B; margin-bottom: 12px; line-height: 1.3; }
+.cn-text-center-mb  { text-align: center; margin-bottom: 56px; }
+.cn-text-muted-narrow { max-width: 500px; color: #777; }
+
+/* ── Section text decorators ─────────────────────────────────────────────── */
+.cn-section-eyebrow {
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.cn-section-subtitle {
+  color: rgba(255,255,255,0.85);
+  max-width: 560px;
+  margin: 16px auto 0;
+  line-height: 1.6;
+}

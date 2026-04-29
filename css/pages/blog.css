@@ -1,1 +1,25 @@
-/* Blog page overrides live here. */
+/* Blog page — page-specific styles */
+
+/* ── Article banner images ────────────────────────────────────────────────
+   Each class maps to a single blog article's hero banner.
+   Source images are hosted on Webflow's CDN.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.cn-banner-blog-repairs {
+  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968cb7ee1d73f99d49d64d2_5%20Common%20Home%20Repairs%20You%20Can%20Do%20Yourself%20This%20Weekend-Banner%20Image.png);
+}
+.cn-banner-blog-roof {
+  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968e6a32e32c0680bd9adc4_Easily%20Handle%20Yourself%20Safely-banner%20image.png);
+}
+.cn-banner-blog-budget {
+  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968e2de625f03b5e93df997_Budget-Friendly%20Ways-banner%20image.png);
+}
+.cn-banner-blog-service {
+  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/69687c63087ee200c1b48830_How%20to%20Choose%20the%20Right%20Home%20Repair%20Service%20Quickly%20and%20Safely-Banner%20Image.png);
+}
+.cn-banner-blog-extend {
+  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968f96e4080888fba33f038_How%20to%20Extend%20the%20Life%20-%20banner%20image.png);
+}
+.cn-banner-blog-seasonal {
+  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968dde40e4e004947024a72_Preparing%20Your%20Home%20for%20Essential%20Seasonal%20Maintenance%20Guide-banner%20image.png);
+}

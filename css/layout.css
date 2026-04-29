@@ -3,14 +3,79 @@
  * Keep structural fixes here and leave Webflow's generated stylesheet intact.
  */
 
+/* ── Page wrapper ────────────────────────────────────────────────────────── */
 .page-wrapper {
   min-height: 100vh;
 }
 
+/* ── Component mount targets (invisible wrappers) ────────────────────────── */
 [data-component] {
   display: contents;
 }
 
-.cn-section-hidden {
-  display: none !important;
+/* ── Visibility helper ───────────────────────────────────────────────────── */
+.cn-section-hidden { display: none !important; }
+.cn-hidden         { display: none; }
+
+/* ── Section backgrounds ─────────────────────────────────────────────────── */
+.cn-section--tint { background: var(--cn-blue-tint); padding: 100px 0; }
+.cn-section--bg   { background: var(--cn-bg);        padding: 100px 0; }
+
+/* ── Z-index utility ─────────────────────────────────────────────────────── */
+.cn-pos-rel-z2 { position: relative; z-index: 2; }
+
+/* ── Overlay gradient (e.g. hero images) ─────────────────────────────────── */
+.cn-overlay-gradient {
+  background: linear-gradient(to top, rgba(15,77,150,0.55), rgba(0,0,0,0.15));
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ── Grid utilities ──────────────────────────────────────────────────────── */
+.cn-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 40px;
+}
+.cn-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.cn-grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 991px) {
+  .cn-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .cn-grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .cn-grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+  .cn-grid-3, .cn-grid-5 { grid-template-columns: 1fr; }
+}
+
+/* ── Flex utilities ──────────────────────────────────────────────────────── */
+.cn-flex-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cn-flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  gap: 24px;
+}
+.cn-flex-gap-xs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
 }

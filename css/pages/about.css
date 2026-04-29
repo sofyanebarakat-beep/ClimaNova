@@ -1,1 +1,8 @@
-/* About page overrides live here. */
+/* About page — page-specific styles */
+
+.cn-banner-about {
+  background-image: url('../images/697796b33eb332387a12f0d2_about us banner Image.avif');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
