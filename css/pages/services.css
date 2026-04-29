@@ -1,4 +1,36 @@
 /* Services pages — page-specific styles */
 
-/* Service detail pages share the same layout overrides as the brand.css
-   service-card rules. Page-specific tweaks go here. */
+/* ── All-Services sub-menu strip ─────────────────────────────────────────── */
+.cn-services-submenu {
+  background-color: var(--_🎨color-styles---base-color--bgcolor, #f8f9fb);
+  border-bottom: 1px solid var(--_🎨color-styles---neutral-color--neutral-9, #e5e7eb);
+  padding: 12px 0;
+}
+
+.cn-services-submenu-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cn-services-submenu-link {
+  font-family: var(--✏️font-family--secondary-font, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--_🎨color-styles---neutral-color--neutral-3, #374151);
+  background-color: transparent;
+  border: 1px solid var(--_🎨color-styles---neutral-color--neutral-9, #e5e7eb);
+  border-radius: 100px;
+  padding: 6px 18px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.cn-services-submenu-link:hover {
+  background-color: var(--_🎨color-styles---neutral-color--neutral-2, #1f2937);
+  color: var(--_🎨color-styles---base-color--whitecolor, #fff);
+  border-color: var(--_🎨color-styles---neutral-color--neutral-2, #1f2937);
+}
