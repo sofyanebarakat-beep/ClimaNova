@@ -143,7 +143,7 @@ a:hover { color: var(--cn-blue-dark); }
 .project-card,
 .blog-card,
 .team-card,
-[class*="-card"]:not(.cta-card):not(.counter-card) {
+[class*="-card"]:not(.cta-card):not(.counter-card):not(.cn-card):not(.cn-card-dark):not(.cn-card-centered):not(.cn-card-accent):not(.cn-text-card-title):not(.cn-blog-card-body):not(.cn-blog-card-img):not(.cn-blog-card-arrow) {
   background: #fff;
   border: 1px solid var(--cn-n11);
   border-radius: 20px;
@@ -430,13 +430,6 @@ input:focus, textarea:focus, select:focus,
   margin-top: 4px;
   display: flex;
   align-items: center;
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.cn-blog-card:hover .cn-blog-card-arrow {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 .cn-blog-cta {
