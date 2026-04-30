@@ -1,37 +1,140 @@
-/* SIMPLE CLEAN DROPDOWN FIX */
+/* Header services submenu — clean, stable, and professional */
+
+.cn-services-dropdown {
+  position: relative;
+}
+
+.cn-services-dropdown-button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+.cn-services-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 
 .cn-services-dropdown-list {
-  top: 100%; /* remove gap so it doesn't close */
+  display: flex;
+  position: absolute;
+  top: calc(100% - 2px);
   left: 0;
-  transform: none;
-  width: 220px;
-  padding: 8px 0;
-  border-radius: 12px;
+  z-index: 80;
+  min-width: 245px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(6px);
+  border: 1px solid rgba(18, 31, 53, 0.08);
+  border-radius: 16px;
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 18px 45px rgba(18, 31, 53, 0.14);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
 }
 
 .cn-services-dropdown-list::before {
-  display: none;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  height: 10px;
+}
+
+.cn-services-dropdown:hover .cn-services-dropdown-list,
+.cn-services-dropdown:focus-within .cn-services-dropdown-list,
+.cn-services-dropdown.is-open .cn-services-dropdown-list {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.cn-services-dropdown .service-dropdown-icon {
+  transition: transform 180ms ease;
+}
+
+.cn-services-dropdown:hover .service-dropdown-icon,
+.cn-services-dropdown:focus-within .service-dropdown-icon,
+.cn-services-dropdown.is-open .service-dropdown-icon {
+  transform: rotate(180deg);
 }
 
 .cn-services-submenu-link {
-  padding: 10px 16px;
-  min-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #172033;
+  font-size: 14px;
   font-weight: 500;
-  color: #1a1a1a;
-  border-radius: 0;
+  line-height: 1.25;
+  text-decoration: none;
   background: transparent;
-  transform: none;
+  transition: background-color 160ms ease, color 160ms ease, padding-left 160ms ease;
 }
 
-.cn-services-submenu-link:hover {
-  background: rgba(0,0,0,0.04);
-  color: #000;
-}
-
-.cn-services-submenu-link::before,
-.cn-services-submenu-link::after {
+.cn-services-submenu-link::before {
   display: none;
+}
+
+.cn-services-submenu-link::after {
+  content: "›";
+  color: rgba(23, 32, 51, 0.35);
+  font-size: 18px;
+  line-height: 1;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.cn-services-submenu-link:hover,
+.cn-services-submenu-link:focus-visible,
+.cn-services-submenu-link.w--current {
+  color: #07111f;
+  background: rgba(18, 31, 53, 0.055);
+  padding-left: 15px;
+}
+
+.cn-services-submenu-link:hover::after,
+.cn-services-submenu-link:focus-visible::after,
+.cn-services-submenu-link.w--current::after {
+  color: #07111f;
+  transform: translateX(2px);
+}
+
+@media screen and (max-width: 991px) {
+  .cn-services-dropdown {
+    width: 100%;
+  }
+
+  .cn-services-dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .cn-services-dropdown-list {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    margin-top: 8px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    box-shadow: none;
+    border-radius: 14px;
+  }
+
+  .cn-services-dropdown-list::before {
+    display: none;
+  }
 }
