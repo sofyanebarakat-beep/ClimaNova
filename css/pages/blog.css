@@ -1,12 +1,5 @@
 /* Blog page — page-specific styles */
 
-.cn-blog-banner-bg {
-  background-image: url("../../images/climanova-why-choose.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 /* ── Article banner images ────────────────────────────────────────────────
    Each class maps to a single blog article's hero banner.
    Source images are hosted on Webflow's CDN.
