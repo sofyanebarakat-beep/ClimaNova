@@ -69,39 +69,39 @@ const HEADER_TEMPLATE = `<div class="top-bar">
 <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="header w-nav">
     <div class="container">
       <div class="menu-wrapper">
-        <a href="/ClimaNova/" class="nav-brand w-nav-brand">
+        <a href="/ClimaNova/index.html" class="nav-brand w-nav-brand">
           <img loading="lazy" src="__ASSET__/images/climanova-logo.png" alt="ClimaNova Energie" class="nav-logo">
         </a>
         <nav role="navigation" class="nav-wrapper w-nav-menu">
           <div class="nav-main-menu">
             <div class="nav-menu-item">
-              <a href="/ClimaNova/" class="nav-menu-link">Accueil</a>
+              <a href="/ClimaNova/index.html" class="nav-menu-link">Accueil</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/about-us" aria-current="page" class="nav-menu-link w--current">À propos</a>
+              <a href="/ClimaNova/innerpages/about-us.html" aria-current="page" class="nav-menu-link w--current">À propos</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/services" class="nav-menu-link">Services</a>
+              <a href="/ClimaNova/innerpages/services.html" class="nav-menu-link">Services</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/projects" class="nav-menu-link">Réalisations</a>
+              <a href="/ClimaNova/innerpages/projects.html" class="nav-menu-link">Réalisations</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/blog" class="nav-menu-link">Blog</a>
+              <a href="/ClimaNova/innerpages/blog.html" class="nav-menu-link">Blog</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/faq" class="nav-menu-link">FAQ</a>
+              <a href="/ClimaNova/innerpages/faq.html" class="nav-menu-link">FAQ</a>
               <div class="nav-border"></div>
             </div>
           </div>
         </nav>
         <div class="nav-cta-button-wrap">
-          <a href="/ClimaNova/innerpages/contact-us" class="button-primary w-inline-block">
+          <a href="/ClimaNova/innerpages/contact-us.html" class="button-primary w-inline-block">
             <div class="button-text-wrapper"><div class="button-text">Contactez-nous</div><div class="button-text absolute">Contactez-nous</div></div>
             <div class="button-arrow-wrap"><div class="button-arrow-block"><div class="button-right-arrow w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="button-right-arrow absolute w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
           </a>
