@@ -22,7 +22,7 @@
 .cn-services-dropdown-list {
   display: flex;
   position: absolute;
-  top: calc(100% - 2px);
+  top: 100%;
   left: 0;
   z-index: 80;
   min-width: 245px;
@@ -32,12 +32,22 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(6px);
+  transform: translateY(4px);
   border: 1px solid rgba(18, 31, 53, 0.08);
   border-radius: 16px;
   background: #fff;
   box-shadow: 0 18px 45px rgba(18, 31, 53, 0.14);
-  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+}
+
+.cn-services-dropdown::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+  z-index: 79;
 }
 
 .cn-services-dropdown-list::before {
@@ -45,8 +55,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: -10px;
-  height: 10px;
+  top: -14px;
+  height: 14px;
 }
 
 .cn-services-dropdown:hover .cn-services-dropdown-list,
@@ -59,7 +69,7 @@
 }
 
 .cn-services-dropdown .service-dropdown-icon {
-  transition: transform 180ms ease;
+  transition: transform 160ms ease;
 }
 
 .cn-services-dropdown:hover .service-dropdown-icon,
@@ -81,7 +91,7 @@
   line-height: 1.25;
   text-decoration: none;
   background: transparent;
-  transition: background-color 160ms ease, color 160ms ease, padding-left 160ms ease;
+  transition: background-color 150ms ease, color 150ms ease, padding-left 150ms ease;
 }
 
 .cn-services-submenu-link::before {
@@ -93,7 +103,7 @@
   color: rgba(23, 32, 51, 0.35);
   font-size: 18px;
   line-height: 1;
-  transition: color 160ms ease, transform 160ms ease;
+  transition: color 150ms ease, transform 150ms ease;
 }
 
 .cn-services-submenu-link:hover,
@@ -114,6 +124,10 @@
 @media screen and (max-width: 991px) {
   .cn-services-dropdown {
     width: 100%;
+  }
+
+  .cn-services-dropdown::after {
+    display: none;
   }
 
   .cn-services-dropdown-toggle {
