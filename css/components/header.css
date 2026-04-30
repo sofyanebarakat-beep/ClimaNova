@@ -1,177 +1,37 @@
-/*
- * Header component styles.
- * Visual rules are intentionally inherited from the Webflow export.
- */
-
-.nav-menu-link.w--current {
-  color: var(--cn-blue);
-}
-
-.cn-services-dropdown {
-  position: relative;
-}
-
-.cn-services-dropdown-button {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.cn-services-dropdown-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.cn-services-dropdown .service-dropdown-icon {
-  transition: transform 220ms ease;
-}
+/* SIMPLE CLEAN DROPDOWN FIX */
 
 .cn-services-dropdown-list {
-  display: flex;
-  position: absolute;
-  top: calc(100% + 18px);
-  left: 50%;
-  z-index: 50;
-  width: min(440px, calc(100vw - 32px));
-  padding: 14px;
-  flex-direction: column;
-  gap: 6px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translate(-50%, 10px);
-  border: 1px solid rgba(3, 190, 99, 0.14);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 70px rgba(13, 23, 40, 0.16), 0 8px 24px rgba(3, 190, 99, 0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+  top: 100%; /* remove gap so it doesn't close */
+  left: 0;
+  transform: none;
+  width: 220px;
+  padding: 8px 0;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 .cn-services-dropdown-list::before {
-  content: "";
-  position: absolute;
-  top: -7px;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translateX(-50%) rotate(45deg);
-  border-top: 1px solid rgba(3, 190, 99, 0.14);
-  border-left: 1px solid rgba(3, 190, 99, 0.14);
-  background: rgba(255, 255, 255, 0.96);
-}
-
-.cn-services-dropdown.is-open .cn-services-dropdown-list,
-.cn-services-dropdown:hover .cn-services-dropdown-list,
-.cn-services-dropdown:focus-within .cn-services-dropdown-list {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translate(-50%, 0);
-}
-
-.cn-services-dropdown.is-open .service-dropdown-icon,
-.cn-services-dropdown:hover .service-dropdown-icon,
-.cn-services-dropdown:focus-within .service-dropdown-icon {
-  transform: rotate(180deg);
+  display: none;
 }
 
 .cn-services-submenu-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 48px;
-  padding: 12px 44px 12px 14px;
-  border-radius: 16px;
-  color: #10233f;
-  font-weight: 600;
-  line-height: 1.2;
-  text-decoration: none;
-  transition: color 200ms ease, background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  padding: 10px 16px;
+  min-height: auto;
+  font-weight: 500;
+  color: #1a1a1a;
+  border-radius: 0;
+  background: transparent;
+  transform: none;
 }
 
-.cn-services-submenu-link::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  flex: 0 0 10px;
-  border-radius: 999px;
-  background: rgba(3, 190, 99, 0.18);
-  box-shadow: inset 0 0 0 2px rgba(3, 190, 99, 0.35);
-  transition: background-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+.cn-services-submenu-link:hover {
+  background: rgba(0,0,0,0.04);
+  color: #000;
 }
 
+.cn-services-submenu-link::before,
 .cn-services-submenu-link::after {
-  content: "→";
-  position: absolute;
-  right: 16px;
-  color: rgba(3, 190, 99, 0.85);
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 200ms ease, transform 200ms ease;
-}
-
-.cn-services-submenu-link.w--current,
-.cn-services-submenu-link:hover,
-.cn-services-submenu-link:focus-visible {
-  color: #052f1c;
-  background: linear-gradient(135deg, rgba(3, 190, 99, 0.12), rgba(3, 190, 99, 0.04));
-  box-shadow: inset 0 0 0 1px rgba(3, 190, 99, 0.14);
-  transform: translateX(3px);
-}
-
-.cn-services-submenu-link.w--current::before,
-.cn-services-submenu-link:hover::before,
-.cn-services-submenu-link:focus-visible::before {
-  background: var(--cn-green, #03be63);
-  box-shadow: 0 0 0 5px rgba(3, 190, 99, 0.12);
-  transform: scale(1.05);
-}
-
-.cn-services-submenu-link.w--current::after,
-.cn-services-submenu-link:hover::after,
-.cn-services-submenu-link:focus-visible::after {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-@media screen and (max-width: 991px) {
-  .cn-services-dropdown {
-    width: 100%;
-  }
-
-  .cn-services-dropdown-toggle {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .cn-services-dropdown-list {
-    position: static;
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    transform: none;
-    border-radius: 18px;
-    box-shadow: 0 16px 40px rgba(13, 23, 40, 0.12);
-  }
-
-  .cn-services-dropdown-list::before {
-    display: none;
-  }
-
-  .cn-services-dropdown.is-open .cn-services-dropdown-list,
-  .cn-services-dropdown:hover .cn-services-dropdown-list,
-  .cn-services-dropdown:focus-within .cn-services-dropdown-list {
-    transform: none;
-  }
-
-  .cn-services-submenu-link {
-    min-height: 44px;
-    padding: 11px 40px 11px 12px;
-  }
+  display: none;
 }
