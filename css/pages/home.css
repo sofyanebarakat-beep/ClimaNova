@@ -7,15 +7,15 @@
   margin: 20px 12px 0;
 }
 
-/* Keep the first service card label as clean text on the image. */
-.service-card:first-child .service-text-block {
+/* Keep service card labels as clean text on the images. */
+.service-card .service-text-block {
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 
-.service-card:first-child .service-card-title {
+.service-card .service-card-title {
   background: transparent;
   box-shadow: none;
   padding: 0;
