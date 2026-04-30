@@ -35,12 +35,12 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
           <div class="footer-link-list">
             <div class="w-dyn-list">
               <div role="list" class="footer-collection-list w-dyn-items">
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/climatisation" class="footer-link-text">Climatisation</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/chauffage" class="footer-link-text">Chauffage</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/electricite" class="footer-link-text">Électricité</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/plomberie" class="footer-link-text">Plomberie</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/renovation" class="footer-link-text">Rénovation énergétique</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/plomberie-fuites" class="footer-link-text">Plomberie &amp; Fuites</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/climatisation.html" class="footer-link-text">Climatisation</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/chauffage.html" class="footer-link-text">Chauffage</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/electricite.html" class="footer-link-text">Électricité</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/plomberie.html" class="footer-link-text">Plomberie</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/renovation.html" class="footer-link-text">Rénovation énergétique</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/plomberie-fuites.html" class="footer-link-text">Plomberie &amp; Fuites</a></div>
               </div>
             </div>
           </div>
