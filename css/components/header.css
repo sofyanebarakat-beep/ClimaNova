@@ -6,3 +6,43 @@
 .nav-menu-link.w--current {
   color: var(--cn-blue);
 }
+
+.cn-services-dropdown {
+  position: relative;
+}
+
+.cn-services-dropdown-button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cn-services-dropdown-list {
+  display: none;
+  z-index: 20;
+  grid-row-gap: 14px;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  box-shadow: 0 18px 50px rgba(13, 23, 40, .12);
+}
+
+.cn-services-dropdown.is-open .cn-services-dropdown-list {
+  display: flex;
+}
+
+.cn-services-dropdown.is-open .service-dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.cn-services-submenu-link {
+  display: block;
+}
+
+.cn-services-submenu-link.w--current,
+.cn-services-submenu-link:hover {
+  color: var(--cn-blue);
+}

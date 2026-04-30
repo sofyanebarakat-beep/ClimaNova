@@ -6,11 +6,14 @@ function withAssetUrls(html) {
 
 function markCurrentNav(container) {
   const path = currentPath();
+  const isServicesArea = path.includes("/services/") || path.endsWith("/innerpages/services");
 
-  container.querySelectorAll(".nav-menu-link").forEach((link) => {
+  container.querySelectorAll(".nav-menu-link, .cn-services-submenu-link").forEach((link) => {
     const href = link.getAttribute("href") || "";
     const normalizedHref = href.replace(/\.html$/, "").replace(/\/$/, "");
-    const isCurrent = path === normalizedHref || path.endsWith(normalizedHref.replace(/^\/ClimaNova/, ""));
+    const isCurrent = link.dataset.navSection === "services"
+      ? isServicesArea
+      : path === normalizedHref || path.endsWith(normalizedHref.replace(/^\/ClimaNova/, ""));
 
     link.classList.toggle("w--current", isCurrent);
     if (isCurrent) {
@@ -21,12 +24,46 @@ function markCurrentNav(container) {
   });
 }
 
+function initServicesDropdown(header) {
+  const dropdown = header.querySelector(".cn-services-dropdown");
+  const toggleArea = header.querySelector(".cn-services-dropdown-toggle");
+  const toggle = header.querySelector(".cn-services-dropdown-button");
+
+  if (!dropdown || !toggleArea || !toggle) {
+    return;
+  }
+
+  const setOpen = (isOpen) => {
+    dropdown.classList.toggle("is-open", isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  toggleArea.addEventListener("click", (event) => {
+    event.preventDefault();
+    setOpen(!dropdown.classList.contains("is-open"));
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target)) {
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+}
+
 export function renderHeader(target) {
   target.outerHTML = withAssetUrls(HEADER_TEMPLATE);
   const header = document.querySelector(".header");
 
   if (header) {
     markCurrentNav(header);
+    initServicesDropdown(header);
   }
 }
 
@@ -82,9 +119,25 @@ const HEADER_TEMPLATE = `<div class="top-bar">
               <a href="/ClimaNova/innerpages/about-us.html" aria-current="page" class="nav-menu-link w--current">À propos</a>
               <div class="nav-border"></div>
             </div>
-            <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/services.html" class="nav-menu-link">Services</a>
-              <div class="nav-border"></div>
+            <div class="nav-services-dropdown cn-services-dropdown">
+              <div class="nav-service-dropdown-toggle cn-services-dropdown-toggle">
+                <div class="nav-menu-item">
+                  <button type="button" class="nav-menu-link cn-services-dropdown-button" data-nav-section="services" aria-haspopup="true" aria-expanded="false">Services</button>
+                  <div class="nav-border"></div>
+                </div>
+                <div class="navbar-service-dropdown-icon">
+                  <div class="service-dropdown-icon w-icon-dropdown-toggle"></div>
+                </div>
+              </div>
+              <nav class="nav-service-dropdown-list cn-services-dropdown-list" aria-label="Services">
+                <a href="/ClimaNova/innerpages/services.html" class="nav-list-item-link cn-services-submenu-link">Tous les services</a>
+                <a href="/ClimaNova/services/climatisation.html" class="nav-list-item-link cn-services-submenu-link">Climatisation</a>
+                <a href="/ClimaNova/services/chauffage.html" class="nav-list-item-link cn-services-submenu-link">Chauffage</a>
+                <a href="/ClimaNova/services/electricite.html" class="nav-list-item-link cn-services-submenu-link">Électricité</a>
+                <a href="/ClimaNova/services/plomberie.html" class="nav-list-item-link cn-services-submenu-link">Plomberie</a>
+                <a href="/ClimaNova/services/renovation.html" class="nav-list-item-link cn-services-submenu-link">Rénovation énergétique</a>
+                <a href="/ClimaNova/services/entretien.html" class="nav-list-item-link cn-services-submenu-link">Entretien &amp; dépannage</a>
+              </nav>
             </div>
             <div class="nav-menu-item">
               <a href="/ClimaNova/innerpages/projects.html" class="nav-menu-link">Réalisations</a>
