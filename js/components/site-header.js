@@ -71,7 +71,7 @@ const HEADER_TEMPLATE = `<div class="top-bar">
     <div class="container">
       <div class="top-bar-content-wrapper">
         <div class="top-bar-text-block-wrap">
-          <a href="https://www.google.com/maps/place/12+Rue+de+la+Paix,+06000+Nice" target="_blank" class="top-bar-text-block w-inline-block">
+          <a href="https://www.google.com/maps/place/218+Route+de+Turin,+06300+Nice" target="_blank" class="top-bar-text-block w-inline-block">
             <div class="top-bar-icon w-embed">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M15.7597 15C16.5212 16.14 16.8434 16.8358 16.5727 17.4166C16.5395 17.4878 16.5006 17.5566 16.4564 17.6222C15.9777 18.3333 14.7402 18.3333 12.2655 18.3333H7.73584C5.26108 18.3333 4.02369 18.3333 3.54491 17.6222C3.50069 17.5566 3.46181 17.4878 3.42861 17.4166C3.15789 16.8358 3.48004 16.14 4.24161 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -79,15 +79,15 @@ const HEADER_TEMPLATE = `<div class="top-bar">
                 <path d="M10 1.66406C13.3823 1.66406 16.25 4.52075 16.25 7.98648C16.25 11.5074 13.3357 13.9782 10.6437 15.6584C10.4476 15.7713 10.2257 15.8307 10 15.8307C9.77425 15.8307 9.55242 15.7713 9.35625 15.6584C6.66937 13.9618 3.75 11.5196 3.75 7.98648C3.75 4.52075 6.61767 1.66406 10 1.66406Z" stroke="currentColor" stroke-width="1.5"/>
               </svg>
             </div>
-            <div class="text-sm text-light">12 Rue de la Paix, 06000 Nice, France</div>
+            <div class="text-sm text-light">218 ROUTE DE TURIN 06300 NICE</div>
           </a>
-          <a href="tel:+33493000000" class="top-bar-text-block w-inline-block">
+          <a href="tel:+33652238164" class="top-bar-text-block w-inline-block">
             <div class="top-bar-icon w-embed">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M7.63188 4.76019L7.29633 4.00521C7.07693 3.51157 6.96723 3.26473 6.80317 3.07584C6.59756 2.83912 6.32956 2.66495 6.02973 2.57321C5.79049 2.5 5.52038 2.5 4.98017 2.5C4.18992 2.5 3.7948 2.5 3.46311 2.65191C3.07239 2.83085 2.71953 3.2194 2.57894 3.6255C2.45959 3.97024 2.49378 4.32453 2.56215 5.03308C3.28992 12.5752 7.42485 16.7101 14.9669 17.4378C15.6755 17.5063 16.0298 17.5404 16.3745 17.4211C16.7806 17.2805 17.1691 16.9276 17.3481 16.5369C17.5 16.2052 17.5 15.8101 17.5 15.0198C17.5 14.4796 17.5 14.2095 17.4268 13.9703C17.335 13.6704 17.1609 13.4024 16.9241 13.1968C16.7353 13.0328 16.4885 12.9231 15.9948 12.7037L15.2398 12.3681C14.7052 12.1305 14.4379 12.0118 14.1663 11.9859C13.9063 11.9612 13.6442 11.9977 13.4009 12.0924C13.1466 12.1914 12.922 12.3787 12.4725 12.7532C12.0251 13.126 11.8015 13.3124 11.5281 13.4123C11.2858 13.5008 10.9655 13.5336 10.7103 13.4959C10.4224 13.4535 10.202 13.3358 9.76105 13.1001C8.38938 12.3671 7.63294 11.6107 6.89989 10.2389C6.66428 9.79808 6.54648 9.57758 6.50406 9.28975C6.46645 9.0345 6.49923 8.71417 6.58775 8.47192C6.6876 8.19857 6.87401 7.97488 7.24682 7.5275C7.62135 7.07807 7.80861 6.85335 7.90762 6.59909C8.00237 6.35578 8.03885 6.09367 8.01412 5.83373C7.98828 5.5621 7.86948 5.2948 7.63188 4.76019Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </div>
-            <div class="text-sm text-light">+33 4 93 00 00 00</div>
+            <div class="text-sm text-light">+33 6 52 23 81 64</div>
           </a>
         </div>
         <div class="top-bar-text-block">
@@ -98,7 +98,7 @@ const HEADER_TEMPLATE = `<div class="top-bar">
               <path d="M14.0688 12.5L14.6273 15.1749C14.9861 16.8936 15.1655 17.7529 14.7969 18.1602C14.4284 18.5675 13.7883 18.2172 12.5083 17.5165L10.6137 16.4794C10.3112 16.3138 10.1599 16.2311 10 16.2311C9.84008 16.2311 9.68883 16.3138 9.38633 16.4794L7.49173 17.5165C6.21164 18.2172 5.5716 18.5675 5.20304 18.1602C4.83449 17.7529 5.01391 16.8936 5.37276 15.1749L5.93127 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="text-sm text-light">Certifié RGE — Qualibat — QualiPAC</div>
+          <div class="text-sm text-light">SIRET 99131644900016</div>
         </div>
       </div>
     </div>
