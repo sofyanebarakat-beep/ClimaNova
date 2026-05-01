@@ -335,13 +335,6 @@ input:focus, textarea:focus, select:focus,
   line-height: 1 !important;
 }
 .nav-cta-button-wrap .button-arrow-wrap { display: none !important; }
-@media (max-width: 991px) {
-  .nav-cta-button-wrap .button-primary,
-  .nav-cta-button-wrap .w-button {
-    font-size: 12px !important;
-    padding: 6px 14px !important;
-  }
-}
 
 /* ── 16. Responsive Section Spacing ─────────────────────────────────────── */
 @media (max-width: 767px) {

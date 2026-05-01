@@ -151,6 +151,9 @@ const HEADER_TEMPLATE = `<div class="top-bar">
               <a href="/ClimaNova/innerpages/faq.html" class="nav-menu-link">FAQ</a>
               <div class="nav-border"></div>
             </div>
+            <div class="cn-mobile-contact-item">
+              <a href="/ClimaNova/innerpages/contact-us.html" class="cn-mobile-contact-link">Contactez-nous</a>
+            </div>
           </div>
         </nav>
         <div class="nav-cta-button-wrap">

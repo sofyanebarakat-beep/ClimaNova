@@ -108,7 +108,45 @@
   transform: translateX(2px);
 }
 
+/* Mobile contact link — shown only inside the hamburger menu */
+.cn-mobile-contact-item {
+  display: none;
+}
+
 @media screen and (max-width: 991px) {
+  /* Hide the header CTA button — contact moves into the nav menu */
+  .nav-cta-button-wrap {
+    display: none !important;
+  }
+
+  .cn-mobile-contact-item {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(18, 31, 53, 0.08);
+  }
+
+  .cn-mobile-contact-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 100px;
+    background-color: var(--cn-blue, #1664bf);
+    color: #fff !important;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 150ms ease;
+  }
+
+  .cn-mobile-contact-link:hover {
+    background-color: #1255a8;
+  }
+
   .cn-services-dropdown {
     width: 100%;
   }
