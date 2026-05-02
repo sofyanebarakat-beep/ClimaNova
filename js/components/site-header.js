@@ -135,7 +135,7 @@ const HEADER_TEMPLATE = `<div class="top-bar">
                 <a href="/ClimaNova/services/chauffage.html" class="nav-list-item-link cn-services-submenu-link">Chauffage</a>
                 <a href="/ClimaNova/services/electricite.html" class="nav-list-item-link cn-services-submenu-link">Électricité</a>
                 <a href="/ClimaNova/services/plomberie.html" class="nav-list-item-link cn-services-submenu-link">Plomberie</a>
-                <a href="/ClimaNova/services/renovation.html" class="nav-list-item-link cn-services-submenu-link">Rénovation énergétique</a>
+                <a href="/ClimaNova/services/renovation-energetique.html" class="nav-list-item-link cn-services-submenu-link">Rénovation énergétique</a>
                 <a href="/ClimaNova/services/entretien.html" class="nav-list-item-link cn-services-submenu-link">Entretien &amp; dépannage</a>
               </nav>
             </div>
