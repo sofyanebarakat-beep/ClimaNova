@@ -57,6 +57,66 @@ function initServicesDropdown(header) {
   });
 }
 
+function initMobileNav(header) {
+  const toggle = header.querySelector(".nav-toggle");
+  const nav = header.querySelector(".nav-wrapper");
+  const menu = header.querySelector(".nav-main-menu");
+
+  if (!toggle || !nav || !menu) {
+    return;
+  }
+
+  if (!nav.id) {
+    nav.id = "site-mobile-menu";
+  }
+
+  toggle.setAttribute("role", "button");
+  toggle.setAttribute("tabindex", "0");
+  toggle.setAttribute("aria-controls", nav.id);
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-label", "Ouvrir le menu");
+
+  const setOpen = (isOpen) => {
+    header.classList.toggle("is-mobile-menu-open", isOpen);
+    nav.classList.toggle("is-mobile-open", isOpen);
+    nav.toggleAttribute("data-nav-menu-open", isOpen);
+    menu.classList.toggle("is-mobile-open", isOpen);
+    toggle.classList.toggle("w--open", isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Fermer le menu" : "Ouvrir le menu");
+  };
+
+  const toggleMenu = () => {
+    setOpen(!nav.classList.contains("is-mobile-open"));
+  };
+
+  toggle.addEventListener("click", toggleMenu);
+
+  toggle.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("is-mobile-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 991) {
+      setOpen(false);
+    }
+  });
+}
+
 export function renderHeader(target) {
   target.outerHTML = withAssetUrls(HEADER_TEMPLATE);
   const header = document.querySelector(".header");
@@ -64,6 +124,7 @@ export function renderHeader(target) {
   if (header) {
     markCurrentNav(header);
     initServicesDropdown(header);
+    initMobileNav(header);
   }
 }
 

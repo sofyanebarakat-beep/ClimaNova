@@ -114,6 +114,37 @@
 }
 
 @media screen and (max-width: 991px) {
+  .header .nav-wrapper.is-mobile-open {
+    display: block !important;
+    background-color: #fff;
+  }
+
+  .header .nav-main-menu.is-mobile-open {
+    display: flex !important;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid rgba(18, 31, 53, 0.08);
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0 18px 42px rgba(18, 31, 53, 0.12);
+  }
+
+  .header .nav-main-menu.is-mobile-open .nav-menu-item,
+  .header .nav-main-menu.is-mobile-open .nav-services-dropdown {
+    width: 100%;
+  }
+
+  .header .nav-main-menu.is-mobile-open .nav-menu-link,
+  .header .nav-main-menu.is-mobile-open .cn-services-dropdown-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 10px 0;
+    text-align: left;
+  }
+
   /* Hide the header CTA button — contact moves into the nav menu */
   .nav-cta-button-wrap {
     display: none !important;
