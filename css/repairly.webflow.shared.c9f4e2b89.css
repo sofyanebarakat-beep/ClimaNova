@@ -5825,6 +5825,15 @@ ul {
   margin-bottom: 0;
 }
 
+.contact-form-iframe {
+  background-color: var(--_🎨color-styles---base-color--bgcolor);
+  border: 0;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 660px;
+  display: block;
+}
+
 .contact-input-field-wrap {
   margin-bottom: 16px;
 }
