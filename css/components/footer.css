@@ -9,3 +9,27 @@
   outline: 2px solid var(--cn-green);
   outline-offset: 4px;
 }
+
+.footer-section .newsletter-text-field {
+  box-sizing: border-box;
+  height: 66px;
+  min-height: 66px;
+  line-height: 1.4;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.footer-section .newsletter-submit-button {
+  height: 58px;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-section .newsletter-text-field {
+    height: 58px;
+    min-height: 58px;
+  }
+
+  .footer-section .newsletter-submit-button {
+    height: 48px;
+  }
+}
