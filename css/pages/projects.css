@@ -2,3 +2,7 @@
 
 /* Project cards and gallery layout overrides go here.
    Core card styles are defined in css/components/utilities.css. */
+
+.project-banner-gradient {
+  background: linear-gradient(to top, rgba(15, 77, 150, 0.55), rgba(0, 0, 0, 0.15));
+}

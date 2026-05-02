@@ -1,5 +1,9 @@
 /* Blog page — page-specific styles */
 
+.blog-banner-gradient {
+  background: linear-gradient(to top, rgba(15, 77, 150, 0.55), rgba(0, 0, 0, 0.15));
+}
+
 /* ── Article banner images ────────────────────────────────────────────────
    Each class maps to a single blog article's hero banner.
    Source images are hosted on Webflow's CDN.
