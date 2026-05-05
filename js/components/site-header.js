@@ -167,17 +167,17 @@ const HEADER_TEMPLATE = `<div class="top-bar">
 <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="header w-nav">
     <div class="container">
       <div class="menu-wrapper">
-        <a href="/ClimaNova/index.html" class="nav-brand w-nav-brand">
+        <a href="/" class="nav-brand w-nav-brand">
           <img loading="lazy" src="__ASSET__/images/climanova-logo.png" alt="ClimaNova Energie" class="nav-logo">
         </a>
         <nav role="navigation" class="nav-wrapper w-nav-menu">
           <div class="nav-main-menu">
             <div class="nav-menu-item">
-              <a href="/ClimaNova/index.html" class="nav-menu-link">Accueil</a>
+              <a href="/" class="nav-menu-link">Accueil</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/about-us.html" aria-current="page" class="nav-menu-link w--current">À propos</a>
+              <a href="/innerpages/about-us" aria-current="page" class="nav-menu-link w--current">À propos</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-services-dropdown cn-services-dropdown">
@@ -191,34 +191,34 @@ const HEADER_TEMPLATE = `<div class="top-bar">
                 </div>
               </div>
               <nav class="nav-service-dropdown-list cn-services-dropdown-list" aria-label="Services">
-                <a href="/ClimaNova/innerpages/services.html" class="nav-list-item-link cn-services-submenu-link">Tous les services</a>
-                <a href="/ClimaNova/services/climatisation.html" class="nav-list-item-link cn-services-submenu-link">Climatisation</a>
-                <a href="/ClimaNova/services/chauffage.html" class="nav-list-item-link cn-services-submenu-link">Chauffage</a>
-                <a href="/ClimaNova/services/electricite.html" class="nav-list-item-link cn-services-submenu-link">Électricité</a>
-                <a href="/ClimaNova/services/plomberie.html" class="nav-list-item-link cn-services-submenu-link">Plomberie</a>
-                <a href="/ClimaNova/services/renovation-energetique.html" class="nav-list-item-link cn-services-submenu-link">Rénovation énergétique</a>
-                <a href="/ClimaNova/services/entretien.html" class="nav-list-item-link cn-services-submenu-link">Entretien &amp; dépannage</a>
+                <a href="/innerpages/services" class="nav-list-item-link cn-services-submenu-link">Tous les services</a>
+                <a href="/services/climatisation" class="nav-list-item-link cn-services-submenu-link">Climatisation</a>
+                <a href="/services/chauffage" class="nav-list-item-link cn-services-submenu-link">Chauffage</a>
+                <a href="/services/electricite" class="nav-list-item-link cn-services-submenu-link">Électricité</a>
+                <a href="/services/plomberie" class="nav-list-item-link cn-services-submenu-link">Plomberie</a>
+                <a href="/services/renovation-energetique" class="nav-list-item-link cn-services-submenu-link">Rénovation énergétique</a>
+                <a href="/services/entretien" class="nav-list-item-link cn-services-submenu-link">Entretien &amp; dépannage</a>
               </nav>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/projects.html" class="nav-menu-link">Réalisations</a>
+              <a href="/innerpages/projects" class="nav-menu-link">Réalisations</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/blog.html" class="nav-menu-link">Blog</a>
+              <a href="/innerpages/blog" class="nav-menu-link">Blog</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/ClimaNova/innerpages/faq.html" class="nav-menu-link">FAQ</a>
+              <a href="/innerpages/faq" class="nav-menu-link">FAQ</a>
               <div class="nav-border"></div>
             </div>
             <div class="cn-mobile-contact-item">
-              <a href="/ClimaNova/innerpages/contact-us.html" class="cn-mobile-contact-link">Contactez-nous</a>
+              <a href="/innerpages/contact-us" class="cn-mobile-contact-link">Contactez-nous</a>
             </div>
           </div>
         </nav>
         <div class="nav-cta-button-wrap">
-          <a href="/ClimaNova/innerpages/contact-us.html" class="button-primary w-inline-block">
+          <a href="/innerpages/contact-us" class="button-primary w-inline-block">
             <div class="button-text-wrapper"><div class="button-text">Contactez-nous</div><div class="button-text absolute">Contactez-nous</div></div>
             <div class="button-arrow-wrap"><div class="button-arrow-block"><div class="button-right-arrow w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="button-right-arrow absolute w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
           </a>

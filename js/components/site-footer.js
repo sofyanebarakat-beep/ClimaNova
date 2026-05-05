@@ -12,7 +12,7 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
     <div class="container">
       <div class="footer-top-content-block">
         <div class="footer-logo-block-wrap">
-          <a href="/ClimaNova/index.html" class="footer-logo-block w-inline-block">
+          <a href="/" class="footer-logo-block w-inline-block">
             <img loading="lazy" src="__ASSET__/images/climanova-logo-footer.png" alt="ClimaNova Energie" class="footer-logo">
           </a>
           <p class="text-md neutral-9">ClimaNova Energie assure l'installation et l'entretien de vos équipements à Nice et en région PACA — climatisation, électricité, plomberie et chauffage.</p>
@@ -35,12 +35,12 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
           <div class="footer-link-list">
             <div class="w-dyn-list">
               <div role="list" class="footer-collection-list w-dyn-items">
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/climatisation.html" class="footer-link-text">Climatisation</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/chauffage.html" class="footer-link-text">Chauffage</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/electricite.html" class="footer-link-text">Électricité</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/plomberie.html" class="footer-link-text">Plomberie</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/renovation-energetique.html" class="footer-link-text">Rénovation énergétique</a></div>
-                <div role="listitem" class="w-dyn-item"><a href="/ClimaNova/services/plomberie-fuites.html" class="footer-link-text">Plomberie &amp; Fuites</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/services/climatisation" class="footer-link-text">Climatisation</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/services/chauffage" class="footer-link-text">Chauffage</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/services/electricite" class="footer-link-text">Électricité</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/services/plomberie" class="footer-link-text">Plomberie</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/services/renovation-energetique" class="footer-link-text">Rénovation énergétique</a></div>
+                <div role="listitem" class="w-dyn-item"><a href="/services/plomberie-fuites" class="footer-link-text">Plomberie &amp; Fuites</a></div>
               </div>
             </div>
           </div>
@@ -48,12 +48,12 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
         <div class="footer-link-column">
           <div class="footer-list-title">Explorer</div>
           <div class="footer-link-list">
-            <a href="/ClimaNova/innerpages/about-us.html" class="footer-link-text">À propos</a>
-            <a href="/ClimaNova/innerpages/projects.html" class="footer-link-text">Réalisations</a>
-            <a href="/ClimaNova/innerpages/blog.html" class="footer-link-text">Blog</a>
-            <a href="/ClimaNova/innerpages/faq.html" class="footer-link-text">FAQ</a>
-            <a href="/ClimaNova/template-pages/license.html" class="footer-link-text">Mentions légales</a>
-            <a href="/ClimaNova/innerpages/contact-us.html" class="footer-link-text">Nous contacter</a>
+            <a href="/innerpages/about-us" class="footer-link-text">À propos</a>
+            <a href="/innerpages/projects" class="footer-link-text">Réalisations</a>
+            <a href="/innerpages/blog" class="footer-link-text">Blog</a>
+            <a href="/innerpages/faq" class="footer-link-text">FAQ</a>
+            <a href="/template-pages/license" class="footer-link-text">Mentions légales</a>
+            <a href="/innerpages/contact-us" class="footer-link-text">Nous contacter</a>
           </div>
         </div>
         <div class="footer-link-column">
@@ -100,10 +100,10 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
         </div>
       </div>
       <div class="footer-bottom-block">
-        <p class="text-sm neutral-color-9">© Copyright 2026, Tous droits réservés — <a href="/ClimaNova/index.html" class="footer-bottom-link">ClimaNova Energie</a> <a href="https://sbmarketing.fr/" target="_blank" class="footer-bottom-link">Made by SB Marketing</a></p>
+        <p class="text-sm neutral-color-9">© Copyright 2026, Tous droits réservés — <a href="/" class="footer-bottom-link">ClimaNova Energie</a> <a href="https://sbmarketing.fr/" target="_blank" class="footer-bottom-link">Made by SB Marketing</a></p>
         <div class="footer-bottom-text-blcok">
-          <a href="/ClimaNova/innerpages/privacy-policy" class="footer-bottom-link">Politique de confidentialité</a>
-          <a href="/ClimaNova/innerpages/terms-conditions" class="footer-bottom-link">Conditions générales</a>
+          <a href="/innerpages/privacy-policy" class="footer-bottom-link">Politique de confidentialité</a>
+          <a href="/innerpages/terms-conditions" class="footer-bottom-link">Conditions générales</a>
         </div>
       </div>
     </div>
