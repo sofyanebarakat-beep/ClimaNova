@@ -16,26 +16,56 @@
   color: #0b0b0b !important;
 }
 
-/* ── Article banner images ────────────────────────────────────────────────
-   Each class maps to a single blog article's hero banner.
-   Source images are hosted on Webflow's CDN.
-   ──────────────────────────────────────────────────────────────────────── */
+.blog-details-banner-social-link-block.is-copied {
+  background: var(--cn-green, #12c875);
+  color: #fff;
+}
+
+/* ── Article banner images ──────────────────────────────────────────────── */
 
 .cn-banner-blog-repairs {
-  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968cb7ee1d73f99d49d64d2_5%20Common%20Home%20Repairs%20You%20Can%20Do%20Yourself%20This%20Weekend-Banner%20Image.png);
+  background-image: url('../../images/climanova-blog-01.jpg');
 }
 .cn-banner-blog-roof {
-  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968e6a32e32c0680bd9adc4_Easily%20Handle%20Yourself%20Safely-banner%20image.png);
+  background-image: url('../../images/climanova-blog-03.jpg');
 }
 .cn-banner-blog-budget {
-  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968e2de625f03b5e93df997_Budget-Friendly%20Ways-banner%20image.png);
+  background-image: url('../../images/climanova-blog-02.jpg');
 }
 .cn-banner-blog-service {
-  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/69687c63087ee200c1b48830_How%20to%20Choose%20the%20Right%20Home%20Repair%20Service%20Quickly%20and%20Safely-Banner%20Image.png);
+  background-image: url('../../images/climanova-blog-01.jpg');
 }
 .cn-banner-blog-extend {
-  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968f96e4080888fba33f038_How%20to%20Extend%20the%20Life%20-%20banner%20image.png);
+  background-image: url('../../images/climanova-blog-04.jpg');
 }
 .cn-banner-blog-seasonal {
-  background-image: url(https://cdn.prod.website-files.com/69521807c60d68268df9acfa/6968dde40e4e004947024a72_Preparing%20Your%20Home%20for%20Essential%20Seasonal%20Maintenance%20Guide-banner%20image.png);
+  background-image: url('../../images/climanova-blog-02.jpg');
+}
+
+@keyframes cn-blog-cta-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@media (min-width: 992px) {
+  .blog-details-section .cn-blog-cta-banner,
+  .blog-page + .blog-more-section .cn-blog-cta-banner {
+    position: sticky;
+    bottom: 28px;
+    z-index: 4;
+    flex-direction: row;
+    text-align: left;
+    animation: cn-blog-cta-float 4.5s ease-in-out infinite;
+    box-shadow: 0 18px 42px rgba(11, 11, 11, 0.18);
+  }
+
+  .blog-details-section .cn-blog-cta-banner-text,
+  .blog-page + .blog-more-section .cn-blog-cta-banner-text {
+    order: 1;
+  }
+
+  .blog-details-section .cn-blog-cta-banner-btn,
+  .blog-page + .blog-more-section .cn-blog-cta-banner-btn {
+    order: 2;
+  }
 }
