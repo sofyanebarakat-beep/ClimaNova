@@ -40,3 +40,37 @@
   -webkit-text-stroke: 0.35px rgba(0, 0, 0, 0.35);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85), 0 8px 22px rgba(0, 0, 0, 0.55);
 }
+
+/* Match the Repairly-style text rhythm on the home blog cards. */
+.blog-section .cn-blog-card-body {
+  box-sizing: border-box;
+  margin-top: 24px;
+  padding: 0 22px 22px;
+  text-align: left;
+  white-space: normal;
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--✏️font-family--primary-font);
+  font-size: var(--_🔠-typography---🔠font-size--text-sm);
+  line-height: var(--_🔠-typography---line-height--text-sm);
+  font-weight: var(--_🔠-typography---🔠font-weight--medium);
+}
+
+.blog-section .cn-blog-meta,
+.blog-section .cn-blog-card-title {
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: left;
+  font-family: var(--✏️font-family--primary-font);
+  font-size: var(--_🔠-typography---🔠font-size--text-sm);
+  line-height: var(--_🔠-typography---line-height--text-sm);
+}
+
+.blog-section .cn-blog-meta {
+  font-weight: var(--_🔠-typography---🔠font-weight--medium);
+}
+
+.blog-section .cn-blog-card-title {
+  color: var(--_🎨color-styles---neutral-color--neutral-1, #0b0b0b);
+  font-weight: var(--_🔠-typography---🔠font-weight--medium);
+  letter-spacing: var(--_🔠-typography---letter-spacing--text-sm, 0);
+}
