@@ -1,7 +1,19 @@
 /* Blog page — page-specific styles */
 
+.blog-banner-section {
+  background-image: url('../../images/climanova-services-banner.png');
+}
+
 .blog-banner-gradient {
-  background: linear-gradient(to top, rgba(15, 77, 150, 0.55), rgba(0, 0, 0, 0.15));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.34));
+}
+
+.blog-banner-section .blog-banner-title .text-lg {
+  color: var(--cn-blue) !important;
+}
+
+.blog-banner-section .h1-style {
+  color: #0b0b0b !important;
 }
 
 /* ── Article banner images ────────────────────────────────────────────────

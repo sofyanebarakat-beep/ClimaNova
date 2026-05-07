@@ -3,6 +3,18 @@
 /* Project cards and gallery layout overrides go here.
    Core card styles are defined in css/components/utilities.css. */
 
+.project-banner-section {
+  background-image: url('../../images/climanova-services-banner.png');
+}
+
 .project-banner-gradient {
-  background: linear-gradient(to top, rgba(15, 77, 150, 0.55), rgba(0, 0, 0, 0.15));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.34));
+}
+
+.project-banner-section .project-banner-text-block > .text-lg {
+  color: var(--cn-blue) !important;
+}
+
+.project-banner-section .banner-title {
+  color: #0b0b0b !important;
 }
