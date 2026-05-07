@@ -15,8 +15,7 @@ export function assetUrl(path = "") {
     return `/${SITE_SEGMENT}/${cleanPath}`;
   }
 
-  const directoryDepth = pathSegments().slice(0, -1).length;
-  return `${"../".repeat(directoryDepth)}${cleanPath}`;
+  return `/${cleanPath}`;
 }
 
 export function currentPath() {
