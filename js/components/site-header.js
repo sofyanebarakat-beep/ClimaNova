@@ -6,7 +6,7 @@ function withAssetUrls(html) {
 
 function markCurrentNav(container) {
   const path = currentPath();
-  const isServicesArea = path.includes("/services/") || path.endsWith("/innerpages/services");
+  const isServicesArea = path.includes("/services/") || path.endsWith("/services");
 
   container.querySelectorAll(".nav-menu-link, .cn-services-submenu-link").forEach((link) => {
     const href = link.getAttribute("href") || "";
@@ -177,7 +177,7 @@ const HEADER_TEMPLATE = `<div class="top-bar">
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/innerpages/about-us" aria-current="page" class="nav-menu-link w--current">À propos</a>
+              <a href="/about-us" aria-current="page" class="nav-menu-link w--current">À propos</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-services-dropdown cn-services-dropdown">
@@ -191,7 +191,7 @@ const HEADER_TEMPLATE = `<div class="top-bar">
                 </div>
               </div>
               <nav class="nav-service-dropdown-list cn-services-dropdown-list" aria-label="Services">
-                <a href="/innerpages/services" class="nav-list-item-link cn-services-submenu-link">Tous les services</a>
+                <a href="/services" class="nav-list-item-link cn-services-submenu-link">Tous les services</a>
                 <a href="/services/climatisation" class="nav-list-item-link cn-services-submenu-link">Climatisation</a>
                 <a href="/services/chauffage" class="nav-list-item-link cn-services-submenu-link">Chauffage</a>
                 <a href="/services/electricite" class="nav-list-item-link cn-services-submenu-link">Électricité</a>
@@ -201,24 +201,24 @@ const HEADER_TEMPLATE = `<div class="top-bar">
               </nav>
             </div>
             <div class="nav-menu-item">
-              <a href="/innerpages/projects" class="nav-menu-link">Réalisations</a>
+              <a href="/projects" class="nav-menu-link">Réalisations</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/innerpages/blog" class="nav-menu-link">Blog</a>
+              <a href="/blog" class="nav-menu-link">Blog</a>
               <div class="nav-border"></div>
             </div>
             <div class="nav-menu-item">
-              <a href="/innerpages/faq" class="nav-menu-link">FAQ</a>
+              <a href="/faq" class="nav-menu-link">FAQ</a>
               <div class="nav-border"></div>
             </div>
             <div class="cn-mobile-contact-item">
-              <a href="/innerpages/contact-us" class="cn-mobile-contact-link">Contactez-nous</a>
+              <a href="/contact-us" class="cn-mobile-contact-link">Contactez-nous</a>
             </div>
           </div>
         </nav>
         <div class="nav-cta-button-wrap">
-          <a href="/innerpages/contact-us" class="button-primary w-inline-block">
+          <a href="/contact-us" class="button-primary w-inline-block">
             <div class="button-text-wrapper"><div class="button-text">Contactez-nous</div><div class="button-text absolute">Contactez-nous</div></div>
             <div class="button-arrow-wrap"><div class="button-arrow-block"><div class="button-right-arrow w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="button-right-arrow absolute w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
           </a>
