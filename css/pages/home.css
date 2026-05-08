@@ -7,6 +7,110 @@
   margin: 20px 12px 0;
 }
 
+.project-section .project-slide-wrapper {
+  gap: 28px;
+}
+
+.project-section .cn-project-carousel {
+  perspective: 1400px;
+  touch-action: pan-y;
+}
+
+.project-section .cn-project-carousel > div {
+  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease, filter 320ms ease;
+  will-change: transform, opacity;
+}
+
+.project-section .cn-project-carousel > div:not(.is-active) .project-slide-image-wrap {
+  filter: saturate(0.84) brightness(0.82);
+}
+
+.project-section .cn-project-carousel > div.is-active .project-slide-image-wrap {
+  box-shadow: 0 28px 70px rgba(18, 32, 47, 0.24);
+}
+
+.project-section .project-slide-image {
+  object-fit: cover;
+}
+
+.cn-project-carousel-controls {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.cn-project-carousel-button {
+  align-items: center;
+  background: var(--_🎨color-styles---neutral-color--neutral-1, #111);
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 180ms ease, transform 180ms ease;
+  width: 44px;
+}
+
+.cn-project-carousel-button:hover,
+.cn-project-carousel-button:focus-visible {
+  background: var(--_🎨color-styles---primary-color--primary-1, #0f7f8c);
+  transform: translateY(-2px);
+}
+
+.cn-project-carousel-button:focus-visible {
+  outline: 3px solid rgba(15, 127, 140, 0.28);
+  outline-offset: 3px;
+}
+
+.cn-project-carousel-button .material-icons-round {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.cn-project-carousel-dots {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.cn-project-carousel-dot {
+  background: rgba(17, 17, 17, 0.24);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 8px;
+  padding: 0;
+  transition: background-color 180ms ease, width 180ms ease;
+  width: 8px;
+}
+
+.cn-project-carousel-dot.is-active {
+  background: var(--_🎨color-styles---primary-color--primary-1, #0f7f8c);
+  width: 26px;
+}
+
+@media screen and (max-width: 767px) {
+  .project-section .cn-project-carousel {
+    height: 320px;
+    max-width: min(86vw, 360px);
+    width: 100%;
+  }
+
+  .cn-project-carousel-controls {
+    gap: 12px;
+  }
+
+  .cn-project-carousel-button {
+    height: 40px;
+    width: 40px;
+  }
+}
+
 /* Keep service card labels as clean text directly on the images. */
 .service-card {
   position: relative;
