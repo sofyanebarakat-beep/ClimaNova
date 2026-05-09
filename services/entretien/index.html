@@ -118,40 +118,9 @@
 
         </div>
 
-        <!-- Right: quote form -->
-        <div class="service-details-free-quote-card">
-          <div class="service-details-free-qoute-text-block">
-            <h4 class="h4-style">Demandez un appel gratuit</h4>
-            <p class="text-md">Un expert ClimaNova vous rappelle rapidement pour répondre à vos questions et établir votre devis.</p>
-          </div>
-          <div class="free-qoute-form-block w-form">
-            <form id="wf-form-clim" name="wf-form-clim" data-name="Climatisation Form" method="get">
-              <div class="free-qoute-input-field-wrap">
-                <label for="name-clim" class="free-qoute-field-label-text">Nom complet</label>
-                <input class="free-qoute-input-field w-input" maxlength="256" name="name" placeholder="Jean Dupont" type="text" id="name-clim"/>
-              </div>
-              <div class="free-qoute-input-field-wrap">
-                <label for="email-clim" class="free-qoute-field-label-text">Email</label>
-                <input class="free-qoute-input-field w-input" maxlength="256" name="email" placeholder="jean@exemple.fr" type="email" id="email-clim" required=""/>
-              </div>
-              <div class="free-qoute-input-field-wrap">
-                <label for="service-clim" class="free-qoute-field-label-text">Service souhaité</label>
-                <select id="service-clim" name="service" class="free-qoute-input-field service-select w-select">
-                  <option value="climatisation">Climatisation</option>
-                  <option value="chauffage">Chauffage</option>
-                  <option value="electricite">Électricité</option>
-                  <option value="plomberie">Plomberie</option>
-                  <option value="renovation">Rénovation énergétique</option>
-                  <option value="entretien" selected>Entretien &amp; dépannage</option>
-                </select>
-              </div>
-              <div class="free-quote-submit-button-wrap">
-                <input type="submit" data-wait="Envoi en cours..." class="free-quote-submit-button w-button" value="Obtenir un devis gratuit"/>
-              </div>
-            </form>
-            <div class="w-form-done"><div>Merci ! Nous vous contacterons très prochainement.</div></div>
-            <div class="w-form-fail"><div>Une erreur s'est produite. Veuillez réessayer.</div></div>
-          </div>
+        <!-- Right: service widget -->
+        <div class="service-details-free-quote-card service-widget-card">
+          <iframe src="https://climanovaenergie.lovable.app/services-widget" title="Demande de devis ClimaNova Energie" class="service-widget-iframe" loading="lazy"></iframe>
         </div>
 
       </div>
