@@ -19,7 +19,7 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
         </div>
         <div class="footer-link-block">
           <div class="newsletter-form-block footer-subscription-widget">
-            <iframe src="https://climanovaenergie.lovable.app/subscription" title="Inscription newsletter ClimaNova Energie" class="footer-subscription-iframe" loading="lazy"></iframe>
+            <iframe src="https://climanovaenergie.lovable.app/subscription" title="Inscription newsletter ClimaNova Energie" class="footer-subscription-iframe" loading="lazy" scrolling="no"></iframe>
           </div>
         </div>
       </div>
