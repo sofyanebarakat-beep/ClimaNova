@@ -213,8 +213,10 @@
     position: static;
     width: 100%;
     min-width: 0;
-    margin-top: 8px;
-    padding: 12px;
+    max-height: 0;
+    margin-top: 0;
+    padding: 0 12px;
+    overflow: hidden;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -222,6 +224,7 @@
     box-shadow: none;
     border: 1px solid rgba(18, 31, 53, 0.08);
     border-radius: 12px;
+    transition: max-height 180ms ease, margin-top 180ms ease, padding 180ms ease, opacity 160ms ease, visibility 160ms ease;
   }
 
   .cn-services-dropdown-list::before {
@@ -229,6 +232,9 @@
   }
 
   .cn-services-dropdown.is-open .cn-services-dropdown-list {
+    max-height: 360px;
+    margin-top: 8px;
+    padding: 12px;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
