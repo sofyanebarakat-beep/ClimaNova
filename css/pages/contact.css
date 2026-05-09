@@ -1,8 +1,8 @@
 .contact-logo-marquee-section {
   position: relative;
-  padding: clamp(60px, 8vw, 108px) 0;
+  padding: clamp(54px, 7vw, 92px) 0;
   overflow: hidden;
-  background: #fff;
+  background: linear-gradient(180deg, #fff 0%, rgba(244, 250, 249, 0.72) 100%);
 }
 
 .contact-logo-marquee-section::before,
@@ -23,10 +23,30 @@
   bottom: 0;
 }
 
+.contact-logo-marquee-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(360px, 42vw, 480px);
+  overflow: hidden;
+  border: 1px solid rgba(36, 77, 86, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
 .contact-logo-marquee-heading {
-  width: min(100%, 720px);
-  margin: 0 auto clamp(32px, 5vw, 56px);
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 32px), 620px);
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid rgba(36, 77, 86, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 22px 70px rgba(36, 77, 86, 0.12);
   text-align: center;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .contact-logo-marquee-heading .contact-subtitile {
@@ -34,14 +54,24 @@
   margin-bottom: 12px;
 }
 
+.contact-logo-marquee-heading .h4-style {
+  margin-bottom: 12px;
+}
+
+.contact-logo-marquee-heading .text-md {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  color: rgba(24, 39, 42, 0.72);
+}
+
 .contact-vertical-logo-marquee {
   --logo-gap: clamp(22px, 3vw, 34px);
+  position: absolute;
+  inset: -28px clamp(18px, 5vw, 58px);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(24px, 6vw, 96px);
-  width: min(100%, 980px);
-  height: clamp(300px, 36vw, 410px);
-  margin: 0 auto;
+  z-index: 1;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
@@ -56,16 +86,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--logo-gap);
-  animation: contact-logo-scroll-up 24s linear infinite;
+  animation: contact-logo-scroll-up 18s linear infinite;
   will-change: transform;
 }
 
 .contact-vertical-logo-column:nth-child(2) .contact-vertical-logo-track {
-  animation-duration: 28s;
+  animation-duration: 22s;
 }
 
 .contact-vertical-logo-column:nth-child(3) .contact-vertical-logo-track {
-  animation-duration: 26s;
+  animation-duration: 20s;
 }
 
 .contact-vertical-logo-column-reverse .contact-vertical-logo-track {
@@ -80,8 +110,8 @@
   padding: 12px clamp(12px, 2vw, 22px);
   border: 1px solid rgba(36, 77, 86, 0.08);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 16px 44px rgba(36, 77, 86, 0.06);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 16px 44px rgba(36, 77, 86, 0.05);
 }
 
 .contact-vertical-logo-item img {
@@ -90,8 +120,8 @@
   max-width: min(170px, 82%);
   max-height: 38px;
   object-fit: contain;
-  opacity: 0.72;
-  filter: saturate(0.88) contrast(0.95);
+  opacity: 0.54;
+  filter: saturate(0.8) contrast(0.9);
   transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
 }
 
@@ -124,7 +154,6 @@
 @media screen and (max-width: 991px) {
   .contact-vertical-logo-marquee {
     gap: clamp(18px, 4vw, 44px);
-    height: 340px;
   }
 }
 
@@ -133,14 +162,21 @@
     padding: 56px 0 64px;
   }
 
+  .contact-logo-marquee-panel {
+    min-height: 420px;
+    border-radius: 14px;
+  }
+
   .contact-logo-marquee-heading {
-    margin-bottom: 28px;
+    width: calc(100% - 24px);
+    padding: 22px 18px;
+    border-radius: 12px;
   }
 
   .contact-vertical-logo-marquee {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    inset: -20px 12px;
     gap: 16px;
-    height: 318px;
   }
 
   .contact-vertical-logo-column:nth-child(3) {
