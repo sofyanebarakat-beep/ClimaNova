@@ -1,0 +1,166 @@
+.contact-logo-marquee-section {
+  position: relative;
+  padding: clamp(60px, 8vw, 108px) 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.contact-logo-marquee-section::before,
+.contact-logo-marquee-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(36, 77, 86, 0.14), transparent);
+}
+
+.contact-logo-marquee-section::before {
+  top: 0;
+}
+
+.contact-logo-marquee-section::after {
+  bottom: 0;
+}
+
+.contact-logo-marquee-heading {
+  width: min(100%, 720px);
+  margin: 0 auto clamp(32px, 5vw, 56px);
+  text-align: center;
+}
+
+.contact-logo-marquee-heading .contact-subtitile {
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.contact-vertical-logo-marquee {
+  --logo-gap: clamp(22px, 3vw, 34px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 6vw, 96px);
+  width: min(100%, 980px);
+  height: clamp(300px, 36vw, 410px);
+  margin: 0 auto;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+
+.contact-vertical-logo-column {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.contact-vertical-logo-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--logo-gap);
+  animation: contact-logo-scroll-up 24s linear infinite;
+  will-change: transform;
+}
+
+.contact-vertical-logo-column:nth-child(2) .contact-vertical-logo-track {
+  animation-duration: 28s;
+}
+
+.contact-vertical-logo-column:nth-child(3) .contact-vertical-logo-track {
+  animation-duration: 26s;
+}
+
+.contact-vertical-logo-column-reverse .contact-vertical-logo-track {
+  animation-name: contact-logo-scroll-down;
+}
+
+.contact-vertical-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(62px, 7vw, 82px);
+  padding: 12px clamp(12px, 2vw, 22px);
+  border: 1px solid rgba(36, 77, 86, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 16px 44px rgba(36, 77, 86, 0.06);
+}
+
+.contact-vertical-logo-item img {
+  display: block;
+  width: auto;
+  max-width: min(170px, 82%);
+  max-height: 38px;
+  object-fit: contain;
+  opacity: 0.72;
+  filter: saturate(0.88) contrast(0.95);
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+}
+
+.contact-vertical-logo-item:hover img {
+  opacity: 1;
+  filter: none;
+  transform: translateY(-1px);
+}
+
+@keyframes contact-logo-scroll-up {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(-50% - (var(--logo-gap) / 2)));
+  }
+}
+
+@keyframes contact-logo-scroll-down {
+  from {
+    transform: translateY(calc(-50% - (var(--logo-gap) / 2)));
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .contact-vertical-logo-marquee {
+    gap: clamp(18px, 4vw, 44px);
+    height: 340px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .contact-logo-marquee-section {
+    padding: 56px 0 64px;
+  }
+
+  .contact-logo-marquee-heading {
+    margin-bottom: 28px;
+  }
+
+  .contact-vertical-logo-marquee {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    height: 318px;
+  }
+
+  .contact-vertical-logo-column:nth-child(3) {
+    display: none;
+  }
+
+  .contact-vertical-logo-item {
+    min-height: 66px;
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+
+  .contact-vertical-logo-item img {
+    max-width: 88%;
+    max-height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-vertical-logo-track {
+    animation-play-state: paused;
+  }
+}
