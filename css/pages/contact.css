@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: clamp(360px, 42vw, 480px);
+  min-height: clamp(300px, 34vw, 390px);
   overflow: hidden;
   border: 1px solid rgba(36, 77, 86, 0.08);
   border-radius: 18px;
@@ -36,17 +36,9 @@
 }
 
 .contact-logo-marquee-heading {
-  position: relative;
-  z-index: 2;
-  width: min(calc(100% - 32px), 620px);
-  padding: clamp(24px, 4vw, 38px);
-  border: 1px solid rgba(36, 77, 86, 0.08);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 22px 70px rgba(36, 77, 86, 0.12);
+  width: min(100%, 680px);
+  margin: 0 auto clamp(28px, 4vw, 44px);
   text-align: center;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 
 .contact-logo-marquee-heading .contact-subtitile {
@@ -163,14 +155,12 @@
   }
 
   .contact-logo-marquee-panel {
-    min-height: 420px;
+    min-height: 330px;
     border-radius: 14px;
   }
 
   .contact-logo-marquee-heading {
-    width: calc(100% - 24px);
-    padding: 22px 18px;
-    border-radius: 12px;
+    margin-bottom: 24px;
   }
 
   .contact-vertical-logo-marquee {

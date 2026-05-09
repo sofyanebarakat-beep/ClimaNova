@@ -3,6 +3,94 @@
 /* The home page's custom sections (hero, why-choose, CTA) are covered by
    brand.css and layout.css. Add home-only overrides here. */
 
+.home-hero-quote-wrap {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  min-width: min(100%, 620px);
+  padding: 32px clamp(18px, 4vw, 58px);
+  overflow: visible;
+}
+
+.home-hero-quote-wrap .button-primary {
+  position: relative;
+  z-index: 2;
+}
+
+.home-hero-logo-slider {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 1;
+  width: min(88vw, 720px);
+  height: 128px;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+.home-hero-logo-slider::before {
+  content: "";
+  position: absolute;
+  inset: 18px 7%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 20px 70px rgba(20, 57, 62, 0.12);
+}
+
+.home-hero-logo-track {
+  position: relative;
+  display: flex;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  animation: home-hero-logo-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+.home-hero-logo-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 4vw, 42px);
+  padding-right: clamp(22px, 4vw, 42px);
+}
+
+.home-hero-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(92px, 11vw, 142px);
+  height: 54px;
+  padding: 10px 14px;
+  border: 1px solid rgba(36, 77, 86, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.home-hero-logo-item img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 30px;
+  object-fit: contain;
+  opacity: 0.46;
+  filter: saturate(0.78) contrast(0.9);
+}
+
+@keyframes home-hero-logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .testimonial-description {
   margin: 20px 12px 0;
 }
@@ -95,6 +183,31 @@
 }
 
 @media screen and (max-width: 767px) {
+  .home-hero-quote-wrap {
+    min-width: 100%;
+    padding: 26px 8px;
+  }
+
+  .home-hero-logo-slider {
+    width: 96vw;
+    height: 112px;
+  }
+
+  .home-hero-logo-row {
+    gap: 18px;
+    padding-right: 18px;
+  }
+
+  .home-hero-logo-item {
+    width: 100px;
+    height: 48px;
+    padding: 8px 10px;
+  }
+
+  .home-hero-logo-item img {
+    max-height: 26px;
+  }
+
   .project-section .cn-project-carousel {
     height: 320px;
     max-width: min(86vw, 360px);
@@ -108,6 +221,12 @@
   .cn-project-carousel-button {
     height: 40px;
     width: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-logo-track {
+    animation-play-state: paused;
   }
 }
 
