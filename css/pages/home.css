@@ -168,24 +168,35 @@
 
 @media screen and (max-width: 767px) {
   .home-hero-logo-slider {
-    width: 96vw;
-    height: 104px;
-    margin-top: 22px;
+    width: 100vw;
+    height: 96px;
+    margin-top: 20px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  }
+
+  .home-hero-logo-slider::before {
+    inset: 10px 3%;
+  }
+
+  .home-hero-logo-track {
+    animation-duration: 18s;
   }
 
   .home-hero-logo-row {
-    gap: 14px;
-    padding-right: 14px;
+    gap: 10px;
+    padding-right: 10px;
   }
 
   .home-hero-logo-item {
-    width: 116px;
-    height: 56px;
-    padding: 10px 12px;
+    width: clamp(82px, 22vw, 106px);
+    height: 52px;
+    padding: 8px 10px;
+    border-radius: 6px;
   }
 
   .home-hero-logo-item img {
-    max-height: 32px;
+    max-height: 28px;
   }
 
   .project-section .cn-project-carousel {
