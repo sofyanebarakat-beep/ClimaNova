@@ -185,6 +185,66 @@
   }
 }
 
+/* Fix contact trusted partners ticker (overrides Webflow 3000px fixed width) */
+.contact-trusted-logo-wrapper {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.contact-trusted-logo-ticker {
+  width: max-content !important;
+  display: flex;
+  animation: cn-trusted-scroll 22s linear infinite;
+  will-change: transform;
+}
+
+.contact-trusted-logo-gradient {
+  display: none;
+}
+
+.contact-trusted-logo-block {
+  gap: clamp(24px, 4vw, 48px) !important;
+  padding-right: clamp(24px, 4vw, 48px);
+  align-items: center !important;
+}
+
+.contact-trusted-logo {
+  height: 48px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  opacity: 0.82;
+  filter: saturate(0.9) contrast(1.0);
+  flex-shrink: 0;
+}
+
+@keyframes cn-trusted-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media screen and (max-width: 767px) {
+  .contact-trusted-logo-wrapper {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  }
+
+  .contact-trusted-logo-ticker {
+    animation-duration: 16s;
+  }
+
+  .contact-trusted-logo-block {
+    gap: 20px !important;
+    padding-right: 20px;
+  }
+
+  .contact-trusted-logo {
+    height: 36px;
+    max-width: 100px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .contact-vertical-logo-track {
     animation-play-state: paused;
