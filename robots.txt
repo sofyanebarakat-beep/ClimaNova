@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Exclure les dossiers internes et copies de templates
+Disallow: /innerpages/
+Disallow: /ClimaNovaEnergie copy/
+Disallow: /climavovaall/
+Disallow: /innerpages/blog?*/
+Disallow: /innerpages/projects?*/
+
+# Ne pas indexer les anciens articles en anglais (contenu template)
+Disallow: /blog/5-common-home-repairs-you-can-do-yourself-this-weekend/
+Disallow: /blog/5-common-roof-repairs-you-can-easily-handle-yourself-safely/
+Disallow: /blog/budget-friendly-ways-to-upgrade-your-home-easily-and-cheaply/
+Disallow: /blog/how-to-choose-the-right-home-repair-service-quickly-and-safely/
+Disallow: /blog/how-to-extend-the-life-of-your-appliances-and-save-money/
+Disallow: /blog/preparing-your-home-for-essential-seasonal-maintenance-guide/
+
+Sitemap: https://climanova-energie.fr/sitemap.xml
