@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" width="160" height="60">
+  <!-- Red square badge -->
+  <rect x="0" y="8" width="44" height="44" rx="3" fill="#E3000F"/>
+  <!-- L1 icon inside badge -->
+  <text x="8" y="38" font-family="Arial Black, sans-serif" font-size="26" font-weight="900" fill="white">L1</text>
+  <!-- legrand text -->
+  <text x="52" y="39" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1A1A1A" letter-spacing="-0.5">legrand</text>
+  <text x="148" y="27" font-family="Arial, sans-serif" font-size="11" fill="#1A1A1A">®</text>
+</svg>
