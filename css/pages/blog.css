@@ -179,6 +179,119 @@
   }
 }
 
+/* ── Inline service links ────────────────────────────────────────────────── */
+
+.cn-inline-link {
+  color: var(--cn-teal, #0f7f8c);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.cn-inline-link:hover {
+  color: #0a6672;
+}
+
+/* ── À lire aussi ────────────────────────────────────────────────────────── */
+
+.cn-lire-aussi {
+  margin: 40px 0 32px;
+  padding: 32px;
+  background: #f4fafb;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 127, 140, 0.12);
+}
+
+.cn-lire-aussi-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0b1c1e;
+  margin: 0 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(15, 127, 140, 0.15);
+}
+
+.cn-lire-aussi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cn-lire-aussi-card {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(15, 127, 140, 0.1);
+  text-decoration: none;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.cn-lire-aussi-card:hover {
+  box-shadow: 0 8px 28px rgba(15, 127, 140, 0.13);
+  transform: translateY(-3px);
+}
+
+.cn-lire-aussi-img-wrap {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.cn-lire-aussi-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.cn-lire-aussi-card:hover .cn-lire-aussi-img {
+  transform: scale(1.04);
+}
+
+.cn-lire-aussi-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cn-lire-aussi-date {
+  font-size: 12px;
+  color: rgba(11, 28, 30, 0.5);
+  font-weight: 500;
+}
+
+.cn-lire-aussi-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1c1e;
+  line-height: 1.45;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.cn-lire-aussi-card:hover .cn-lire-aussi-title {
+  color: var(--cn-teal, #0f7f8c);
+}
+
+@media screen and (max-width: 767px) {
+  .cn-lire-aussi {
+    padding: 22px 18px;
+  }
+
+  .cn-lire-aussi-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cn-lire-aussi-img-wrap {
+    height: 180px;
+  }
+}
+
 @media (min-width: 992px) {
   .blog-details-section .cn-blog-cta-banner,
   .blog-page + .blog-more-section .cn-blog-cta-banner {
