@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" width="180" height="60">
+  <!-- Gradient square icon -->
+  <defs>
+    <linearGradient id="elmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5A623"/>
+      <stop offset="50%" style="stop-color:#4A90D9"/>
+      <stop offset="100%" style="stop-color:#7B68EE"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="8" width="44" height="44" rx="8" fill="url(#elmGrad)"/>
+  <!-- Simple house/sun icon inside -->
+  <rect x="10" y="24" width="24" height="18" rx="2" fill="white" opacity="0.9"/>
+  <polygon points="22,14 8,26 36,26" fill="white" opacity="0.9"/>
+  <!-- elm.leblanc text -->
+  <text x="52" y="36" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#1A1A1A">elm.leblanc</text>
+</svg>
