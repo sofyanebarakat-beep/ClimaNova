@@ -1,7 +1,7 @@
 /* Blog page — page-specific styles */
 
 .blog-banner-section {
-  background-image: url('../../images/climanova-services-banner.png');
+  background-image: url('../../images/climanova-services-banner.webp');
 }
 
 .blog-banner-gradient {
@@ -24,22 +24,22 @@
 /* ── Article banner images ──────────────────────────────────────────────── */
 
 .cn-banner-blog-repairs {
-  background-image: url('../../images/climanova-blog-01.jpg');
+  background-image: url('../../images/climanova-blog-01.webp');
 }
 .cn-banner-blog-roof {
-  background-image: url('../../images/climanova-service-01.jpg');
+  background-image: url('../../images/climanova-service-01.webp');
 }
 .cn-banner-blog-budget {
-  background-image: url('../../images/climanova-blog-02.jpg');
+  background-image: url('../../images/climanova-blog-02.webp');
 }
 .cn-banner-blog-service {
-  background-image: url('../../images/climanova-blog-01.jpg');
+  background-image: url('../../images/climanova-blog-01.webp');
 }
 .cn-banner-blog-extend {
-  background-image: url('../../images/climanova-service-01.jpg');
+  background-image: url('../../images/climanova-service-01.webp');
 }
 .cn-banner-blog-seasonal {
-  background-image: url('../../images/climanova-blog-02.jpg');
+  background-image: url('../../images/climanova-blog-02.webp');
 }
 
 /* ── Blog sidebar banner ───────────────────────────────────────────────── */

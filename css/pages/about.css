@@ -1,7 +1,7 @@
 /* About page — page-specific styles */
 
 .cn-banner-about {
-  background-image: url('../../images/climanova-about-banner.png');
+  background-image: url('../../images/climanova-about-banner.webp');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -70,4 +70,9 @@
 
 .cn-partners-ticker-wrap {
   margin-top: 0;
+}
+
+/* Override shared CSS banner — use WebP */
+.about-banner-section {
+  background-image: url('../../images/climanova-about-banner.webp');
 }
