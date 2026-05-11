@@ -56,3 +56,18 @@
     max-width: 22rem;
   }
 }
+
+/* ── Partners section on about page ─────────────────────────────────── */
+.cn-partners-section {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: #fff;
+  border-top: 1px solid rgba(36, 77, 86, 0.08);
+}
+
+.cn-partners-section .cn-text-center-mb {
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.cn-partners-ticker-wrap {
+  margin-top: 0;
+}

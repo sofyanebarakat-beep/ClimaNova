@@ -214,8 +214,7 @@
   width: auto;
   max-width: 140px;
   object-fit: contain;
-  opacity: 0.82;
-  filter: saturate(0.9) contrast(1.0);
+  opacity: 1;
   flex-shrink: 0;
 }
 
