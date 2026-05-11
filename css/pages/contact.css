@@ -250,3 +250,13 @@
     animation-play-state: paused;
   }
 }
+
+/* Remove card box styling from contact info cards */
+.contact-info-card {
+  background: transparent;
+  border-radius: 0;
+  min-height: unset;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
