@@ -13,7 +13,7 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
       <div class="footer-top-content-block">
         <div class="footer-logo-block-wrap">
           <a href="/" class="footer-logo-block w-inline-block">
-            <img loading="lazy" src="__ASSET__/images/climanova-logo-footer.png" alt="ClimaNova Energie" class="footer-logo">
+            <img loading="lazy" src="__ASSET__/images/climanova-logo-footer.svg" alt="ClimaNova Energie" class="footer-logo">
           </a>
           <p class="text-md neutral-9">ClimaNova Energie assure l'installation et l'entretien de vos équipements à Nice et en région PACA — climatisation, électricité, plomberie et chauffage.</p>
         </div>
