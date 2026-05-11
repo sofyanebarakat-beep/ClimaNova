@@ -42,6 +42,143 @@
   background-image: url('../../images/climanova-blog-02.jpg');
 }
 
+/* ── Blog sidebar banner ───────────────────────────────────────────────── */
+
+.cn-blog-sidebar {
+  width: 33%;
+  min-width: 300px;
+  flex-shrink: 0;
+}
+
+.cn-blog-sidebar-banner {
+  position: sticky;
+  top: 100px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(36, 77, 86, 0.1);
+  box-shadow: 0 24px 60px rgba(18, 50, 56, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+}
+
+.cn-blog-sidebar-img-wrap {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cn-blog-sidebar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.cn-blog-sidebar-banner:hover .cn-blog-sidebar-img {
+  transform: scale(1.04);
+}
+
+.cn-blog-sidebar-body {
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.cn-blog-sidebar-tagline {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cn-teal, #0f7f8c);
+  background: rgba(15, 127, 140, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.cn-blog-sidebar-title {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0b1c1e;
+  margin: 0;
+}
+
+.cn-blog-sidebar-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(11, 28, 30, 0.68);
+  margin: 0;
+}
+
+.cn-blog-sidebar-btn {
+  display: inline-block;
+  margin-top: auto;
+  padding: 13px 22px;
+  background: var(--cn-teal, #0f7f8c);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cn-blog-sidebar-btn:hover {
+  background: #0a6672;
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 991px) {
+  .cn-blog-sidebar {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .cn-blog-sidebar-banner {
+    position: static;
+    min-height: unset;
+    flex-direction: row;
+    border-radius: 14px;
+  }
+
+  .cn-blog-sidebar-img-wrap {
+    width: 220px;
+    height: auto;
+    min-height: 200px;
+    flex-shrink: 0;
+  }
+
+  .cn-blog-sidebar-body {
+    padding: 22px 24px;
+    gap: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cn-blog-sidebar-banner {
+    flex-direction: column;
+  }
+
+  .cn-blog-sidebar-img-wrap {
+    width: 100%;
+    height: 200px;
+  }
+
+  .cn-blog-sidebar-body {
+    padding: 20px;
+  }
+}
+
 @media (min-width: 992px) {
   .blog-details-section .cn-blog-cta-banner,
   .blog-page + .blog-more-section .cn-blog-cta-banner {
