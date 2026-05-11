@@ -250,12 +250,80 @@
   }
 }
 
-/* Remove card box styling from contact info cards */
+/* ── Contact info cards ─────────────────────────────────────────────────── */
+
+.contact-info-card-wrapper {
+  padding: 48px 0 24px;
+  gap: 20px;
+}
+
 .contact-info-card {
-  background: transparent;
-  border-radius: 0;
+  background: #f4fafb;
+  border-radius: 16px;
   min-height: unset;
-  padding: 0;
+  padding: 28px 24px 24px;
   border: none;
-  box-shadow: none;
+  border-top: 3px solid #0f7f8c;
+  box-shadow: 0 2px 16px rgba(15, 127, 140, 0.07);
+  gap: 20px;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.contact-info-card:hover {
+  box-shadow: 0 8px 28px rgba(15, 127, 140, 0.13);
+  transform: translateY(-3px);
+}
+
+.cn-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: rgba(15, 127, 140, 0.1);
+  border-radius: 8px;
+  color: #0f7f8c;
+}
+
+.contact-info-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f7f8c;
+  margin-bottom: 4px;
+}
+
+.contact-info-text-wrap {
+  gap: 10px;
+}
+
+.contact-info-text-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  word-break: break-word;
+}
+
+.contact-info-button-wrap .button-link {
+  background: #0f7f8c;
+  color: #fff !important;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.contact-info-button-wrap .button-link:hover {
+  background: #0a6672;
+  color: #fff !important;
+}
+
+.contact-info-button-wrap .button-right-arrow-02 {
+  display: none;
 }
