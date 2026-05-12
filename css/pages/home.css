@@ -288,3 +288,13 @@
   font-weight: var(--_🔠-typography---🔠font-weight--medium);
   letter-spacing: var(--_🔠-typography---letter-spacing--text-sm, 0);
 }
+
+/* ── About section image ───────────────────────────────────────────────────── */
+
+.about-section .about-content-image-01 {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+}
