@@ -75,6 +75,57 @@
       <div class="about-banner-gradient cn-overlay-gradient"></div>
     </section>
 
+    <!-- ── VIDEO ── -->
+    <section class="cn-video-section">
+      <div class="container">
+        <div class="cn-video-card" id="cn-video-card">
+          <video
+            id="cn-hero-video"
+            class="cn-video-player"
+            preload="none"
+            playsinline
+            loop
+            poster="/images/climanova-why-choose.webp"
+          >
+            <source src="/media/69521807c60d68268df9acb4%252F695f7375f77c294d3f857457_Repairly-home-repair-why%20choose%20video_mp4.mp4" type="video/mp4">
+            <source src="/media/69521807c60d68268df9acb4%252F695f7375f77c294d3f857457_Repairly-home-repair-why%20choose%20video_webm.webm" type="video/webm">
+          </video>
+          <div class="cn-video-overlay is-paused" id="cn-video-overlay">
+            <button class="cn-video-btn" id="cn-video-btn" aria-label="Lire la vidéo" type="button">
+              <span class="cn-video-icon" id="cn-video-play-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v14l11-7-11-7z"/></svg>
+              </span>
+              <span class="cn-video-icon" id="cn-video-pause-icon" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var video   = document.getElementById('cn-hero-video');
+          var overlay = document.getElementById('cn-video-overlay');
+          var playIco = document.getElementById('cn-video-play-icon');
+          var pauseIco= document.getElementById('cn-video-pause-icon');
+
+          function setState(playing) {
+            overlay.classList.toggle('is-playing', playing);
+            overlay.classList.toggle('is-paused',  !playing);
+            playIco.hidden  =  playing;
+            pauseIco.hidden = !playing;
+          }
+
+          overlay.addEventListener('click', function () {
+            if (video.paused) { video.play();  setState(true);  }
+            else              { video.pause(); setState(false); }
+          });
+
+          video.addEventListener('ended', function () { setState(false); });
+        })();
+      </script>
+    </section>
+
     <!-- ── 2. MISSION / STORY ── -->
     <section class="trusted-partner-section">
       <div class="container">

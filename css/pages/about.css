@@ -57,6 +57,99 @@
   }
 }
 
+/* ── Video section ──────────────────────────────────────────────────────── */
+
+.cn-video-section {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: linear-gradient(180deg, #fff 0%, #f4fafb 100%);
+}
+
+.cn-video-card {
+  position: relative;
+  width: min(100%, 920px);
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #0b1c1e;
+  box-shadow: 0 28px 80px rgba(15, 127, 140, 0.18), 0 8px 24px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.cn-video-player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cn-video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.35s ease;
+}
+
+.cn-video-overlay.is-paused {
+  background: rgba(6, 20, 24, 0.38);
+}
+
+.cn-video-overlay.is-playing {
+  background: rgba(0, 0, 0, 0);
+}
+
+.cn-video-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  cursor: pointer;
+  color: #0f7f8c;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, background 0.2s ease, opacity 0.3s ease;
+}
+
+.cn-video-btn:hover {
+  transform: scale(1.1);
+  background: #fff;
+}
+
+.cn-video-overlay.is-playing .cn-video-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.88);
+}
+
+.cn-video-overlay.is-playing:hover .cn-video-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.cn-video-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .cn-video-card {
+    border-radius: 16px;
+  }
+
+  .cn-video-btn {
+    width: 60px;
+    height: 60px;
+  }
+}
+
 /* ── Partners section on about page ─────────────────────────────────── */
 .cn-partners-section {
   padding: clamp(56px, 7vw, 96px) 0;
