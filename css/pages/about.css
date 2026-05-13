@@ -76,3 +76,45 @@
 .about-banner-section {
   background-image: url('../../images/climanova-about-banner.webp');
 }
+
+/* ── Team avatar style ───────────────────────────────────────────────────── */
+
+.team-member-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cn-team-avatar-wrap {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 0 auto;
+  border: 3px solid rgba(15, 127, 140, 0.22);
+  box-shadow: 0 0 0 7px rgba(15, 127, 140, 0.07);
+}
+
+.cn-team-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border-radius: 0 !important;
+  display: block;
+}
+
+.cn-team-role {
+  color: rgba(11, 28, 30, 0.58);
+  font-size: 13.5px;
+}
+
+@media screen and (max-width: 767px) {
+  .cn-team-avatar-wrap {
+    width: 110px;
+    height: 110px;
+  }
+}
