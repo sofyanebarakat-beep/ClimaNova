@@ -100,6 +100,40 @@
   display: block;
 }
 
+/* ── Service detail — content images ─────────────────────────────────────── */
+
+.service-details-image-block {
+  align-items: flex-start !important;
+}
+
+.service-details-image-block picture {
+  display: block;
+  width: calc(50% - 12px);
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.service-details-image,
+.service-details-image-02 {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+@media screen and (max-width: 767px) {
+  .service-details-image-block {
+    flex-direction: column !important;
+  }
+
+  .service-details-image-block picture {
+    width: 100%;
+  }
+}
+
 .service-logo-slider {
   width: min(100%, 920px);
   margin: 22px auto 0;
