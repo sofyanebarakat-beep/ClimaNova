@@ -298,3 +298,114 @@
   border-radius: 16px;
   display: block;
 }
+
+/* ── Testimonial card redesign ──────────────────────────────────────────────── */
+
+.testimonial-card.cn-test-card {
+  background: #fff;
+  border: 1px solid rgba(15, 127, 140, 0.1);
+  box-shadow: 0 4px 28px rgba(15, 127, 140, 0.07);
+  position: relative;
+  overflow: hidden;
+  padding: 36px 32px 32px;
+  gap: 20px;
+}
+
+.testimonial-card.cn-test-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0f7f8c, #12c875);
+  border-radius: 20px 20px 0 0;
+}
+
+.cn-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cn-test-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.cn-test-star {
+  color: #f59e0b;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+.cn-test-bigquote {
+  font-size: 72px;
+  line-height: 0.6;
+  color: rgba(15, 127, 140, 0.13);
+  font-family: Georgia, serif;
+  font-weight: 700;
+  user-select: none;
+  margin-top: -6px;
+}
+
+.testimonial-card.cn-test-card .testimonial-description {
+  font-size: 15px;
+  line-height: 1.72;
+  color: rgba(11, 28, 30, 0.7);
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.testimonial-card.cn-test-card .testimonial-client-info {
+  border-top: 1px solid rgba(15, 127, 140, 0.1);
+  padding-top: 20px;
+  margin-top: auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.cn-test-avatar {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  background: rgba(15, 127, 140, 0.08);
+  border: 2px solid rgba(15, 127, 140, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cn-test-favicon-img {
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+}
+
+.testimonial-card.cn-test-card .testimonial-client-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0b1c1e;
+  margin-bottom: 2px;
+}
+
+.testimonial-card.cn-test-card .testimonial-client-info .text-md {
+  font-size: 13px;
+  color: rgba(11, 28, 30, 0.52);
+  font-weight: 400;
+}
+
+@media screen and (max-width: 767px) {
+  .testimonial-card.cn-test-card {
+    padding: 28px 22px 24px;
+  }
+
+  .cn-test-bigquote {
+    font-size: 56px;
+  }
+}
