@@ -96,12 +96,19 @@ function initMobileNav(header) {
 }
 
 function initScrollHeader(header) {
+  const firstSection = document.querySelector("main > section, .main-wrapper > section");
+
   const syncScrollState = () => {
-    header.classList.toggle("is-scrolled", window.scrollY > 24);
+    const reachedSecondSection = firstSection
+      ? firstSection.getBoundingClientRect().bottom <= header.offsetHeight
+      : window.scrollY > 24;
+
+    header.classList.toggle("is-scrolled", reachedSecondSection);
   };
 
   syncScrollState();
   window.addEventListener("scroll", syncScrollState, { passive: true });
+  window.addEventListener("resize", syncScrollState);
 }
 
 export function renderHeader(target) {
