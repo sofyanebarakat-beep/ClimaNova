@@ -2,13 +2,14 @@
 :root{--cn-header-blue:#1664bf;--cn-header-green:#00d61f;--cn-header-cyan:#16cff3;--cn-header-text:#111827;--cn-header-bg:#f5f7fa;--cn-header-border:rgba(22,100,191,.12)}
 .cn-header{position:sticky;top:0;z-index:120;background:#fff;color:var(--cn-header-text);border-bottom:1px solid var(--cn-header-border);backdrop-filter:blur(18px)}
 .cn-header-top{background:#fff}.cn-header-top-inner{min-height:98px;display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:24px;align-items:center}
-.cn-brand{justify-self:start;display:inline-flex;align-items:center;min-width:0}.cn-brand-logo{display:block;width:220px;height:90px;object-fit:contain}
+.cn-brand-cluster{display:flex;align-items:center;gap:18px;min-width:0}.cn-brand{justify-self:start;display:inline-flex;align-items:center;min-width:0}.cn-brand-logo{display:block;width:220px;height:90px;object-fit:contain}
+.cn-service-rotator{display:inline-flex;align-items:center;gap:8px;padding-left:18px;border-left:1px solid rgba(22,100,191,.18);font-size:15px;font-weight:600;color:var(--cn-header-text);white-space:nowrap}.cn-service-rotator strong{display:inline-flex;min-width:168px;padding:8px 12px;border-radius:999px;background:rgba(22,100,191,.08);color:var(--cn-header-blue);font-size:15px;transition:opacity .18s ease,transform .18s ease}.cn-service-rotator strong.is-changing{opacity:0;transform:translateY(-6px)}
 .cn-phone-button,.cn-action-button,.cn-mobile-phone,.cn-mobile-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:999px;font-weight:700;line-height:1;text-decoration:none}
 .cn-phone-button{padding:0 22px;color:#fff!important;background:var(--cn-header-blue);box-shadow:0 12px 28px rgba(22,100,191,.22);transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
 .cn-phone-button:hover{color:#fff!important;background:#1255a8;transform:translateY(-1px);box-shadow:0 16px 32px rgba(22,100,191,.28)}
 .cn-phone-icon{width:20px;height:20px}.cn-phone-icon svg{display:block;width:100%;height:100%}
 .cn-header-actions{justify-self:end;display:flex;gap:12px;align-items:center}.cn-action-button{padding:0 22px;font-size:15px;white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,color .18s ease,background .18s ease}
-.cn-action-button-secondary{color:var(--cn-header-blue)!important;border:1.5px solid var(--cn-header-blue);background:#fff}.cn-action-button-secondary:hover{color:#fff!important;background:var(--cn-header-blue);transform:translateY(-1px)}
+.cn-action-button-secondary{color:#fff!important;border:1.5px solid var(--cn-header-blue);background:var(--cn-header-blue);box-shadow:0 10px 24px rgba(22,100,191,.18)}.cn-action-button-secondary:hover{color:#fff!important;background:#1255a8;transform:translateY(-1px)}
 .cn-action-button-primary{color:#fff!important;background:var(--cn-header-green);box-shadow:0 10px 24px rgba(0,214,31,.2)}.cn-action-button-primary:hover{color:#fff!important;background:linear-gradient(135deg,var(--cn-header-blue) 0%,var(--cn-header-cyan) 42%,var(--cn-header-green) 100%);transform:translateY(-1px);box-shadow:0 14px 30px rgba(0,214,31,.26)}
 .cn-header-nav{border-top:1px solid var(--cn-header-border);background:#fff}.cn-header-nav-inner{min-height:58px;position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px}.cn-scroll-brand{display:none;justify-self:start}.cn-scroll-brand img{display:block;width:148px;height:46px;object-fit:contain}.cn-nav{position:absolute;left:50%;transform:translateX(-50%);flex:0 0 auto}.cn-nav-menu{display:flex;align-items:center;gap:18px}
 .cn-header .nav-menu-item{position:relative}.cn-header .nav-menu-link,.cn-header .cn-services-dropdown-button{display:inline-flex;align-items:center;min-height:58px;padding:0;color:var(--cn-header-text);font-size:15px;font-weight:700;line-height:1;letter-spacing:0;text-decoration:none;transition:color .18s ease}
@@ -33,6 +34,8 @@
   .cn-header:not(.is-scrolled) .cn-social-links-desktop{position:absolute;left:20px;right:auto;justify-self:auto}
 }
 @media screen and (max-width:991px){
+  .cn-brand-cluster{gap:0}
+  .cn-service-rotator{display:none}
   .cn-header-actions{min-width:0}
   .cn-header-actions .cn-phone-button{display:none}
   .cn-header-actions .cn-action-button{display:inline-flex;min-height:42px;padding:0 16px;font-size:14px}

@@ -111,6 +111,23 @@ function initScrollHeader(header) {
   window.addEventListener("resize", syncScrollState);
 }
 
+function initServiceRotator(header) {
+  const target = header.querySelector("[data-service-rotator]");
+  if (!target) return;
+
+  const services = ["Climatisation", "Électricité", "Plomberie", "Chauffage"];
+  let index = 0;
+
+  window.setInterval(() => {
+    target.classList.add("is-changing");
+    window.setTimeout(() => {
+      index = (index + 1) % services.length;
+      target.textContent = services[index];
+      target.classList.remove("is-changing");
+    }, 180);
+  }, 2800);
+}
+
 export function renderHeader(target) {
   target.outerHTML = withAssetUrls(HEADER_TEMPLATE);
   const header = document.querySelector(".cn-header");
@@ -120,6 +137,7 @@ export function renderHeader(target) {
     initServicesDropdown(header);
     initMobileNav(header);
     initScrollHeader(header);
+    initServiceRotator(header);
   }
 }
 
@@ -132,7 +150,7 @@ const socialLinks = `
 const HEADER_TEMPLATE = `
 <header class="cn-header" role="banner">
   <div class="cn-header-top"><div class="container cn-header-top-inner">
-    <a href="/" class="cn-brand" aria-label="ClimaNova Énergie, retour à l'accueil"><img loading="eager" src="__ASSET__/images/climanova-logo-premium.svg" alt="ClimaNova Énergie" class="cn-brand-logo"></a>
+    <div class="cn-brand-cluster"><a href="/" class="cn-brand" aria-label="ClimaNova Énergie, retour à l'accueil"><img loading="eager" src="__ASSET__/images/climanova-logo-premium.svg" alt="ClimaNova Énergie" class="cn-brand-logo"></a><div class="cn-service-rotator" aria-live="polite"><span>Experts en</span><strong data-service-rotator>Climatisation</strong></div></div>
     <div class="cn-header-actions" aria-label="Actions rapides"><a href="tel:+33652238164" class="cn-phone-button" aria-label="Appeler ClimaNova Énergie au +33 6 52 23 81 64"><span class="cn-phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 14.39 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>+33 6 52 23 81 64</span></a><a href="/contact-us/" class="cn-action-button cn-action-button-secondary">Demande de devis</a></div>
   </div></div>
   <div class="cn-header-nav"><div class="container cn-header-nav-inner">
