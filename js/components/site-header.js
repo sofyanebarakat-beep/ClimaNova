@@ -121,7 +121,7 @@ function initServiceRotator(header) {
     { prefix: "Experts en", html: "Chauffage", delay: 2800 },
     { prefix: "Experts en", html: "Plomberie", delay: 2800 },
     { prefix: "Experts en", html: "Électricité", delay: 2800 },
-    { prefix: "", html: '<span class="cn-tagline-blue">Votre confort, notre</span> <span class="cn-tagline-green">énergie</span>', delay: 5200, tagline: true },
+    { prefix: "", html: '<span class="cn-tagline-blue">Votre confort, notre</span>&nbsp;<span class="cn-tagline-green">énergie</span>', delay: 40000, tagline: true },
   ];
   let index = 0;
 
