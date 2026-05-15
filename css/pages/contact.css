@@ -262,7 +262,7 @@
 .cn-ci-card {
   background: #fff;
   border-radius: 20px;
-  border: 1px solid rgba(15, 127, 140, 0.1);
+  border: 1px solid rgba(22, 100, 191, 0.1);
   padding: 32px 28px 28px;
   display: flex !important;
   flex-direction: column;
@@ -280,7 +280,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #0f7f8c, #12c875);
+  background: #1664bf;
   border-radius: 20px 20px 0 0;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -291,9 +291,9 @@
 }
 
 .cn-ci-card:hover {
-  box-shadow: 0 16px 48px rgba(15, 127, 140, 0.13);
+  box-shadow: 0 16px 48px rgba(22, 100, 191, 0.13);
   transform: translateY(-5px);
-  border-color: rgba(15, 127, 140, 0.2);
+  border-color: rgba(22, 100, 191, 0.2);
 }
 
 .cn-ci-top {
@@ -309,14 +309,14 @@
   width: 52px;
   height: 52px;
   min-width: 52px;
-  background: rgba(15, 127, 140, 0.09);
+  background: rgba(22, 100, 191, 0.09);
   border-radius: 14px;
-  color: #0f7f8c;
+  color: #1664bf;
   transition: background 0.3s ease;
 }
 
 .cn-ci-card:hover .cn-ci-icon {
-  background: rgba(15, 127, 140, 0.16);
+  background: rgba(22, 100, 191, 0.16);
 }
 
 .cn-ci-label {
@@ -352,7 +352,7 @@
 }
 
 .cn-ci-value:hover {
-  color: #0f7f8c;
+  color: #1664bf;
 }
 
 .cn-ci-btn {
@@ -361,7 +361,7 @@
   gap: 8px;
   align-self: flex-start;
   padding: 11px 20px;
-  background: #0f7f8c;
+  background: #1664bf;
   color: #fff;
   font-size: 13.5px;
   font-weight: 600;
@@ -371,7 +371,7 @@
 }
 
 .cn-ci-btn:hover {
-  background: #0a6672;
+  background: #1255a8;
   gap: 12px;
 }
 
