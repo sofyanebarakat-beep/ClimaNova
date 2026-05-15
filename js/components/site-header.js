@@ -117,7 +117,7 @@ const HEADER_TEMPLATE = `
   <div class="cn-header-top"><div class="container cn-header-top-inner">
     <a href="/" class="cn-brand" aria-label="ClimaNova Énergie, retour à l'accueil"><img loading="eager" src="__ASSET__/images/climanova-logo-premium.svg" alt="ClimaNova Énergie" class="cn-brand-logo"></a>
     <a href="tel:+33652238164" class="cn-phone-button" aria-label="Appeler ClimaNova Énergie au +33 6 52 23 81 64"><span class="cn-phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 14.39 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>+33 6 52 23 81 64</span></a>
-    <div class="cn-header-actions" aria-label="Actions rapides"><a href="/contact-us/" class="cn-action-button cn-action-button-secondary">Demande de devis</a><a href="/contact-us/" class="cn-action-button cn-action-button-primary">Demande d’intervention</a></div>
+    <div class="cn-header-actions" aria-label="Actions rapides"><a href="/contact-us/" class="cn-action-button cn-action-button-secondary">Demande de devis</a></div>
   </div></div>
   <div class="cn-header-nav"><div class="container cn-header-nav-inner">
     <nav class="nav-wrapper cn-nav" aria-label="Navigation principale"><div class="nav-main-menu cn-nav-menu">
