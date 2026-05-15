@@ -178,7 +178,7 @@ const HEADER_TEMPLATE = `
       <div class="cn-mobile-panel"><a href="tel:+33652238164" class="cn-mobile-phone">Appeler le +33 6 52 23 81 64</a><a href="/contact-us/" class="cn-mobile-action cn-mobile-action-secondary">Demande de devis</a><div class="cn-social-links cn-social-links-mobile" aria-label="Réseaux sociaux">${socialLinks}</div></div>
     </div></nav>
     <div class="cn-social-links cn-social-links-desktop" aria-label="Réseaux sociaux">${socialLinks}</div>
-    <a href="/contact-us/" class="cn-scroll-cta">Demande de devis</a>
+    <a href="/contact-us/" class="cn-scroll-cta"><span class="cn-scroll-cta-full">Demande de devis</span><span class="cn-scroll-cta-short">Devis</span></a>
     <button type="button" class="nav-toggle cn-nav-toggle" aria-controls="site-mobile-menu" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
   </div></div>
 </header>`;
