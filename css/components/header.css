@@ -7,7 +7,7 @@
 .cn-phone-button,.cn-action-button,.cn-mobile-phone,.cn-mobile-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:999px;font-weight:700;line-height:1;text-decoration:none}
 .cn-phone-button{padding:0 22px;color:#fff!important;background:var(--cn-header-blue);box-shadow:0 12px 28px rgba(22,100,191,.22);transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
 .cn-phone-button:hover{color:#fff!important;background:#1255a8;transform:translateY(-1px);box-shadow:0 16px 32px rgba(22,100,191,.28)}
-.cn-phone-icon{width:20px;height:20px}.cn-phone-icon svg{display:block;width:100%;height:100%}
+.cn-phone-icon{display:grid;width:24px;height:24px;place-items:center}.cn-phone-icon svg{display:block;width:100%;height:100%}
 .cn-header-actions{justify-self:end;display:flex;gap:12px;align-items:center}.cn-action-button{padding:0 22px;font-size:15px;white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,color .18s ease,background .18s ease}
 .cn-action-button-secondary{color:#fff!important;border:1.5px solid var(--cn-header-blue);background:var(--cn-header-blue);box-shadow:0 10px 24px rgba(22,100,191,.18)}.cn-action-button-secondary:hover{color:#fff!important;background:#1255a8;transform:translateY(-1px)}
 .cn-action-button-primary{color:#fff!important;background:var(--cn-header-green);box-shadow:0 10px 24px rgba(0,214,31,.2)}.cn-action-button-primary:hover{color:#fff!important;background:linear-gradient(135deg,var(--cn-header-blue) 0%,var(--cn-header-cyan) 42%,var(--cn-header-green) 100%);transform:translateY(-1px);box-shadow:0 14px 30px rgba(0,214,31,.26)}
@@ -51,11 +51,16 @@
   .cn-header.is-scrolled .cn-scroll-brand{display:inline-flex}
   .cn-header.is-scrolled .cn-scroll-cta{display:inline-flex;min-height:40px;padding:0 14px;font-size:14px}
   .cn-nav.is-mobile-open{top:calc(100% + 8px)}
-  .cn-nav-menu.is-mobile-open{gap:4px;padding:10px;border-radius:16px}
+  .cn-nav-menu.is-mobile-open{gap:2px;padding:10px;border-radius:16px}
   .cn-header .nav-menu-link,.cn-header .cn-services-dropdown-button{min-height:42px;padding:0 10px;border-radius:10px}
   .cn-header .nav-menu-link:hover,.cn-header .nav-menu-link.w--current,.cn-header .cn-services-dropdown-button:hover,.cn-header .cn-services-dropdown-button.w--current{background:rgba(22,100,191,.06)}
   .cn-header .nav-menu-link::after,.cn-header .cn-services-dropdown-button::after{left:10px;right:10px}
+  .cn-services-dropdown-list{border:0;gap:0}
+  .cn-services-dropdown.is-open .cn-services-dropdown-list{gap:8px;margin:2px 0 4px;padding:10px 12px;border:1px solid rgba(17,24,39,.08)}
   .cn-mobile-panel{margin-top:8px;padding-top:12px}
+  .cn-mobile-phone{justify-content:flex-start;gap:10px;text-align:left}
+  .cn-mobile-phone-icon{display:grid;width:28px;height:28px;flex:0 0 28px;place-items:center;border-radius:999px;background:rgba(22,100,191,.12)}
+  .cn-mobile-phone-icon svg{width:17px;height:17px}
   .cn-header .cn-services-submenu-link{font-size:16px}
 }
 @media screen and (max-width:380px){
