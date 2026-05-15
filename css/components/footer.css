@@ -25,6 +25,36 @@
   overflow: hidden;
 }
 
+.cn-footer-brand-logo {
+  width: min(260px, 100%);
+  height: auto;
+}
+
+.cn-footer-inline-socials {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.cn-footer-inline-socials a {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #000;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.cn-footer-inline-socials svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
 @media screen and (max-width: 767px) {
   .footer-subscription-widget {
     min-height: 260px;

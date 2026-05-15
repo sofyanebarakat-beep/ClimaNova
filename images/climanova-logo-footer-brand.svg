@@ -1,0 +1,55 @@
+<svg width="520" height="150" viewBox="0 0 520 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .clima {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 82px;
+      font-weight: 700;
+      fill: #FFFFFF;
+    }
+
+    .nova {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 82px;
+      font-weight: 700;
+      fill: #00C93C;
+    }
+
+    .energie {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 34px;
+      font-weight: 500;
+      fill: #1155D8;
+      letter-spacing: 2px;
+      text-anchor: middle;
+    }
+
+    .line-blue {
+      stroke: #1155D8;
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .line-green {
+      stroke: #00C93C;
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+  </style>
+
+  <!-- Centered Logo Group -->
+  <g transform="translate(35,0)">
+    
+    <!-- Main Logo -->
+    <text x="0" y="82">
+      <tspan class="clima">Clima</tspan><tspan class="nova">Nova</tspan>
+    </text>
+
+    <!-- Bottom Decorative Lines -->
+    <line x1="0" y1="115" x2="125" y2="115" class="line-blue"></line>
+    <line x1="330" y1="115" x2="455" y2="115" class="line-green"></line>
+
+    <!-- Centered Energie -->
+    <text x="228" y="125" class="energie">Énergie</text>
+
+  </g>
+</svg>

@@ -30,9 +30,6 @@
 @media screen and (max-width:991px){.cn-header.is-scrolled .cn-scroll-cta{display:none}}
 
 /* Final header refinements */
-@media screen and (min-width:992px){
-  .cn-header:not(.is-scrolled) .cn-social-links-desktop{position:absolute;left:20px;right:auto;justify-self:auto}
-}
 @media screen and (max-width:991px){
   .cn-brand-cluster{gap:0}
   .cn-service-rotator{display:none}
