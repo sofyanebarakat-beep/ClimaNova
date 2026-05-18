@@ -288,23 +288,3 @@
   }
 }
 
-@media (min-width: 992px) {
-  .blog-details-section .cn-blog-cta-banner,
-  .blog-page + .blog-more-section .cn-blog-cta-banner {
-    position: static;
-    flex-direction: row;
-    text-align: left;
-    animation: none;
-    box-shadow: none;
-  }
-
-  .blog-details-section .cn-blog-cta-banner-text,
-  .blog-page + .blog-more-section .cn-blog-cta-banner-text {
-    order: 1;
-  }
-
-  .blog-details-section .cn-blog-cta-banner-btn,
-  .blog-page + .blog-more-section .cn-blog-cta-banner-btn {
-    order: 2;
-  }
-}
