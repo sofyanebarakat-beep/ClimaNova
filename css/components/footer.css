@@ -26,8 +26,9 @@
 }
 
 .cn-footer-brand-logo {
-  width: min(260px, 100%);
-  height: auto;
+  width: auto;
+  height: 52px;
+  max-width: 160px;
 }
 
 .cn-footer-inline-socials {
