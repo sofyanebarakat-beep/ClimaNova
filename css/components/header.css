@@ -68,3 +68,29 @@
   .cn-header-nav-inner,.cn-header.is-scrolled .cn-header-nav-inner{gap:8px}
   .cn-scroll-cta{padding:0 12px}
 }
+
+/* ── Smooth scroll-state transition (desktop only) ───────────────────────── */
+@media screen and (min-width:992px){
+  .cn-header-top{
+    overflow:hidden;
+    max-height:140px;
+    opacity:1;
+    transition:max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.22s ease;
+  }
+  .cn-header.is-scrolled .cn-header-top{
+    display:block !important;
+    max-height:0 !important;
+    opacity:0;
+    pointer-events:none;
+  }
+}
+
+@keyframes cn-hdr-in{
+  from{opacity:0;transform:translateY(-6px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+
+@media screen and (min-width:992px){
+  .cn-header.is-scrolled .cn-scroll-brand{animation:cn-hdr-in 0.26s ease both}
+  .cn-header.is-scrolled .cn-scroll-cta  {animation:cn-hdr-in 0.26s 0.05s ease both}
+}

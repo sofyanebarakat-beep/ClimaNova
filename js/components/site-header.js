@@ -98,9 +98,14 @@ function initMobileNav(header) {
 function initScrollHeader(header) {
   const firstSection = document.querySelector("main > section, .main-wrapper > section");
 
+  // Cache full header height once before any scroll state changes.
+  // Using header.offsetHeight live causes a feedback loop: toggling is-scrolled
+  // shrinks the header, which changes offsetHeight, which flips the condition back.
+  const fullHeaderH = header.offsetHeight;
+
   const syncScrollState = () => {
     const reachedSecondSection = firstSection
-      ? firstSection.getBoundingClientRect().bottom <= header.offsetHeight
+      ? firstSection.getBoundingClientRect().bottom <= fullHeaderH
       : window.scrollY > 24;
 
     header.classList.toggle("is-scrolled", reachedSecondSection);
