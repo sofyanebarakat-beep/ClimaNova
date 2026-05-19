@@ -285,8 +285,10 @@
 
 .blog-section .cn-blog-card-title {
   color: var(--_🎨color-styles---neutral-color--neutral-1, #0b0b0b);
-  font-weight: var(--_🔠-typography---🔠font-weight--medium);
-  letter-spacing: var(--_🔠-typography---letter-spacing--text-sm, 0);
+  font-size: 17px !important;
+  line-height: 1.45 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
 }
 
 /* ── About section image ───────────────────────────────────────────────────── */
@@ -297,6 +299,13 @@
   height: auto;
   border-radius: 16px;
   display: block;
+}
+
+/* ── Testimonial section title ─────────────────────────────────────────────── */
+.testimonial-title-block .content-title {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 /* ── Testimonial card redesign ──────────────────────────────────────────────── */
@@ -351,10 +360,10 @@
 }
 
 .testimonial-card.cn-test-card .testimonial-description {
-  font-size: 15px;
-  line-height: 1.72;
-  color: rgba(11, 28, 30, 0.7);
-  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.68;
+  color: rgba(11, 28, 30, 0.8);
+  font-weight: 600;
   margin-top: 0;
 }
 

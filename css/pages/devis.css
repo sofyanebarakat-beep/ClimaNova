@@ -16,23 +16,21 @@
 /* ── Dashboard iframe ────────────────────────────────────────────────── */
 .dv-form-iframe-section {
   width: 100%;
+  margin: 0;
+  padding: 0;
   background: #fff;
 }
 
 .dv-form-iframe {
   display: block;
   width: 100%;
-  min-height: 900px;
-  height: clamp(900px, 120vh, 1400px);
+  height: 1700px;
   border: none;
 }
 
-/* ── Hero ─────────────────────────────────────────────────────────────── */
+/* ── Hero (hidden — page uses iframe section instead) ─────────────────── */
 .dv-hero {
-  position: relative;
-  padding: clamp(80px,10vw,130px) 0 clamp(60px,8vw,100px);
-  background: linear-gradient(140deg,#eaf4ff 0%,#e6f8f9 45%,#efffef 100%);
-  overflow: hidden;
+  display: none;
 }
 
 .dv-blob {
