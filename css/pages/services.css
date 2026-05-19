@@ -440,3 +440,21 @@
     padding: 16px;
   }
 }
+
+/* ── Service detail sidebar (cn-blog-cta-banner as direct flex child) ── */
+.service-details-content-wrapper > .cn-blog-cta-banner {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 380px;
+  margin-top: 0;
+  position: sticky;
+  top: 100px;
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 991px) {
+  .service-details-content-wrapper > .cn-blog-cta-banner {
+    max-width: 100%;
+    position: static;
+  }
+}
