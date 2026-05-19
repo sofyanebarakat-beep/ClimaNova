@@ -46,7 +46,6 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
  <div class="footer-list-title">Explorer</div>
  <div class="footer-link-list">
  <a href="/about-us" class="footer-link-text">À propos</a>
- <a href="/projects" class="footer-link-text">Réalisations</a>
  <a href="/blog" class="footer-link-text">Blog</a>
  <a href="/faq" class="footer-link-text">FAQ</a>
  <a href="/template-pages/license" class="footer-link-text">Mentions légales</a>

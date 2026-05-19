@@ -13,6 +13,20 @@
   --dv-shadow-card: 0 20px 60px rgba(0,153,204,0.13),0 4px 16px rgba(0,0,0,0.06);
 }
 
+/* ── Dashboard iframe ────────────────────────────────────────────────── */
+.dv-form-iframe-section {
+  width: 100%;
+  background: #fff;
+}
+
+.dv-form-iframe {
+  display: block;
+  width: 100%;
+  min-height: 900px;
+  height: clamp(900px, 120vh, 1400px);
+  border: none;
+}
+
 /* ── Hero ─────────────────────────────────────────────────────────────── */
 .dv-hero {
   position: relative;
