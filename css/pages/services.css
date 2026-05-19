@@ -441,6 +441,33 @@
   }
 }
 
+/* ── Service detail content headings ──────────────────────────────────── */
+.service-details-top-content h2 {
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: #0a1628;
+  margin-top: 40px;
+  margin-bottom: 14px;
+}
+
+.service-details-top-content h3 {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: #0a1628;
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.service-details-top-content h2:first-child,
+.service-details-top-content h3:first-child,
+.service-details-top-content h4:first-child {
+  margin-top: 0;
+}
+
 /* ── Service detail sidebar (cn-blog-cta-banner as direct flex child) ── */
 .service-details-content-wrapper > .cn-blog-cta-banner {
   flex-shrink: 0;
