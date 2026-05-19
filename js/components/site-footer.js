@@ -80,7 +80,7 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
  <path d="M13.2574 19.4936C12.9201 19.8184 12.4693 20 12.0002 20C11.531 20 11.0802 19.8184 10.7429 19.4936C7.6543 16.5008 3.51519 13.1575 5.53371 8.30373C6.6251 5.67932 9.24494 4 12.0002 4C14.7554 4 17.3752 5.67933 18.4666 8.30373C20.4826 13.1514 16.3536 16.5111 13.2574 19.4936Z" stroke="#C6C5C2" stroke-width="1.5"/>
  </svg>
  </div>
- <a href="https://www.google.com/maps/place/218+Route+de+Turin,+06300+Nice" target="_blank" class="footer-link-text">votre région</a>
+ <a href="https://www.google.com/maps/place/218+Route+de+Turin,+06300+Nice" target="_blank" class="footer-link-text">Nice Côte d'Azur</a>
  </div>
  <div class="footer-contact-info-wrap">
  <div class="footer-link-text">SIRET 99131644900016</div>
