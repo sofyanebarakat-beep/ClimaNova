@@ -468,20 +468,38 @@
   margin-top: 0;
 }
 
-/* ── Service detail sidebar (cn-blog-cta-banner as direct flex child) ── */
+/* ── Service detail 2-column layout ───────────────────────────────────── */
+.service-details-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(32px, 5vw, 64px);
+}
+
+.service-details-content-wrapper > .service-details-content-block {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .service-details-content-wrapper > .cn-blog-cta-banner {
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 380px;
+  flex: 0 0 340px;
+  width: 340px;
   margin-top: 0;
   position: sticky;
-  top: 100px;
+  top: 120px;
   align-self: flex-start;
 }
 
 @media screen and (max-width: 991px) {
+  .service-details-content-wrapper {
+    flex-direction: column;
+  }
+  .service-details-content-wrapper > .service-details-content-block {
+    flex: 1 1 auto;
+  }
   .service-details-content-wrapper > .cn-blog-cta-banner {
-    max-width: 100%;
+    flex: 0 0 auto;
+    width: 100%;
     position: static;
   }
 }
