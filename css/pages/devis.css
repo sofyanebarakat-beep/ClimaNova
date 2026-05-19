@@ -14,18 +14,12 @@
 }
 
 /* ── Dashboard iframe ────────────────────────────────────────────────── */
-.dv-form-iframe-section {
-  width: 100%;
-  margin: -28px 0 0;
-  padding: 0;
-  background: #fff;
-}
-
 .dv-form-iframe {
   display: block;
   width: 100%;
   height: 1250px;
   border: none;
+  background: #fff;
 }
 
 /* ── Hero (hidden — page uses iframe section instead) ─────────────────── */
