@@ -468,7 +468,50 @@
   margin-top: 0;
 }
 
-/* ── Service detail 2-column layout ───────────────────────────────────── */
+/* ── Full-width CTA banner (between carousel/image and article content) ── */
+.cn-blog-cta-banner--full {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  flex-wrap: wrap;
+  margin-top: clamp(24px, 3vw, 36px);
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+
+.cn-blog-cta-banner--full .cn-blog-cta-title {
+  font-size: clamp(18px, 2vw, 22px);
+  white-space: nowrap;
+}
+
+.cn-blog-cta-banner--full .cn-blog-cta-banner-text {
+  flex: 1 1 200px;
+  margin: 0;
+}
+
+.cn-blog-cta-banner--full .cn-blog-cta-list {
+  flex: 1 1 180px;
+  margin: 0;
+}
+
+.cn-blog-cta-banner--full .cn-blog-cta-banner-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cn-blog-cta-banner--full .cn-blog-cta-note {
+  width: 100%;
+  margin-top: -6px;
+}
+
+@media screen and (max-width: 767px) {
+  .cn-blog-cta-banner--full {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ── Service detail single-column article layout ──────────────────────── */
 .service-details-content-wrapper {
   display: flex;
   flex-direction: row;
