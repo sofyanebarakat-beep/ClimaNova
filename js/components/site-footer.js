@@ -49,7 +49,7 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
  <a href="/blog" class="footer-link-text">Blog</a>
  <a href="/faq" class="footer-link-text">FAQ</a>
  <a href="/template-pages/license" class="footer-link-text">Mentions légales</a>
- <a href="/contact-us" class="footer-link-text">Nous contacter</a>
+ <a href="/demande-devis/" class="footer-link-text">Nous contacter</a>
  </div>
  </div>
  <div class="footer-link-column">
