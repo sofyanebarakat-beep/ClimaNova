@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>ClimaNova Énergie — Liens & Contact</title>
-<meta name="description" content="ClimaNova Énergie — Climatisation, Chauffage, Plomberie & Électricité à Nice, Côte d'Azur. Demandez un devis gratuit.">
+<title>ClimaNova Énergie — Devis & Contact</title>
+<meta name="description" content="ClimaNova Énergie — Climatisation, Chauffage, Plomberie & Électricité. Certifié RGE. Demandez un devis gratuit.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta property="og:title" content="ClimaNova Énergie — Liens & Contact">
-<meta property="og:description" content="Solutions énergétiques intelligentes pour un avenir durable.">
+<meta property="og:title" content="ClimaNova Énergie — Devis & Contact">
+<meta property="og:description" content="Solutions énergétiques intelligentes pour un avenir durable. Devis gratuit & sans engagement.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://climanova-energie.fr/link/">
 <meta property="og:image" content="https://climanova-energie.fr/images/climanova-logo-premium.svg">
@@ -18,590 +18,731 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ── Reset & base ─────────────────────────────────────────── */
+/* ─── Reset ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --blue: #1664bf;
-  --blue-dark: #1050a0;
-  --green: #00c853;
-  --green-dark: #00a844;
-  --cyan: #16cff3;
-  --text: #0d1b2a;
-  --text-muted: #5a6a7a;
-  --card-bg: rgba(255,255,255,0.92);
-  --btn-primary: #0d1b2a;
-  --btn-primary-hover: #1a2d42;
-  --btn-accent: #1664bf;
-  --btn-accent-hover: #1050a0;
-  --btn-green: #059669;
-  --btn-green-hover: #047857;
-  --btn-wa: #25d366;
-  --btn-wa-hover: #1db954;
-  --radius: 18px;
-  --shadow-card: 0 32px 80px rgba(13,27,42,0.18), 0 8px 24px rgba(13,27,42,0.08);
-  --shadow-btn: 0 8px 24px rgba(13,27,42,0.14);
-  --shadow-btn-hover: 0 14px 36px rgba(13,27,42,0.22);
-  --transition: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  --blue:        #1664bf;
+  --blue-mid:    #1a72d2;
+  --blue-light:  #2e8bec;
+  --green:       #10b981;
+  --green-dark:  #047857;
+  --wa:          #25d366;
+  --wa-dark:     #1aaa4a;
+  --text:        #0d1b2a;
+  --text-soft:   #3d5166;
+  --text-muted:  #6b7f95;
+  --card-bg:     rgba(255,255,255,0.94);
+  --border:      rgba(22,100,191,0.12);
+  --radius-lg:   22px;
+  --radius-md:   16px;
+  --radius-sm:   12px;
+  --ease:        cubic-bezier(0.22, 1, 0.36, 1);
+  --t:           0.26s;
 }
 
 [data-theme="dark"] {
-  --text: #f0f4f8;
-  --text-muted: #8fa4bc;
-  --card-bg: rgba(15,25,40,0.92);
-  --btn-primary: #1a2d42;
-  --btn-primary-hover: #243d58;
+  --text:       #edf2f7;
+  --text-soft:  #94afc8;
+  --text-muted: #637d96;
+  --card-bg:    rgba(11,20,34,0.95);
+  --border:     rgba(255,255,255,0.08);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Instrument Sans', system-ui, sans-serif;
   min-height: 100dvh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 24px 16px 40px;
-  background: #0a0f1e;
+  padding: 20px 14px 44px;
+  background: #060d1a;
+  -webkit-font-smoothing: antialiased;
   position: relative;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Animated gradient background ────────────────────────── */
-.bg-gradient {
+/* ─── Background ─────────────────────────────────────────── */
+.bg {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(135deg,
-    #061a3a 0%,
-    #0d2d52 20%,
-    #0a3d2e 45%,
-    #0d2d52 70%,
-    #061a3a 100%
-  );
-  background-size: 400% 400%;
-  animation: gradientShift 14s ease infinite;
+  background: linear-gradient(160deg, #050e20 0%, #091c38 35%, #07301f 65%, #050e20 100%);
+  background-size: 300% 300%;
+  animation: bgShift 16s ease infinite;
+}
+@keyframes bgShift {
+  0%,100% { background-position: 0% 0%; }
+  50%      { background-position: 100% 100%; }
 }
 
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating blobs */
-.bg-blob {
+.blob {
   position: fixed;
   border-radius: 50%;
-  filter: blur(72px);
-  opacity: 0.28;
+  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
-  animation: blobFloat 10s ease-in-out infinite;
 }
-.bg-blob--1 {
-  width: 420px; height: 420px;
-  background: radial-gradient(circle, #1664bf, transparent);
-  top: -80px; left: -100px;
-  animation-delay: 0s;
-}
-.bg-blob--2 {
-  width: 360px; height: 360px;
-  background: radial-gradient(circle, #00c853, transparent);
-  bottom: -60px; right: -80px;
-  animation-delay: -5s;
-}
-.bg-blob--3 {
-  width: 280px; height: 280px;
-  background: radial-gradient(circle, #16cff3, transparent);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation-delay: -2.5s;
-}
+.blob-1 { width:500px;height:500px;background:radial-gradient(circle,rgba(22,100,191,.32),transparent);top:-120px;left:-140px;animation:b1 12s ease-in-out infinite; }
+.blob-2 { width:400px;height:400px;background:radial-gradient(circle,rgba(16,185,129,.28),transparent);bottom:-80px;right:-100px;animation:b1 12s ease-in-out infinite;animation-delay:-6s; }
+.blob-3 { width:300px;height:300px;background:radial-gradient(circle,rgba(22,207,243,.2),transparent);top:45%;left:50%;transform:translate(-50%,-50%);animation:b3 10s ease-in-out infinite;animation-delay:-3s; }
+@keyframes b1 { 0%,100%{transform:translateY(0)}50%{transform:translateY(-28px)} }
+@keyframes b3 { 0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-53%) scale(1.07)} }
 
-@keyframes blobFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%       { transform: translateY(-30px) scale(1.06); }
-}
-.bg-blob--3 {
-  animation: blobFloat3 10s ease-in-out infinite;
-  animation-delay: -2.5s;
-}
-@keyframes blobFloat3 {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50%       { transform: translate(-50%, calc(-50% - 20px)) scale(1.06); }
-}
-
-/* ── Card ─────────────────────────────────────────────────── */
+/* ─── Card ───────────────────────────────────────────────── */
 .card {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 440px;
+  max-width: 430px;
   background: var(--card-bg);
-  backdrop-filter: blur(28px) saturate(1.6);
-  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  backdrop-filter: blur(32px) saturate(1.8);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8);
   border-radius: 28px;
-  border: 1px solid rgba(255,255,255,0.22);
-  box-shadow: var(--shadow-card);
-  padding: 40px 28px 36px;
-  animation: cardFloat 7s ease-in-out infinite;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 40px 100px rgba(5,14,32,.28), 0 8px 28px rgba(5,14,32,.14);
+  overflow: hidden;
+  animation: cardRise 0.7s var(--ease) both;
+}
+@keyframes cardRise {
+  from { opacity:0; transform:translateY(28px) scale(.97); }
+  to   { opacity:1; transform:translateY(0)    scale(1); }
 }
 
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
+/* ─── Card top accent bar ────────────────────────────────── */
+.card-accent {
+  height: 4px;
+  background: linear-gradient(90deg, #1664bf, #16cff3, #10b981);
+  background-size: 200% 100%;
+  animation: accentSlide 4s linear infinite;
+}
+@keyframes accentSlide {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
 }
 
-/* ── Dark mode toggle ─────────────────────────────────────── */
+/* ─── Card inner ─────────────────────────────────────────── */
+.card-inner { padding: 28px 24px 32px; }
+
+/* ─── Dark toggle ────────────────────────────────────────── */
 .dark-toggle {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 38px;
-  height: 38px;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
   border-radius: 50%;
-  border: 1.5px solid rgba(22,100,191,0.2);
+  border: 1.5px solid var(--border);
   background: rgba(22,100,191,0.06);
   cursor: pointer;
   display: grid;
   place-items: center;
-  font-size: 16px;
-  transition: background var(--transition), border-color var(--transition);
-  color: var(--text);
+  font-size: 15px;
   line-height: 1;
+  transition: background var(--t) var(--ease), border-color var(--t) var(--ease);
+  z-index: 2;
 }
-.dark-toggle:hover {
-  background: rgba(22,100,191,0.14);
-  border-color: rgba(22,100,191,0.4);
-}
+.dark-toggle:hover { background: rgba(22,100,191,0.14); border-color: rgba(22,100,191,.35); }
 
-/* ── Profile ──────────────────────────────────────────────── */
+/* ─── Profile ────────────────────────────────────────────── */
 .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 32px;
+  padding-top: 4px;
+  margin-bottom: 22px;
 }
 
-.logo-wrap {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: #fff;
-  border: 3px solid rgba(22,100,191,0.14);
-  box-shadow: 0 8px 28px rgba(22,100,191,0.18), 0 2px 8px rgba(0,0,0,0.08);
-  display: grid;
-  place-items: center;
-  margin-bottom: 18px;
-  overflow: hidden;
+.logo-ring {
+  position: relative;
+  width: 90px; height: 90px;
+  margin-bottom: 16px;
   flex-shrink: 0;
 }
-.logo-wrap img {
-  width: 76px;
-  height: 76px;
+.logo-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(#1664bf, #16cff3, #10b981, #1664bf);
+  animation: spin 5s linear infinite;
+  opacity: 0.7;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.logo-ring::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: var(--card-bg);
+}
+.logo-circle {
+  position: relative;
+  z-index: 1;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.logo-circle img {
+  width: 68px; height: 68px;
   object-fit: contain;
 }
 
 .profile-name {
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   color: var(--text);
   line-height: 1.15;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .profile-tagline {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
-  line-height: 1.5;
-  max-width: 280px;
+  line-height: 1.55;
+  max-width: 260px;
 }
 
-/* ── Badges ───────────────────────────────────────────────── */
+/* ─── Trust badges ───────────────────────────────────────── */
 .badges {
   display: flex;
-  gap: 8px;
+  gap: 7px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 11px;
+  gap: 4px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 5px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
   border: 1.5px solid;
 }
-.badge--rge {
-  color: #1664bf;
-  border-color: rgba(22,100,191,0.25);
-  background: rgba(22,100,191,0.07);
-}
-.badge--certified {
-  color: #059669;
-  border-color: rgba(5,150,105,0.25);
-  background: rgba(5,150,105,0.07);
-}
+.badge-blue  { color:#1664bf; border-color:rgba(22,100,191,.22); background:rgba(22,100,191,.07); }
+.badge-green { color:#059669; border-color:rgba(5,150,105,.22);  background:rgba(5,150,105,.07); }
 
-/* ── Divider ──────────────────────────────────────────────── */
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(22,100,191,0.15), transparent);
-  margin: 24px 0;
+/* ─── Stats strip ────────────────────────────────────────── */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 20px 0 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
-
-/* ── Buttons ──────────────────────────────────────────────── */
-.links {
+.stat {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 100%;
+  align-items: center;
+  padding: 10px 6px;
+  gap: 2px;
+}
+.stat + .stat { border-left: 1px solid var(--border); }
+.stat-value {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+  line-height: 1.3;
 }
 
-.link-btn {
+/* ─── Service icons row ──────────────────────────────────── */
+.services-strip {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.svc-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: rgba(22,100,191,0.06);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.svc-chip svg { width: 12px; height: 12px; color: var(--blue); }
+
+/* ─── Divider ────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+  margin: 22px 0;
+}
+
+/* ─── PRIMARY CTA ────────────────────────────────────────── */
+.cta-primary-wrap {
+  margin-bottom: 14px;
+}
+
+.cta-primary {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 11px;
+  gap: 10px;
   width: 100%;
-  min-height: 58px;
-  padding: 14px 22px;
-  border-radius: var(--radius);
+  min-height: 68px;
+  padding: 14px 20px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #1b74d6 0%, #0f4fae 50%, #0a3a82 100%);
+  background-size: 200% 200%;
+  color: #fff;
   font-family: inherit;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 16.5px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   text-decoration: none;
   border: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-  box-shadow: var(--shadow-btn);
+  animation: ctaGlow 3s ease-in-out infinite;
+  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), filter var(--t) var(--ease);
+  box-shadow: 0 6px 28px rgba(22,100,191,.5), 0 2px 8px rgba(22,100,191,.3);
   -webkit-tap-highlight-color: transparent;
 }
-
-/* Ripple */
-.link-btn::after {
+@keyframes ctaGlow {
+  0%,100% { box-shadow: 0 6px 28px rgba(22,100,191,.5), 0 2px 8px rgba(22,100,191,.3); }
+  50%      { box-shadow: 0 8px 38px rgba(22,100,191,.7), 0 2px 12px rgba(22,100,191,.4); }
+}
+.cta-primary::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0; left: -80%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.22), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+.cta-primary:hover::before { left: 130%; }
+.cta-primary:hover {
+  transform: translateY(-3px) scale(1.015);
+  filter: brightness(1.08);
+}
+.cta-primary:active { transform: scale(0.97) !important; filter: brightness(.96) !important; }
+
+.cta-primary-icon {
+  width: 40px; height: 40px;
+  border-radius: 11px;
   background: rgba(255,255,255,0.18);
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.22s ease;
-}
-.link-btn:hover::after { opacity: 1; }
-.link-btn:active { transform: scale(0.97) !important; }
-
-.link-btn:hover {
-  transform: translateY(-2px) scale(1.012);
-  box-shadow: var(--shadow-btn-hover);
-}
-
-.link-btn .btn-icon {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
+  transition: background var(--t) var(--ease);
 }
-.link-btn .btn-icon svg {
+.cta-primary:hover .cta-primary-icon { background: rgba(255,255,255,.28); }
+.cta-primary-icon svg { width: 20px; height: 20px; }
+
+.cta-primary-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+.cta-primary-title { font-size: 16px; font-weight: 800; line-height: 1.1; }
+.cta-primary-sub   { font-size: 11px; font-weight: 500; opacity: 0.78; }
+
+.cta-primary-arrow {
+  margin-left: auto;
+  opacity: 0.7;
+  transition: transform var(--t) var(--ease), opacity var(--t) var(--ease);
+}
+.cta-primary-arrow svg { width: 20px; height: 20px; }
+.cta-primary:hover .cta-primary-arrow { transform: translateX(4px); opacity: 1; }
+
+/* ─── Secondary buttons ──────────────────────────────────── */
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
-  height: 100%;
 }
 
-/* Primary — dark */
-.link-btn--primary {
-  background: var(--btn-primary);
-  color: #fff;
+.link-btn {
+  display: grid;
+  grid-template-columns: 42px 1fr 24px;
+  align-items: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 9px 13px 9px 9px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), filter var(--t) var(--ease);
+  box-shadow: 0 4px 16px rgba(5,14,32,.12);
+  -webkit-tap-highlight-color: transparent;
 }
-.link-btn--primary:hover { background: var(--btn-primary-hover); color: #fff; }
-
-/* Accent — blue */
-.link-btn--blue {
-  background: var(--btn-accent);
-  color: #fff;
+.link-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.16), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
 }
-.link-btn--blue:hover { background: var(--btn-accent-hover); color: #fff; }
-
-/* Green */
-.link-btn--green {
-  background: var(--btn-green);
-  color: #fff;
+.link-btn:hover::before { left: 130%; }
+.link-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 28px rgba(5,14,32,.18);
+  filter: brightness(1.05);
 }
-.link-btn--green:hover { background: var(--btn-green-hover); color: #fff; }
+.link-btn:active { transform: scale(0.97) !important; filter: brightness(.95) !important; }
 
-/* WhatsApp */
-.link-btn--whatsapp {
-  background: var(--btn-wa);
-  color: #fff;
+.btn-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.16);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: background var(--t) var(--ease);
 }
-.link-btn--whatsapp:hover { background: var(--btn-wa-hover); color: #fff; }
+.link-btn:hover .btn-icon { background: rgba(255,255,255,.24); }
+.btn-icon svg { width: 18px; height: 18px; }
 
-/* Outline */
-.link-btn--outline {
+.btn-label { text-align: center; line-height: 1.2; }
+
+.btn-arr {
+  display: grid;
+  place-items: center;
+  opacity: 0.5;
+  transition: transform var(--t) var(--ease), opacity var(--t) var(--ease);
+}
+.btn-arr svg { width: 15px; height: 15px; }
+.link-btn:hover .btn-arr { transform: translateX(3px); opacity: .85; }
+
+/* Variants */
+.btn-green    { background: linear-gradient(135deg, #12c98a 0%, #047857 100%); color: #fff; }
+.btn-whatsapp { background: linear-gradient(135deg, #3bdc73 0%, #18a845 100%); color: #fff; }
+.btn-dark     { background: linear-gradient(135deg, #1c3050 0%, #0d1b2a 100%); color: #fff; }
+.btn-outline  {
   background: transparent;
   color: var(--text);
-  border: 2px solid rgba(22,100,191,0.22);
+  border: 1.5px solid var(--border);
   box-shadow: none;
+  filter: none !important;
 }
-.link-btn--outline:hover {
-  background: rgba(22,100,191,0.06);
-  border-color: rgba(22,100,191,0.4);
-  box-shadow: none;
+.btn-outline .btn-icon { background: rgba(22,100,191,.08); }
+.btn-outline .btn-arr  { color: var(--text-muted); }
+.btn-outline:hover {
+  background: rgba(22,100,191,.05);
+  border-color: rgba(22,100,191,.28);
+  box-shadow: none !important;
+  transform: translateY(-1px) !important;
 }
+.btn-outline:hover .btn-icon { background: rgba(22,100,191,.13); }
 
-/* ── Social row ───────────────────────────────────────────── */
+[data-theme="dark"] .btn-outline { border-color: rgba(255,255,255,.12); }
+[data-theme="dark"] .btn-outline:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
+
+/* ─── Social row ─────────────────────────────────────────── */
 .social-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-top: 28px;
+  gap: 10px;
+  margin-top: 24px;
 }
-.social-icon {
-  width: 44px;
-  height: 44px;
+.soc-btn {
+  width: 44px; height: 44px;
   border-radius: 50%;
-  border: 1.5px solid rgba(22,100,191,0.18);
-  background: rgba(22,100,191,0.06);
+  border: 1.5px solid var(--border);
+  background: rgba(22,100,191,.05);
   display: grid;
   place-items: center;
   color: var(--text-muted);
   text-decoration: none;
-  transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+  transition: background var(--t) var(--ease), border-color var(--t) var(--ease), color var(--t) var(--ease), transform var(--t) var(--ease);
 }
-.social-icon:hover {
-  background: rgba(22,100,191,0.14);
-  border-color: rgba(22,100,191,0.4);
+.soc-btn:hover {
+  background: rgba(22,100,191,.12);
+  border-color: rgba(22,100,191,.35);
   color: var(--blue);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
-.social-icon svg { width: 18px; height: 18px; }
+.soc-btn svg { width: 18px; height: 18px; }
 
-/* ── Footer ───────────────────────────────────────────────── */
+/* ─── Footer ─────────────────────────────────────────────── */
 .card-footer {
-  margin-top: 28px;
+  margin-top: 24px;
   text-align: center;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
 }
-.card-footer a {
-  color: var(--blue);
-  text-decoration: none;
-  font-weight: 600;
-}
+.card-footer a { color: var(--blue); text-decoration: none; font-weight: 600; }
 .card-footer a:hover { text-decoration: underline; }
 
-/* ── Dark mode overrides ──────────────────────────────────── */
-[data-theme="dark"] .card {
-  border-color: rgba(255,255,255,0.09);
-}
-[data-theme="dark"] .logo-wrap {
-  background: #111e30;
-  border-color: rgba(22,100,191,0.25);
-}
-[data-theme="dark"] .link-btn--outline {
-  color: var(--text);
-  border-color: rgba(255,255,255,0.15);
-}
-[data-theme="dark"] .link-btn--outline:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.3);
-}
-
-/* ── Mobile refinements ───────────────────────────────────── */
-@media (max-width: 400px) {
-  body { padding: 12px 10px 32px; }
-  .card { padding: 32px 18px 28px; border-radius: 22px; }
-  .profile-name { font-size: 20px; }
-  .link-btn { font-size: 14px; min-height: 54px; }
-}
-
-/* ── Ripple click effect ──────────────────────────────────── */
-.ripple-ring {
+/* ─── Ripple ─────────────────────────────────────────────── */
+.ripple {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,.3);
   transform: scale(0);
-  animation: ripple 0.55s linear;
+  animation: ripple .55s linear;
   pointer-events: none;
 }
-@keyframes ripple {
-  to { transform: scale(4); opacity: 0; }
+@keyframes ripple { to { transform: scale(4.5); opacity: 0; } }
+
+/* ─── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 390px) {
+  body { padding: 10px 10px 36px; }
+  .card-inner { padding: 22px 18px 26px; }
+  .profile-name { font-size: 19px; }
+  .cta-primary { min-height: 62px; font-size: 15px; }
+  .cta-primary-title { font-size: 14.5px; }
+  .link-btn { font-size: 13.5px; min-height: 54px; }
+  .stats { margin-top: 16px; }
+  .services-strip { flex-wrap: wrap; }
 }
 </style>
 </head>
 <body>
 
-<div class="bg-gradient" aria-hidden="true"></div>
-<div class="bg-blob bg-blob--1" aria-hidden="true"></div>
-<div class="bg-blob bg-blob--2" aria-hidden="true"></div>
-<div class="bg-blob bg-blob--3" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"></div>
+<div class="blob blob-1" aria-hidden="true"></div>
+<div class="blob blob-2" aria-hidden="true"></div>
+<div class="blob blob-3" aria-hidden="true"></div>
 
 <div class="card" role="main">
 
-  <!-- Dark mode toggle -->
-  <button class="dark-toggle" id="darkToggle" aria-label="Basculer le mode sombre" title="Mode sombre">
+  <div class="card-accent" aria-hidden="true"></div>
+
+  <button class="dark-toggle" id="darkToggle" aria-label="Basculer mode sombre">
     <span id="darkIcon">🌙</span>
   </button>
 
-  <!-- Profile -->
-  <div class="profile">
-    <div class="logo-wrap">
-      <img src="/images/climanova-logo-premium.svg" alt="ClimaNova Énergie logo" width="76" height="76" loading="eager">
+  <div class="card-inner">
+
+    <!-- Profile -->
+    <div class="profile">
+      <div class="logo-ring" aria-hidden="true">
+        <div class="logo-circle">
+          <img src="/images/climanova-logo-premium.svg" alt="ClimaNova Énergie" width="68" height="68" loading="eager">
+        </div>
+      </div>
+      <h1 class="profile-name">ClimaNova Énergie</h1>
+      <p class="profile-tagline">Solutions énergétiques intelligentes<br>pour un avenir durable</p>
+      <div class="badges">
+        <span class="badge badge-blue">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Certifié RGE
+        </span>
+        <span class="badge badge-green">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Intervention rapide
+        </span>
+      </div>
     </div>
-    <h1 class="profile-name">ClimaNova Énergie</h1>
-    <p class="profile-tagline">Solutions énergétiques intelligentes<br>pour un avenir durable</p>
-    <div class="badges">
-      <span class="badge badge--rge">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Certifié RGE
+
+    <!-- Stats -->
+    <div class="stats" aria-label="Chiffres clés">
+      <div class="stat">
+        <span class="stat-value">200+</span>
+        <span class="stat-label">Clients<br>satisfaits</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">RGE</span>
+        <span class="stat-label">Certifié<br>qualité</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">6j/7</span>
+        <span class="stat-label">Disponible<br>pour vous</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">5★</span>
+        <span class="stat-label">Avis<br>clients</span>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="services-strip" aria-label="Nos domaines">
+      <span class="svc-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        Climatisation
       </span>
-      <span class="badge badge--certified">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Nice, Côte d'Azur
+      <span class="svc-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Chauffage
+      </span>
+      <span class="svc-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66 4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24"/></svg>
+        Électricité
+      </span>
+      <span class="svc-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12c0-2.76 1.12-5.26 2.93-7.07"/><path d="M12 8v4l3 3"/></svg>
+        Plomberie
       </span>
     </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── PRIMARY CTA ── -->
+    <div class="cta-primary-wrap">
+      <a href="/demande-devis/" class="cta-primary" aria-label="Demander un devis gratuit">
+        <span class="cta-primary-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </span>
+        <span class="cta-primary-text">
+          <span class="cta-primary-title">Demander un devis gratuit</span>
+          <span class="cta-primary-sub">Sans engagement · Réponse sous 24h</span>
+        </span>
+        <span class="cta-primary-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <!-- Secondary links -->
+    <nav class="links" aria-label="Liens ClimaNova Énergie">
+
+      <a href="https://wa.me/33652238164?text=Bonjour%20ClimaNova%20%C3%89nergie%2C%20je%20souhaite%20un%20devis." class="link-btn btn-whatsapp" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+          </svg>
+        </span>
+        <span class="btn-label">WhatsApp</span>
+        <span class="btn-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+
+      <a href="/services/renovation-energetique/" class="link-btn btn-green" aria-label="Étude énergétique gratuite">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </span>
+        <span class="btn-label">Étude énergétique gratuite</span>
+        <span class="btn-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+
+      <a href="/services/" class="link-btn btn-dark" aria-label="Voir nos services">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        <span class="btn-label">Nos services</span>
+        <span class="btn-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+
+      <a href="/blog/" class="link-btn btn-dark" aria-label="Conseils & Blog">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </span>
+        <span class="btn-label">Conseils & Blog</span>
+        <span class="btn-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+
+      <a href="/" class="link-btn btn-outline" aria-label="Visiter le site web">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </span>
+        <span class="btn-label">Visiter le site web</span>
+        <span class="btn-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+
+    </nav>
+
+    <!-- Social -->
+    <div class="social-row" aria-label="Réseaux sociaux">
+      <a href="https://www.facebook.com/profile.php?id=61589614010567" target="_blank" rel="noopener" class="soc-btn" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/climanova.energie/" target="_blank" rel="noopener" class="soc-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
+      <a href="https://www.tiktok.com/@climanova.energie" target="_blank" rel="noopener" class="soc-btn" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/></svg>
+      </a>
+      <a href="tel:+33652238164" class="soc-btn" aria-label="Appeler">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.91-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="card-footer">
+      <p>© 2026 <a href="/">ClimaNova Énergie</a> — Tous droits réservés</p>
+      <p><a href="tel:+33652238164">+33 6 52 23 81 64</a></p>
+    </footer>
+
   </div>
-
-  <div class="divider" aria-hidden="true"></div>
-
-  <!-- Links -->
-  <nav class="links" aria-label="Liens ClimaNova Énergie">
-
-    <a href="/demande-devis/" class="link-btn link-btn--blue" aria-label="Demander un devis gratuit">
-      <span class="btn-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-        </svg>
-      </span>
-      Demander un devis gratuit
-    </a>
-
-    <a href="/services/renovation-energetique/" class="link-btn link-btn--green" aria-label="Étude énergétique gratuite">
-      <span class="btn-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </span>
-      Étude énergétique gratuite
-    </a>
-
-    <a href="https://wa.me/33652238164?text=Bonjour%20ClimaNova%20%C3%89nergie%2C%20je%20souhaite%20un%20devis." class="link-btn link-btn--whatsapp" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
-      <span class="btn-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-        </svg>
-      </span>
-      Contact WhatsApp
-    </a>
-
-    <a href="/services/" class="link-btn link-btn--primary" aria-label="Voir nos services">
-      <span class="btn-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-        </svg>
-      </span>
-      Nos services
-    </a>
-
-    <a href="/blog/" class="link-btn link-btn--primary" aria-label="Lire notre blog">
-      <span class="btn-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-      </span>
-      Conseils & Blog
-    </a>
-
-    <a href="/" class="link-btn link-btn--outline" aria-label="Visiter le site web ClimaNova Énergie">
-      <span class="btn-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-        </svg>
-      </span>
-      Visiter le site web
-    </a>
-
-  </nav>
-
-  <!-- Social -->
-  <div class="social-row" aria-label="Réseaux sociaux">
-    <a href="https://www.facebook.com/profile.php?id=61589614010567" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook ClimaNova Énergie">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/climanova.energie/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram ClimaNova Énergie">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-      </svg>
-    </a>
-    <a href="https://www.tiktok.com/@climanova.energie" target="_blank" rel="noopener" class="social-icon" aria-label="TikTok ClimaNova Énergie">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/>
-      </svg>
-    </a>
-    <a href="tel:+33652238164" class="social-icon" aria-label="Appeler ClimaNova Énergie">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.91-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-      </svg>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer class="card-footer">
-    <p>© 2026 <a href="/">ClimaNova Énergie</a> — Tous droits réservés</p>
-    <p style="margin-top:4px;">Nice, Côte d'Azur · <a href="tel:+33652238164">+33 6 52 23 81 64</a></p>
-  </footer>
-
 </div>
 
 <script>
-// Dark mode toggle
+// Dark mode
 const toggle = document.getElementById('darkToggle');
 const icon   = document.getElementById('darkIcon');
 const root   = document.documentElement;
-
-const saved = localStorage.getItem('cn-theme');
-if (saved === 'dark') { root.dataset.theme = 'dark'; icon.textContent = '☀️'; }
-
+if (localStorage.getItem('cn-theme') === 'dark') { root.dataset.theme = 'dark'; icon.textContent = '☀️'; }
 toggle.addEventListener('click', () => {
-  const isDark = root.dataset.theme === 'dark';
-  root.dataset.theme = isDark ? '' : 'dark';
-  icon.textContent   = isDark ? '🌙' : '☀️';
-  localStorage.setItem('cn-theme', isDark ? 'light' : 'dark');
+  const dark = root.dataset.theme === 'dark';
+  root.dataset.theme = dark ? '' : 'dark';
+  icon.textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('cn-theme', dark ? 'light' : 'dark');
 });
 
-// Click ripple effect on buttons
-document.querySelectorAll('.link-btn').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    const rect   = btn.getBoundingClientRect();
-    const size   = Math.max(rect.width, rect.height);
-    const x      = e.clientX - rect.left - size / 2;
-    const y      = e.clientY - rect.top  - size / 2;
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple-ring';
-    Object.assign(ripple.style, {
-      width: size + 'px', height: size + 'px',
-      left: x + 'px', top: y + 'px'
+// Ripple on all buttons
+document.querySelectorAll('.link-btn, .cta-primary').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const r = btn.getBoundingClientRect();
+    const s = Math.max(r.width, r.height);
+    const el = document.createElement('span');
+    el.className = 'ripple';
+    Object.assign(el.style, {
+      width: s+'px', height: s+'px',
+      left: (e.clientX - r.left - s/2)+'px',
+      top:  (e.clientY - r.top  - s/2)+'px'
     });
-    btn.appendChild(ripple);
-    ripple.addEventListener('animationend', () => ripple.remove());
+    btn.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
   });
 });
 </script>
