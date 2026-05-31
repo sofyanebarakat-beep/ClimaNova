@@ -708,8 +708,10 @@
   .dv-wizard-head, .dv-prog-wrap, .dv-steps-body, .dv-nav { padding-left: 18px; padding-right: 18px; }
   .dv-sticky { display: block; }
   body.dv-page { padding-bottom: 72px; }
+  .dv-form-iframe { height: 1600px; }
 }
 
 @media screen and (max-width: 479px) {
   .dv-opts { grid-template-columns: 1fr 1fr; }
+  .dv-form-iframe { height: 1750px; }
 }
