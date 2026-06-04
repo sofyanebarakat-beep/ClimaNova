@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 787" width="1400" height="787">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#061a3a"/>
+      <stop offset="45%" style="stop-color:#0d3060"/>
+      <stop offset="100%" style="stop-color:#0a3d2e"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.03)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1664bf"/>
+      <stop offset="50%" style="stop-color:#16cff3"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+    <linearGradient id="iconbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="24" flood-color="rgba(0,0,0,0.4)"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="787" fill="url(#bg)"/>
+
+  <!-- Ambient blobs -->
+  <circle cx="200" cy="180" r="280" fill="#1664bf" opacity="0.12" filter="url(#glow)"/>
+  <circle cx="1200" cy="600" r="240" fill="#10b981" opacity="0.14" filter="url(#glow)"/>
+  <circle cx="900" cy="200" r="180" fill="#16cff3" opacity="0.08" filter="url(#glow)"/>
+
+  <!-- Grid lines subtle -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="131" x2="1400" y2="131"/>
+    <line x1="0" y1="262" x2="1400" y2="262"/>
+    <line x1="0" y1="393" x2="1400" y2="393"/>
+    <line x1="0" y1="524" x2="1400" y2="524"/>
+    <line x1="0" y1="655" x2="1400" y2="655"/>
+    <line x1="233" y1="0" x2="233" y2="787"/>
+    <line x1="466" y1="0" x2="466" y2="787"/>
+    <line x1="700" y1="0" x2="700" y2="787"/>
+    <line x1="933" y1="0" x2="933" y2="787"/>
+    <line x1="1166" y1="0" x2="1166" y2="787"/>
+  </g>
+
+  <!-- Main content card -->
+  <rect x="80" y="80" width="760" height="627" rx="28" fill="url(#card)" stroke="rgba(255,255,255,0.12)" stroke-width="1" filter="url(#shadow)"/>
+
+  <!-- Accent bar top -->
+  <rect x="80" y="80" width="760" height="5" rx="2" fill="url(#accent)"/>
+
+  <!-- Badge RGE -->
+  <rect x="120" y="122" width="110" height="32" rx="16" fill="rgba(16,185,129,0.18)" stroke="rgba(16,185,129,0.4)" stroke-width="1"/>
+  <text x="175" y="143" fill="#10b981" font-family="'Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">✓ CERTIFIÉ RGE</text>
+
+  <!-- Badge local -->
+  <rect x="244" y="122" width="170" height="32" rx="16" fill="rgba(22,100,191,0.18)" stroke="rgba(22,100,191,0.4)" stroke-width="1"/>
+  <text x="329" y="143" fill="#60a5fa" font-family="'Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">ALPES-MARITIMES</text>
+
+  <!-- Category -->
+  <text x="120" y="205" fill="rgba(255,255,255,0.5)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="600" letter-spacing="2">GUIDE COMPLET · CHAUFFAGE · 2026</text>
+
+  <!-- Main headline -->
+  <text x="120" y="268" fill="#ffffff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="44" font-weight="800" letter-spacing="-1.5">Installateur pompe</text>
+  <text x="120" y="322" fill="#ffffff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="44" font-weight="800" letter-spacing="-1.5">à chaleur dans les</text>
+  <text x="120" y="376" fill="url(#accent)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="44" font-weight="800" letter-spacing="-1.5">Alpes-Maritimes</text>
+
+  <!-- Subtitle -->
+  <text x="120" y="428" fill="rgba(255,255,255,0.7)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="400">Tout ce que vous devez savoir pour bien choisir</text>
+  <text x="120" y="454" fill="rgba(255,255,255,0.7)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="400">votre installateur et maximiser vos aides.</text>
+
+  <!-- Divider -->
+  <rect x="120" y="490" width="600" height="1" fill="rgba(255,255,255,0.12)"/>
+
+  <!-- Stats row -->
+  <text x="120" y="530" fill="rgba(255,255,255,0.5)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="13">Par l'équipe ClimaNova Énergie</text>
+  <text x="120" y="550" fill="rgba(255,255,255,0.35)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="13">4 juin 2026 · 12 min de lecture</text>
+
+  <!-- CTA Button -->
+  <rect x="120" y="580" width="260" height="52" rx="14" fill="#1664bf"/>
+  <rect x="120" y="580" width="260" height="52" rx="14" fill="rgba(255,255,255,0.08)"/>
+  <text x="250" y="612" fill="#ffffff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" text-anchor="middle">Demander un devis gratuit →</text>
+
+  <!-- Right side — PAC illustration -->
+  <!-- Outdoor unit box -->
+  <rect x="960" y="160" width="320" height="220" rx="16" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <!-- Unit label -->
+  <text x="1120" y="205" fill="rgba(255,255,255,0.5)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">UNITÉ EXTÉRIEURE</text>
+  <!-- Fan circle -->
+  <circle cx="1120" cy="290" r="68" fill="rgba(22,100,191,0.15)" stroke="rgba(22,100,191,0.35)" stroke-width="2"/>
+  <circle cx="1120" cy="290" r="42" fill="rgba(22,100,191,0.12)" stroke="rgba(22,100,191,0.25)" stroke-width="1.5"/>
+  <!-- Fan blades -->
+  <g transform="translate(1120,290)" stroke="#60a5fa" stroke-width="2.5" fill="none" opacity="0.7">
+    <path d="M0,-38 C12,-20 12,20 0,38"/>
+    <path d="M-38,0 C-20,-12 20,-12 38,0"/>
+    <path d="M-27,-27 C-8,-18 8,18 27,27"/>
+    <path d="M27,-27 C18,-8 -18,8 -27,27"/>
+  </g>
+  <circle cx="1120" cy="290" r="6" fill="#60a5fa"/>
+  <!-- Grille lines -->
+  <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+    <line x1="970" y1="220" x2="1270" y2="220"/>
+    <line x1="970" y1="240" x2="1270" y2="240"/>
+    <line x1="970" y1="340" x2="1270" y2="340"/>
+    <line x1="970" y1="360" x2="1270" y2="360"/>
+  </g>
+
+  <!-- Pipes connecting units -->
+  <path d="M1000 385 Q960 420 960 460 L960 500" stroke="rgba(255,255,255,0.2)" stroke-width="4" fill="none" stroke-dasharray="8,4"/>
+  <path d="M1080 385 Q1120 420 1120 460 L1120 500" stroke="rgba(16,185,129,0.4)" stroke-width="4" fill="none" stroke-dasharray="8,4"/>
+
+  <!-- Indoor unit -->
+  <rect x="880" y="500" width="380" height="100" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <text x="1070" y="540" fill="rgba(255,255,255,0.5)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">UNITÉ INTÉRIEURE</text>
+  <!-- Air flow arrows -->
+  <g fill="rgba(16,185,129,0.6)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="18">
+    <text x="930" y="575">→ → →</text>
+    <text x="1070" y="575" fill="rgba(22,100,191,0.6)">← ← ←</text>
+  </g>
+
+  <!-- COP badge -->
+  <rect x="960" y="630" width="320" height="70" rx="14" fill="url(#iconbg)" opacity="0.9"/>
+  <text x="1120" y="659" fill="#ffffff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="0.5">COEFFICIENT DE PERFORMANCE</text>
+  <text x="1120" y="685" fill="#ffffff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="800" text-anchor="middle">COP jusqu'à 4,5</text>
+
+  <!-- MaPrimeRénov badge -->
+  <rect x="880" y="420" width="180" height="54" rx="12" fill="rgba(251,191,36,0.15)" stroke="rgba(251,191,36,0.35)" stroke-width="1.5"/>
+  <text x="970" y="444" fill="#fbbf24" font-family="'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle">MaPrimeRénov'</text>
+  <text x="970" y="463" fill="#fbbf24" font-family="'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" text-anchor="middle">jusqu'à 10 000€</text>
+
+  <!-- ClimaNova watermark bottom right -->
+  <text x="1370" y="760" fill="rgba(255,255,255,0.18)" font-family="'Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="600" text-anchor="end">climanova-energie.fr</text>
+</svg>
