@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Guide Photos — ClimaNova Énergie</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f5f7fa; color: #111; padding: 32px 20px; }
+  h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .subtitle { color: #6b7280; margin-bottom: 36px; font-size: 14px; }
+  h2 { font-size: 16px; font-weight: 700; margin: 32px 0 14px; padding: 10px 14px;
+       background: #1664bf; color: #fff; border-radius: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 8px; }
+  .card { background: #fff; border-radius: 14px; border: 2px dashed #d1d5db;
+          overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center;
+                 gap: 8px; background: #e5e7eb; color: #6b7280; font-size: 13px; font-weight: 600; }
+  .placeholder svg { opacity: 0.4; }
+  .card-info { padding: 12px 14px; }
+  .filename { font-size: 11px; font-weight: 700; font-family: monospace;
+              background: #f3f4f6; padding: 4px 8px; border-radius: 6px;
+              color: #374151; word-break: break-all; margin-bottom: 8px; display: block; }
+  .alt-box { font-size: 11px; color: #6b7280; line-height: 1.5; }
+  .alt-label { font-weight: 700; color: #374151; }
+  .dims { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px;
+          border-radius: 999px; background: #dbeafe; color: #1d4ed8; margin-bottom: 6px; }
+  .priority { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px;
+              border-radius: 999px; margin-left: 6px; }
+  .p-high { background: #fee2e2; color: #991b1b; }
+  .p-med  { background: #fef3c7; color: #92400e; }
+  .p-low  { background: #d1fae5; color: #065f46; }
+  .tip { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 14px 18px;
+         border-radius: 0 10px 10px 0; font-size: 13px; margin: 24px 0; line-height: 1.7; }
+  .tip strong { color: #1d4ed8; }
+</style>
+</head>
+<body>
+
+<h1>📸 Guide Photos — ClimaNova Énergie</h1>
+<p class="subtitle">Chaque carte = une image à photographier ou sourcer. Remplacez le fichier sur le serveur une fois la photo prête.</p>
+
+<div class="tip">
+  <strong>Comment utiliser ce guide :</strong><br>
+  1. Photographiez ou sourcez chaque image selon les dimensions indiquées.<br>
+  2. Nommez le fichier exactement comme indiqué (case sensitive).<br>
+  3. Convertissez en <strong>.webp</strong> pour les photos (+ garder .jpg en fallback).<br>
+  4. Uploadez dans <strong>/images/</strong> sur le serveur.<br>
+  5. Le alt text est déjà en place dans le code HTML — rien à modifier.
+</div>
+
+<h2>🏠 Page d'accueil (index.html)</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      3 clients souriants — portrait circulaire
+    </div>
+    <div class="card-info">
+      <span class="dims">80×80 px</span><span class="priority p-med">MOYEN</span>
+      <code class="filename">6953dd2804ad1594697e70d0_home repair-client-image 01.png</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Photo client satisfait ClimaNova (portrait circulaire)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Photo plombier/technicien en action
+    </div>
+    <div class="card-info">
+      <span class="dims">800×600 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-plumber-image.webp</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Technicien plombier ClimaNova Énergie en intervention</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Galerie marquee — technicien sur chantier
+    </div>
+    <div class="card-info">
+      <span class="dims">800×530 px (paysage)</span><span class="priority p-med">MOYEN</span>
+      <code class="filename">climanova-marquee-06.webp</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Technicien ClimaNova Énergie — sanitaire</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>❄️ Service — Climatisation</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Bannière — unité intérieure split sur mur blanc
+    </div>
+    <div class="card-info">
+      <span class="dims">1400×787 px (16:9)</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-service-01.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Installation climatisation split par ClimaNova Énergie à Nice</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Technicien installant un split extérieur
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-project-01.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Pose unité extérieure climatisation réversible ClimaNova Nice</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>🔥 Service — Chauffage</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Bannière — pompe à chaleur unité extérieure jardin
+    </div>
+    <div class="card-info">
+      <span class="dims">1400×787 px (16:9)</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-service-02.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Installation pompe à chaleur chauffage par ClimaNova Énergie Nice</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Technicien vérifiant un radiateur / PAC
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-project-02.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Entretien chauffage pompe à chaleur ClimaNova Énergie</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>⚡ Service — Électricité</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Bannière — tableau électrique neuf propre
+    </div>
+    <div class="card-info">
+      <span class="dims">1400×787 px (16:9)</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-service-03.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Tableau électrique NF C 15-100 installé par ClimaNova Énergie Nice</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Électricien câblant un tableau / prises
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-project-03.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Électricien certifié ClimaNova Énergie — mise aux normes Nice</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>🔧 Service — Plomberie</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Bannière — salle de bain rénovée moderne
+    </div>
+    <div class="card-info">
+      <span class="dims">1400×787 px (16:9)</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-service-04.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Rénovation salle de bain plomberie par ClimaNova Énergie Nice</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Plombier réparant une fuite sous évier
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-project-04.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Plombier ClimaNova Énergie réparant une fuite d'eau à Nice</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>🌱 Service — Rénovation énergétique</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Technicien posant isolation / PAC extérieure
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-project-05.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Travaux rénovation énergétique avec technicien RGE</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Cuisine moderne après rénovation énergétique
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-med">MOYEN</span>
+      <code class="filename">climanova-kitchen-image.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Optimisation énergétique et isolation thermique cuisine rénovée</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>🛠️ Service — Entretien & Dépannage</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Technicien entretenant un climatiseur (filtres)
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-high">PRIORITAIRE</span>
+      <code class="filename">climanova-why-choose.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Technicien entretien ClimaNova Énergie</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="placeholder" style="height:140px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Technicien en intervention / dépannage urgence
+    </div>
+    <div class="card-info">
+      <span class="dims">700×500 px</span><span class="priority p-med">MOYEN</span>
+      <code class="filename">climanova-hero-image.webp + .jpg</code>
+      <div class="alt-box"><span class="alt-label">Alt :</span> Intervention technicien ClimaNova Énergie à Nice</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>🏷️ Logos partenaires (déjà présents — vérifier la qualité)</h2>
+<div class="grid">
+  <div class="card"><div class="placeholder" style="height:80px;">Mitsubishi Electric</div><div class="card-info"><code class="filename">logo-mitsubishi.png</code><div class="alt-box"><span class="alt-label">Alt :</span> Mitsubishi Electric — climatisation certifiée ClimaNova</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Toshiba</div><div class="card-info"><code class="filename">logo-toshiba.png</code><div class="alt-box"><span class="alt-label">Alt :</span> Toshiba — climatiseurs posés par ClimaNova Énergie</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Panasonic</div><div class="card-info"><code class="filename">logo-panasonic.png</code><div class="alt-box"><span class="alt-label">Alt :</span> Panasonic — installation climatisation ClimaNova</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Atlantic / Fujitsu</div><div class="card-info"><code class="filename">logo-atlantic-fujitsu.png</code><div class="alt-box"><span class="alt-label">Alt :</span> Atlantic Fujitsu — pompe à chaleur air/air ClimaNova</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Hisense</div><div class="card-info"><code class="filename">logo-hisense.png</code><div class="alt-box"><span class="alt-label">Alt :</span> Hisense — climatiseurs posés par ClimaNova Énergie</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Thermor</div><div class="card-info"><code class="filename">logo-thermor.png</code><div class="alt-box"><span class="alt-label">Alt :</span> Thermor — chauffe-eau et chauffage ClimaNova Énergie</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Legrand</div><div class="card-info"><code class="filename">logo-legrand.svg</code><div class="alt-box"><span class="alt-label">Alt :</span> Legrand — matériel électrique installé par ClimaNova</div></div></div>
+  <div class="card"><div class="placeholder" style="height:80px;">Schneider Electric</div><div class="card-info"><code class="filename">logo-schneider.svg</code><div class="alt-box"><span class="alt-label">Alt :</span> Schneider Electric — tableaux électriques ClimaNova</div></div></div>
+</div>
+
+<div class="tip" style="margin-top:32px;">
+  <strong>📷 Conseils photo :</strong><br>
+  • Fond blanc ou fond de chantier propre — évitez le désordre en arrière-plan<br>
+  • Techniciens en tenue de travail propre avec logo ClimaNova visible si possible<br>
+  • Éclairage naturel privilégié — évitez le flash direct<br>
+  • Photos horizontales (paysage) pour les bannières, carré pour les avatars<br>
+  • Après la prise de vue : compressez via <strong>squoosh.app</strong> et convertissez en WebP<br>
+  • Nommez exactement comme indiqué ci-dessus avant upload
+</div>
+
+</body>
+</html>
