@@ -57,10 +57,6 @@ H1_SIMPLE = [
      '<h2 class="h2-style">Entretien &amp; dépannage</h2>',
      '<h1 class="h2-style">Entretien &amp; dépannage</h1>'),
 
-    ('services/plomberie-fuites/index.html',
-     '<h2 class="h2-style">Plomberie &amp; Fuites</h2>',
-     '<h1 class="h2-style">Plomberie &amp; Fuites</h1>'),
-
     # Legacy English service pages – rename + translate
     ('services/furniture-repair/index.html',
      '<h2 class="h2-style">Furniture Repair</h2>',
@@ -194,7 +190,6 @@ def main():
 
     print('\n=== Blog banner H2→H1 ===')
     fr_blogs = [
-        'blog/5-signes-climatisation-entretien-professionnel/index.html',
         'blog/climatisation-verifications-avant-technicien/index.html',
         'blog/prolonger-duree-vie-climatisation-conseils/index.html',
         'blog/solutions-economiques-confort-thermique-logement/index.html',

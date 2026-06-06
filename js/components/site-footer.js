@@ -37,7 +37,6 @@ const FOOTER_TEMPLATE = `<footer class="footer-section">
  <div role="listitem" class="w-dyn-item"><a href="/services/electricite" class="footer-link-text">Électricité</a></div>
  <div role="listitem" class="w-dyn-item"><a href="/services/plomberie" class="footer-link-text">Plomberie</a></div>
  <div role="listitem" class="w-dyn-item"><a href="/services/renovation-energetique" class="footer-link-text">Rénovation énergétique</a></div>
- <div role="listitem" class="w-dyn-item"><a href="/services/plomberie-fuites" class="footer-link-text">Plomberie &amp; Fuites</a></div>
  </div>
  </div>
  </div>

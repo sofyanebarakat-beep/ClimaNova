@@ -202,34 +202,26 @@ PREPARER_MID2 = (
 
 # ── À lire aussi data per post ─────────────────────────────────────────────────
 LIRE_AUSSI = {
-    'blog/5-signes-climatisation-entretien-professionnel/index.html': [
-        ('/blog/climatisation-verifications-avant-technicien/',
-         'Climatisation : 5 choses à vérifier avant d\'appeler un technicien',
-         'Mars 2026', 'climanova-blog-01'),
-        ('/blog/prolonger-duree-vie-climatisation-conseils/',
-         'Comment prolonger la durée de vie de votre climatiseur',
-         'Avril 2026', 'climanova-blog-02'),
-    ],
     'blog/choisir-prestataire-travaux-energetiques-nice/index.html': [
-        ('/blog/5-signes-climatisation-entretien-professionnel/',
-         '5 signes que votre climatisation a besoin d\'entretien professionnel',
-         'Avril 2026', 'climanova-service-01'),
+        ('/blog/devis-installation-climatisation-nice/',
+         'Devis installation climatisation Nice : guide complet 2026',
+         'Juin 2026', 'climanova-blog-devis-clim-nice'),
         ('/blog/solutions-economiques-confort-thermique-logement/',
          'Des solutions économiques pour améliorer le confort thermique',
          'Mars 2026', 'climanova-blog-03'),
     ],
     'blog/climatisation-verifications-avant-technicien/index.html': [
-        ('/blog/5-signes-climatisation-entretien-professionnel/',
-         '5 signes que votre climatisation a besoin d\'entretien professionnel',
-         'Avril 2026', 'climanova-service-01'),
+        ('/blog/devis-installation-climatisation-nice/',
+         'Devis installation climatisation Nice : guide complet 2026',
+         'Juin 2026', 'climanova-blog-devis-clim-nice'),
         ('/blog/prolonger-duree-vie-climatisation-conseils/',
          'Comment prolonger la durée de vie de votre climatiseur',
          'Avril 2026', 'climanova-blog-02'),
     ],
     'blog/prolonger-duree-vie-climatisation-conseils/index.html': [
-        ('/blog/5-signes-climatisation-entretien-professionnel/',
-         '5 signes que votre climatisation a besoin d\'entretien professionnel',
-         'Avril 2026', 'climanova-service-01'),
+        ('/blog/devis-installation-climatisation-nice/',
+         'Devis installation climatisation Nice : guide complet 2026',
+         'Juin 2026', 'climanova-blog-devis-clim-nice'),
         ('/blog/climatisation-verifications-avant-technicien/',
          'Climatisation : 5 choses à vérifier avant d\'appeler un technicien',
          'Mars 2026', 'climanova-blog-01'),
@@ -243,9 +235,9 @@ LIRE_AUSSI = {
          'Avril 2026', 'climanova-blog-01'),
     ],
     'blog/preparer-logement-ete-climanova/index.html': [
-        ('/blog/5-signes-climatisation-entretien-professionnel/',
-         '5 signes que votre climatisation a besoin d\'entretien professionnel',
-         'Avril 2026', 'climanova-service-01'),
+        ('/blog/devis-installation-climatisation-nice/',
+         'Devis installation climatisation Nice : guide complet 2026',
+         'Juin 2026', 'climanova-blog-devis-clim-nice'),
         ('/blog/solutions-economiques-confort-thermique-logement/',
          'Des solutions économiques pour améliorer le confort thermique',
          'Mars 2026', 'climanova-blog-02'),
@@ -255,19 +247,6 @@ LIRE_AUSSI = {
 # ── Inline link patches for existing French posts ─────────────────────────────
 # (file, phrase_to_find, anchor_to_wrap, href)
 INLINE_LINKS = [
-    # 5-signes
-    ('blog/5-signes-climatisation-entretien-professionnel/index.html',
-     'ne peut être réalisée que par un professionnel accrédité.',
-     'professionnel accrédité', '/services/entretien/'),
-
-    ('blog/5-signes-climatisation-entretien-professionnel/index.html',
-     'Un entretien réalisé par ClimaNova peut réduire',
-     'entretien réalisé par ClimaNova', '/services/entretien/'),
-
-    ('blog/5-signes-climatisation-entretien-professionnel/index.html',
-     'peut signaler un problème électrique qui nécessite',
-     'problème électrique', '/services/electricite/'),
-
     # verifications
     ('blog/climatisation-verifications-avant-technicien/index.html',
      'dans l\'entretien de leurs installations.',
@@ -351,9 +330,8 @@ def main():
         top=PREPARER_TOP, mid1=PREPARER_MID1, mid2=PREPARER_MID2
     )
 
-    print('\n=== Adding links to 4 French posts ===')
+    print('\n=== Adding links to 3 French posts ===')
     for path in [
-        'blog/5-signes-climatisation-entretien-professionnel/index.html',
         'blog/climatisation-verifications-avant-technicien/index.html',
         'blog/prolonger-duree-vie-climatisation-conseils/index.html',
         'blog/solutions-economiques-confort-thermique-logement/index.html',
