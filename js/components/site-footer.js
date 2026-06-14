@@ -8,8 +8,7 @@ export function renderFooter(target) {
  target.outerHTML = withAssetUrls(FOOTER_TEMPLATE);
 }
 
-const FOOTER_TEMPLATE = `<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2232429740905540&ev=PageView&noscript=1"/></noscript>
-<footer class="footer-section">
+const FOOTER_TEMPLATE = `<footer class="footer-section">
  <div class="container">
  <div class="footer-top-content-block">
  <div class="footer-logo-block-wrap">
