@@ -1,6 +1,10 @@
 Options -MultiViews
 RewriteEngine On
 
+# Redirect www to non-www (canonical domain)
+RewriteCond %{HTTP_HOST} ^www\.climanova-energie\.fr [NC]
+RewriteRule ^ https://climanova-energie.fr%{REQUEST_URI} [R=301,L]
+
 # Redirect old /ClimaNova/ paths to root
 RewriteRule ^ClimaNova/(.*)$ /$1 [R=301,L]
 
