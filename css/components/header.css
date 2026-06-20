@@ -3,7 +3,13 @@
 .cn-header{position:sticky;top:0;z-index:120;background:#fff;color:var(--cn-header-text);border-bottom:1px solid var(--cn-header-border);backdrop-filter:blur(18px)}
 .cn-header-top{background:#fff}.cn-header-top-inner{min-height:98px;display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:24px;align-items:center}
 .cn-brand-cluster{display:flex;align-items:center;gap:18px;min-width:0}.cn-brand{justify-self:start;display:inline-flex;align-items:center;min-width:0}.cn-brand-logo{display:block;width:270px;height:110px;object-fit:contain}
-.cn-service-rotator{display:inline-flex;align-items:center;gap:8px;padding-left:18px;border-left:1px solid rgba(22,100,191,.18);font-size:15px;font-weight:600;color:var(--cn-header-text);white-space:nowrap}.cn-service-rotator strong{display:inline-flex;min-width:168px;padding:8px 12px;border-radius:999px;background:rgba(22,100,191,.08);color:var(--cn-header-blue);font-size:15px;transition:opacity .18s ease,transform .18s ease}.cn-service-rotator strong.is-changing{opacity:0;transform:translateY(-6px)}.cn-service-rotator strong.is-tagline{min-width:320px;background:transparent;padding-left:0;padding-right:0;font-size:20px}.cn-tagline-blue{color:#0f53bf}.cn-tagline-green{color:#3eb064}
+.cn-service-rotator{display:inline-flex;align-items:center;gap:10px;padding-left:18px;border-left:1px solid rgba(22,100,191,.18);white-space:nowrap}
+.cn-tagline-rotator{font-size:19px;font-weight:700;background:transparent;line-height:1.2}
+.cn-tagline-blue{color:#0f53bf}.cn-tagline-green{color:#3eb064}
+.cn-service-sep{color:rgba(22,100,191,.3);font-size:18px;font-weight:300;line-height:1;user-select:none}
+.cn-service-link{display:inline-flex;align-items:center;padding:6px 14px;border-radius:999px;background:rgba(22,100,191,.08);color:var(--cn-header-blue);font-size:14px;font-weight:600;text-decoration:none;transition:opacity .18s ease,transform .18s ease,background .18s ease}
+.cn-service-link:hover{background:rgba(22,100,191,.15);text-decoration:none}
+.cn-service-link.is-changing{opacity:0;transform:translateY(-5px)}
 .cn-phone-button,.cn-action-button,.cn-mobile-phone,.cn-mobile-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:999px;font-weight:700;line-height:1;text-decoration:none}
 .cn-phone-button{padding:0 22px;color:#fff!important;background:var(--cn-header-blue);box-shadow:0 12px 28px rgba(22,100,191,.22);transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
 .cn-phone-button:hover{color:#fff!important;background:#1255a8;transform:translateY(-1px);box-shadow:0 16px 32px rgba(22,100,191,.28)}

@@ -117,33 +117,29 @@ function initScrollHeader(header) {
 }
 
 function initServiceRotator(header) {
-  const target = header.querySelector("[data-service-rotator]");
-  const prefix = header.querySelector("[data-service-prefix]");
-  if (!target || !prefix) return;
+  const link = header.querySelector("[data-service-rotator]");
+  if (!link) return;
 
-  const items = [
-    { prefix: "Experts en", html: "Climatisation", delay: 2800 },
-    { prefix: "Experts en", html: "Chauffage", delay: 2800 },
-    { prefix: "Experts en", html: "Plomberie", delay: 2800 },
-    { prefix: "Experts en", html: "Électricité", delay: 2800 },
-    { prefix: "", html: '<span class="cn-tagline-blue">Votre confort, notre</span>&nbsp;<span class="cn-tagline-green">énergie</span>', delay: 40000, tagline: true },
+  const services = [
+    { label: "Climatisation", href: "/services/climatisation/" },
+    { label: "Électricité",   href: "/services/electricite/" },
+    { label: "Plomberie",     href: "/services/plomberie/" },
+    { label: "Chauffage",     href: "/services/chauffage/" },
   ];
   let index = 0;
 
-  const renderNext = () => {
-    target.classList.add("is-changing");
+  const rotate = () => {
+    link.classList.add("is-changing");
     window.setTimeout(() => {
-      index = (index + 1) % items.length;
-      const item = items[index];
-      prefix.textContent = item.prefix;
-      target.innerHTML = item.html;
-      target.classList.toggle("is-tagline", Boolean(item.tagline));
-      target.classList.remove("is-changing");
-      window.setTimeout(renderNext, item.delay);
+      index = (index + 1) % services.length;
+      const s = services[index];
+      link.textContent = s.label;
+      link.href = s.href;
+      link.classList.remove("is-changing");
     }, 180);
   };
 
-  window.setTimeout(renderNext, items[0].delay);
+  window.setInterval(rotate, 5000);
 }
 
 export function renderHeader(target) {
@@ -168,7 +164,7 @@ const socialLinks = `
 const HEADER_TEMPLATE = `
 <header class="cn-header" role="banner">
   <div class="cn-header-top"><div class="container cn-header-top-inner">
-    <div class="cn-brand-cluster"><a href="/" class="cn-brand" aria-label="ClimaNova Énergie, retour à l'accueil"><picture><source srcset="__ASSET__/images/climanova-logo.webp" type="image/webp"><img loading="eager" src="__ASSET__/images/climanova-logo.png" alt="ClimaNova Énergie" class="cn-brand-logo"></picture></a><div class="cn-service-rotator" aria-live="polite"><span data-service-prefix>Experts en</span><strong data-service-rotator>Climatisation</strong></div></div>
+    <div class="cn-brand-cluster"><a href="/" class="cn-brand" aria-label="ClimaNova Énergie, retour à l'accueil"><picture><source srcset="__ASSET__/images/climanova-logo.webp" type="image/webp"><img loading="eager" src="__ASSET__/images/climanova-logo.png" alt="ClimaNova Énergie" class="cn-brand-logo"></picture></a><div class="cn-service-rotator" aria-live="polite"><strong class="cn-tagline-rotator"><span class="cn-tagline-blue">Votre confort, notre</span>&nbsp;<span class="cn-tagline-green">énergie</span></strong><span class="cn-service-sep" aria-hidden="true">·</span><a data-service-rotator href="/services/climatisation/" class="cn-service-link">Climatisation</a></div></div>
     <div class="cn-header-actions" aria-label="Actions rapides"><a href="tel:+33652238164" class="cn-phone-button" aria-label="Appeler ClimaNova Énergie au +33 6 52 23 81 64"><span class="cn-phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 14.39 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2Z" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>+33 6 52 23 81 64</span></a><a href="/demande-devis/" class="cn-action-button cn-action-button-secondary">Demande de devis</a></div>
   </div></div>
   <div class="cn-header-nav"><div class="container cn-header-nav-inner">
