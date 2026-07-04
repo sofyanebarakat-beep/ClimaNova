@@ -1,0 +1,914 @@
+[
+  {
+    "slug": "climatisation-gainable-guide-complet",
+    "primary_keyword": "climatisation gainable",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-multisplit-vs-monosplit",
+    "primary_keyword": "multisplit vs monosplit climatisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-consommation-electrique-calcul",
+    "primary_keyword": "consommation électrique climatisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-sans-unite-exterieure-copropriete",
+    "primary_keyword": "climatisation sans unité extérieure",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-copropriete-autorisation-demarches",
+    "primary_keyword": "climatisation copropriété autorisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-daikin-vs-mitsubishi-comparatif",
+    "primary_keyword": "Daikin vs Mitsubishi climatisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-pannes-codes-erreur-courants",
+    "primary_keyword": "pannes climatisation codes erreur",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-fuite-eau-interieure-que-faire",
+    "primary_keyword": "climatisation fuite eau intérieure",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-ne-refroidit-plus-causes-solutions",
+    "primary_keyword": "climatisation ne refroidit plus",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 1,
+    "status": "done",
+    "published": "2026-07-04"
+  },
+  {
+    "slug": "prix-climatisation-appartement-2026",
+    "primary_keyword": "prix climatisation appartement",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "prix-climatisation-maison-2026",
+    "primary_keyword": "prix climatisation maison",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-aides-maprimerenov-cee-2026",
+    "primary_keyword": "aides climatisation MaPrimeRénov",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "meilleure-periode-installer-climatisation",
+    "primary_keyword": "quand installer sa climatisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-classe-energetique-guide",
+    "primary_keyword": "classe énergétique climatisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-bureaux-commerces-professionnelle",
+    "primary_keyword": "climatisation professionnelle bureaux",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "contrat-entretien-climatisation-annuel",
+    "primary_keyword": "contrat entretien climatisation",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-mobile-vs-fixe-comparatif",
+    "primary_keyword": "climatisation mobile vs fixe",
+    "city": null,
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-chaleur-air-air-vs-climatisation-reversible",
+    "primary_keyword": "pompe à chaleur air-air vs climatisation réversible",
+    "city": null,
+    "service": "climatisation",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-villa-piscine-nice",
+    "primary_keyword": "climatisation villa piscine Nice",
+    "city": "Nice",
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-location-saisonniere-nice",
+    "primary_keyword": "climatisation location saisonnière Nice",
+    "city": "Nice",
+    "service": "climatisation",
+    "intent": "commercial",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "panne-climatisation-urgence-ete-nice",
+    "primary_keyword": "panne climatisation urgence été",
+    "city": "Nice",
+    "service": "climatisation",
+    "intent": "transactional",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-cannes-installateur",
+    "primary_keyword": "installateur climatisation Cannes",
+    "city": "Cannes",
+    "service": "climatisation",
+    "intent": "transactional",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "climatisation-antibes-installateur",
+    "primary_keyword": "installateur climatisation Antibes",
+    "city": "Antibes",
+    "service": "climatisation",
+    "intent": "transactional",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "devis-climatisation-menton",
+    "primary_keyword": "devis climatisation Menton",
+    "city": "Menton",
+    "service": "climatisation",
+    "intent": "transactional",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-air-eau-guide-complet",
+    "primary_keyword": "pompe à chaleur air-eau",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 1,
+    "status": "done",
+    "published": "2026-07-04"
+  },
+  {
+    "slug": "pompe-a-chaleur-air-air-guide-complet",
+    "primary_keyword": "pompe à chaleur air-air",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "prix-pompe-a-chaleur-2026",
+    "primary_keyword": "prix pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-aides-maprimerenov-2026",
+    "primary_keyword": "aides pompe à chaleur MaPrimeRénov",
+    "city": null,
+    "service": "chauffage",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-vs-chaudiere-gaz",
+    "primary_keyword": "pompe à chaleur vs chaudière gaz",
+    "city": null,
+    "service": "chauffage",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "remplacement-chaudiere-fioul-pompe-a-chaleur",
+    "primary_keyword": "remplacer chaudière fioul par pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-geothermique-guide",
+    "primary_keyword": "pompe à chaleur géothermique",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-hybride-guide",
+    "primary_keyword": "pompe à chaleur hybride",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "entretien-pompe-a-chaleur-obligation-legale",
+    "primary_keyword": "entretien pompe à chaleur obligatoire",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-bruit-unite-exterieure",
+    "primary_keyword": "pompe à chaleur bruit",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-cop-scop-explication",
+    "primary_keyword": "COP SCOP pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "dimensionnement-pompe-a-chaleur-calcul-puissance",
+    "primary_keyword": "dimensionnement pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "chauffe-eau-thermodynamique-guide",
+    "primary_keyword": "chauffe-eau thermodynamique",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "radiateur-electrique-vs-pompe-a-chaleur",
+    "primary_keyword": "radiateur électrique vs pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "plancher-chauffant-pompe-a-chaleur-compatibilite",
+    "primary_keyword": "plancher chauffant pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "chaudiere-gaz-condensation-guide",
+    "primary_keyword": "chaudière gaz à condensation",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "chaudiere-quand-la-remplacer",
+    "primary_keyword": "quand remplacer sa chaudière",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "chaudiere-gaz-interdiction-2026-reglementation",
+    "primary_keyword": "interdiction chaudière gaz réglementation",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "chauffage-appoint-guide-hiver",
+    "primary_keyword": "chauffage d'appoint",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "chauffage-bois-poele-granules-guide",
+    "primary_keyword": "poêle à granulés vs bois",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-maison-ancienne-nice",
+    "primary_keyword": "pompe à chaleur maison ancienne Nice",
+    "city": "Nice",
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-piscine-guide",
+    "primary_keyword": "pompe à chaleur piscine",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pompe-a-chaleur-r32-vs-r410a-fluide-frigorigene",
+    "primary_keyword": "fluide frigorigène R32 vs R410A",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "garantie-pompe-a-chaleur-ce-qu-elle-couvre",
+    "primary_keyword": "garantie pompe à chaleur",
+    "city": null,
+    "service": "chauffage",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "installateur-pompe-a-chaleur-cannes",
+    "primary_keyword": "installateur pompe à chaleur Cannes",
+    "city": "Cannes",
+    "service": "chauffage",
+    "intent": "transactional",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "devis-pompe-a-chaleur-antibes",
+    "primary_keyword": "devis pompe à chaleur Antibes",
+    "city": "Antibes",
+    "service": "chauffage",
+    "intent": "transactional",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "fuite-eau-urgence-que-faire",
+    "primary_keyword": "fuite d'eau urgence que faire",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 1,
+    "status": "done",
+    "published": "2026-07-04"
+  },
+  {
+    "slug": "debouchage-canalisation-guide-methodes",
+    "primary_keyword": "déboucher une canalisation",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "chauffe-eau-panne-diagnostic",
+    "primary_keyword": "panne chauffe-eau diagnostic",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "chauffe-eau-electrique-vs-thermodynamique",
+    "primary_keyword": "chauffe-eau électrique vs thermodynamique",
+    "city": null,
+    "service": "plomberie",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "prix-remplacement-chauffe-eau-2026",
+    "primary_keyword": "prix remplacement chauffe-eau",
+    "city": null,
+    "service": "plomberie",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "robinetterie-fuite-reparation-guide",
+    "primary_keyword": "robinet qui fuit réparation",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "wc-bouche-solutions-guide",
+    "primary_keyword": "WC bouché solutions",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "renovation-salle-de-bain-plomberie-guide",
+    "primary_keyword": "rénovation salle de bain plomberie",
+    "city": null,
+    "service": "plomberie",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "detection-fuite-non-destructive-methode",
+    "primary_keyword": "détection de fuite non destructive",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "chauffe-eau-solaire-guide",
+    "primary_keyword": "chauffe-eau solaire",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "plombier-urgence-nice-tarifs",
+    "primary_keyword": "plombier urgence Nice tarifs",
+    "city": "Nice",
+    "service": "plomberie",
+    "intent": "transactional",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "entretien-canalisations-prevention-bouchons",
+    "primary_keyword": "entretien canalisations préventif",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "adoucisseur-eau-guide-cote-azur",
+    "primary_keyword": "adoucisseur d'eau",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "pression-eau-trop-faible-causes",
+    "primary_keyword": "pression d'eau trop faible causes",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "fosse-septique-entretien-reglementation",
+    "primary_keyword": "entretien fosse septique réglementation",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "osmoseur-qualite-eau-guide",
+    "primary_keyword": "osmoseur qualité de l'eau",
+    "city": null,
+    "service": "plomberie",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "mise-aux-normes-tableau-electrique-guide",
+    "primary_keyword": "mise aux normes tableau électrique",
+    "city": null,
+    "service": "electricite",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "renovation-electrique-maison-ancienne-guide",
+    "primary_keyword": "rénovation électrique maison ancienne",
+    "city": null,
+    "service": "electricite",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "installation-borne-recharge-voiture-electrique",
+    "primary_keyword": "borne de recharge voiture électrique",
+    "city": null,
+    "service": "electricite",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "domotique-maison-connectee-guide",
+    "primary_keyword": "domotique maison connectée",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "panne-electrique-diagnostic-guide",
+    "primary_keyword": "panne électrique diagnostic",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "disjoncteur-qui-saute-causes-solutions",
+    "primary_keyword": "disjoncteur qui saute",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "eclairage-led-renovation-guide",
+    "primary_keyword": "éclairage LED rénovation",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "diagnostic-electrique-obligatoire-vente-logement",
+    "primary_keyword": "diagnostic électrique obligatoire vente",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "electricien-urgence-nice-tarifs",
+    "primary_keyword": "électricien urgence Nice tarifs",
+    "city": "Nice",
+    "service": "electricite",
+    "intent": "transactional",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "panneaux-solaires-photovoltaiques-guide",
+    "primary_keyword": "panneaux solaires photovoltaïques",
+    "city": null,
+    "service": "electricite",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "volet-roulant-electrique-installation",
+    "primary_keyword": "volet roulant électrique installation",
+    "city": null,
+    "service": "electricite",
+    "intent": "commercial",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "consuel-attestation-conformite-guide",
+    "primary_keyword": "attestation Consuel",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "amperage-compteur-electrique-suffisant-guide",
+    "primary_keyword": "ampérage compteur électrique",
+    "city": null,
+    "service": "electricite",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "isolation-combles-guide-prix",
+    "primary_keyword": "isolation combles prix",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "isolation-murs-interieur-exterieur-guide",
+    "primary_keyword": "isolation des murs",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "dpe-diagnostic-performance-energetique-guide",
+    "primary_keyword": "DPE diagnostic performance énergétique",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "maprimerenov-guide-complet-2026",
+    "primary_keyword": "MaPrimeRénov guide complet",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "cee-certificats-economie-energie-guide",
+    "primary_keyword": "CEE certificats d'économie d'énergie",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "eco-pret-taux-zero-guide",
+    "primary_keyword": "éco-prêt à taux zéro",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "renovation-globale-guide-etapes",
+    "primary_keyword": "rénovation énergétique globale",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "commercial",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "passoire-thermique-que-faire-proprietaire",
+    "primary_keyword": "passoire thermique que faire",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "isolation-toiture-guide-prix",
+    "primary_keyword": "isolation toiture prix",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "remplacement-fenetres-double-vitrage-guide",
+    "primary_keyword": "fenêtres double vitrage remplacement",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "ventilation-vmc-guide-types",
+    "primary_keyword": "VMC ventilation guide",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "audit-energetique-guide",
+    "primary_keyword": "audit énergétique",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "renovation-energetique-copropriete-guide",
+    "primary_keyword": "rénovation énergétique copropriété",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "cumul-aides-renovation-energetique-2026",
+    "primary_keyword": "cumul aides rénovation énergétique",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 1,
+    "status": "pending"
+  },
+  {
+    "slug": "renovation-maison-annees-70-guide",
+    "primary_keyword": "rénovation maison années 70",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "subvention-pompe-a-chaleur-proprietaire-bailleur",
+    "primary_keyword": "subvention pompe à chaleur propriétaire bailleur",
+    "city": null,
+    "service": "renovation-energetique",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "contrat-entretien-multi-equipements-guide",
+    "primary_keyword": "contrat entretien multi-équipements",
+    "city": null,
+    "service": "entretien",
+    "intent": "commercial",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "entretien-preventif-vs-curatif-guide",
+    "primary_keyword": "entretien préventif vs curatif",
+    "city": null,
+    "service": "entretien",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "checklist-entretien-annuel-habitat",
+    "primary_keyword": "checklist entretien annuel logement",
+    "city": null,
+    "service": "entretien",
+    "intent": "informational",
+    "priority": 2,
+    "status": "pending"
+  },
+  {
+    "slug": "entretien-installation-electrique-controle-periodique",
+    "primary_keyword": "contrôle électrique périodique",
+    "city": null,
+    "service": "entretien",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "entretien-plomberie-prevention-fuites",
+    "primary_keyword": "entretien plomberie préventif",
+    "city": null,
+    "service": "entretien",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  },
+  {
+    "slug": "entretien-chauffe-eau-frequence-guide",
+    "primary_keyword": "entretien chauffe-eau fréquence",
+    "city": null,
+    "service": "entretien",
+    "intent": "informational",
+    "priority": 3,
+    "status": "pending"
+  }
+]
