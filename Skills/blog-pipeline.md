@@ -38,15 +38,11 @@ Every post must be generated using **all five** project skills together, not `se
    - CTA links always point to `https://climanova-energie.fr/demande-devis/`.
    - Internal links: prefer `/services/[service]/`, `/demande-devis/`, and 2–3 topically related existing posts (pick from the `blog/` directory listing).
 
-3. **Generate 5 images per post** (1 featured + 4 in-body) using the `mcp__claude_ai_higgsfield__generate_image` tool (already connected).
-   - Pick an appropriate model via `models_explore(action:'recommend')` — default to a photorealistic/marketing-style model for real-world HVAC/plumbing/electrical scenes (technician at work, equipment close-ups, French Riviera homes), since these are illustrative editorial photos, not diagrams or characters.
-   - **Featured image** (1): 16:9 aspect ratio, represents the post's main topic (e.g. a technician servicing the specific equipment discussed). This becomes the hero banner image, the OG/Twitter image, and the BlogPosting schema `image`.
-   - **In-body images** (4): 4:3 or 1:1 aspect ratio, placed at natural section breaks (e.g. after the intro, mid-article near a how-to/diagnostic section, near the pricing table, near the local-Nice section). Each depicts something concretely relevant to the section it sits in — not filler.
-   - Write prompts in a consistent, professional, photorealistic style so posts feel visually coherent across the site (natural light, clean modern French interiors/exteriors, real tools/equipment brands where relevant, no text/logos baked into the image).
-   - After generation, poll the job (`job_status` / `reveal_generation`) until the image is ready, then download it.
-   - Save each image as a WebP + JPG pair with a descriptive filename: `/images/<slug>-featured.webp` + `.jpg`, and `/images/<slug>-1.webp`/`.jpg` through `-4.webp`/`.jpg`.
-   - Write descriptive, keyword-relevant alt text for each (per the QA checklist above) — never reuse the same alt text twice within a post.
-   - **Never regenerate images for a post that already has them** (i.e. `blog/<slug>/` already exists with its own `<slug>-featured.*` files) — this only applies to new posts from the queue.
+3. **Images: reuse existing stock photos.** AI image generation (Higgsfield) requires either a paid plan or a card-required trial with auto-renewal risk — the site owner opted out of both, so there is no AI-generated imagery in this pipeline for now. Instead:
+   - Pick 1 featured image + reuse it (or a second existing image) for in-body placement from the site's existing `/images/` files (e.g. `climanova-blog-01.webp` through `-04.webp`, or any other already-referenced photo that's topically reasonable — doesn't need to be a perfect match, existing posts already do this).
+   - Use the same `<picture>`/`<source>` WebP+JPG pattern as existing posts.
+   - Write real, keyword-relevant alt text describing what's conceptually being illustrated (even though the photo is reused/generic) — never generic "image1.jpg"-style alt text.
+   - If AI image generation becomes available later (paid plan activated), revisit this step to generate unique images per post instead.
 
 4. **Run the technical QA checklist** (above) against the drafted HTML before writing the final file. Fix anything that fails before proceeding.
 
@@ -66,14 +62,15 @@ Every post must be generated using **all five** project skills together, not `se
     git commit -m "Add SEO blog posts: <slug1>, <slug2>, ..."
     git push origin main
     ```
-    New image files under `/images/` are already included via `blog/<slug>/`'s directory add if stored there, or add `images/<slug>-*.{webp,jpg}` explicitly if stored in the shared `/images/` directory. `git push` to `origin/main` is what makes the posts live (the host deploys on push). Do not skip this step, and do not use `--force`.
+    `git push` to `origin/main` is what makes the posts live (the host deploys on push). Do not skip this step, and do not use `--force`.
 
 ---
 
 ## Guardrails
 
-- Never regenerate or overwrite a post whose slug already exists under `blog/`, and never regenerate images for a post that already has its own image set.
+- Never regenerate or overwrite a post whose slug already exists under `blog/`.
 - Never invent a `city` or `service` not present in the queue row.
 - If a generated slug happens to collide with an existing folder, skip that row (leave it `pending`), log a note, and move to the next pending row instead of overwriting.
 - Keep batch size modest (2–3/day is the default cadence this queue was sized for; see `scripts/content-queue.json`'s ~100 rows). Do not pad with filler topics once the queue is exhausted — report completion instead.
+- No AI image generation is wired into this pipeline (no free/no-risk option was available — see step 3). Do not attempt to call Higgsfield or any other image-generation tool as part of the daily run.
 - Keep image prompts brand-appropriate (professional, realistic, no text baked into images, no competitor logos) and visually consistent across posts.
