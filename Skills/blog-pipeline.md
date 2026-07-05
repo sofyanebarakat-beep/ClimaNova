@@ -38,12 +38,21 @@ Every post must be generated using **all five** project skills together, not `se
    - CTA links always point to `https://climanova-energie.fr/demande-devis/`.
    - Internal links: prefer `/services/[service]/`, `/demande-devis/`, and 2–3 topically related existing posts (pick from the `blog/` directory listing).
 
-3. **Images: use the `imagegen` skill for 6 article images.** Every new blog post must use the Codex `imagegen` skill with the built-in `image_gen` tool to create **1 featured image + 5 in-article images**. These images are part of the article deliverable, not optional decoration.
+3. **Images: generate 6 article images via the OpenAI Images API directly.** This pipeline runs in an isolated Claude Code cloud sandbox (no access to Codex, local tools, or `$CODEX_HOME`) — so image generation happens by calling OpenAI's API directly over HTTPS, authenticated with the `$OPENAI_API_KEY` environment variable configured on this routine's Environment (never hardcode the key; if the variable is unset/empty, skip image generation for this run, fall back to reusing an existing `/images/` file as in earlier posts, and note this in the commit message rather than failing the whole run). Every new blog post gets **1 featured image + 5 in-article images**. These images are part of the article deliverable, not optional decoration.
    - Generate **one featured/hero image** first. It must be a realistic, brand-appropriate 16:9 landscape image that directly supports `primary_keyword`, `service`, `city` when present, and the article angle. Avoid text inside the image, watermarks, competitor logos, unsafe work practices, or generic stock-photo staging.
    - Generate **five distinct body images** after the featured image. Each body image must illustrate a different H2/H3 section of the article, such as diagnosis, equipment, cost comparison, maintenance step, local installation context, before/after comfort, or safety/repair process.
    - Use the featured image for the banner background, OG/Twitter image, schema `BlogPosting.image`, blog index card, and the first in-post `<figure>`. Insert the five body images naturally inside the article near the matching section, not stacked together.
    - Before writing the HTML, create an image plan table for each post with: `image_role`, `target_section`, `filename_base`, `prompt_summary`, `alt_text`, and `keyword_used`. The `alt_text` must be French, descriptive, and include the primary keyword or a close semantic variant without stuffing.
-   - Copy each generated source from `$CODEX_HOME/generated_images/...` into the project, then create both WebP and JPG versions in `/images/`. Keep the original generated sources untouched.
+   - **Calling the API** (repeat once per image, 6 times per post):
+     ```bash
+     curl -sS https://api.openai.com/v1/images/generations \
+       -H "Authorization: Bearer $OPENAI_API_KEY" \
+       -H "Content-Type: application/json" \
+       -d '{"model":"gpt-image-1","prompt":"<prompt text>","size":"1536x1024","quality":"medium"}' \
+       | python3 -c "import sys,json,base64; d=json.load(sys.stdin); open('/tmp/img.png','wb').write(base64.b64decode(d['data'][0]['b64_json']))"
+     ```
+     Then convert `/tmp/img.png` into the final WebP + JPG pair (try `python3 -c "from PIL import Image; ..."`, installing Pillow with `pip install --quiet pillow` first if it's missing; `cwebp`/`convert` are acceptable alternatives if already present in the sandbox).
+   - Copy/convert each generated image into `/images/` as both WebP and JPG. Keep intermediate files out of the repo (only the final `/images/*-ai.webp`/`.jpg` pair gets committed).
    - Naming pattern:
      - Featured image: `climanova-blog-<slug>-featured-ai.webp` and `.jpg`
      - Body images: `climanova-blog-<slug>-01-ai.webp` through `climanova-blog-<slug>-05-ai.webp`, with matching `.jpg` fallbacks
