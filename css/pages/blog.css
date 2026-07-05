@@ -53,6 +53,10 @@
   background-image: url('../../images/climanova-blog-04.webp');
   background-position: center 40%;
 }
+.cn-banner-blog-clim-froid {
+  background-image: url('../../images/climanova-blog-clim-ne-refroidit-plus-ai.webp');
+  background-position: center 45%;
+}
 
 /* ── Blog sidebar banner ───────────────────────────────────────────────── */
 
@@ -549,4 +553,3 @@
     gap: 14px;
   }
 }
-

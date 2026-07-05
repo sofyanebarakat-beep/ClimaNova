@@ -38,11 +38,36 @@ Every post must be generated using **all five** project skills together, not `se
    - CTA links always point to `https://climanova-energie.fr/demande-devis/`.
    - Internal links: prefer `/services/[service]/`, `/demande-devis/`, and 2–3 topically related existing posts (pick from the `blog/` directory listing).
 
-3. **Images: reuse existing stock photos.** AI image generation (Higgsfield) requires either a paid plan or a card-required trial with auto-renewal risk — the site owner opted out of both, so there is no AI-generated imagery in this pipeline for now. Instead:
-   - Pick 1 featured image + reuse it (or a second existing image) for in-body placement from the site's existing `/images/` files (e.g. `climanova-blog-01.webp` through `-04.webp`, or any other already-referenced photo that's topically reasonable — doesn't need to be a perfect match, existing posts already do this).
-   - Use the same `<picture>`/`<source>` WebP+JPG pattern as existing posts.
-   - Write real, keyword-relevant alt text describing what's conceptually being illustrated (even though the photo is reused/generic) — never generic "image1.jpg"-style alt text.
-   - If AI image generation becomes available later (paid plan activated), revisit this step to generate unique images per post instead.
+3. **Images: generate with ChatGPT image generation.** Every new blog post needs one unique featured/hero image and at least one in-body image, created with ChatGPT/image generation and saved into `/images/`.
+   - Generate a realistic, brand-appropriate 16:9 landscape image for the article's featured image. The scene must directly support `primary_keyword`, `service`, and the article angle. Avoid text inside the image, watermarks, competitor logos, unsafe work practices, or generic stock-photo staging.
+   - Use the same generated featured image for the banner background, OG/Twitter image, schema `BlogPosting.image`, blog index card, and the first in-post `<figure>` unless the article clearly benefits from a second supporting image.
+   - Copy the generated source from `$CODEX_HOME/generated_images/...` into the project, then create both WebP and JPG versions in `/images/`: `climanova-blog-<slug>-ai.webp` and `climanova-blog-<slug>-ai.jpg`. Keep the original generated source untouched.
+   - Use WebP as the primary source and JPG as fallback everywhere:
+     ```html
+     <picture>
+       <source srcset="/images/climanova-blog-<slug>-ai.webp" type="image/webp">
+       <img src="/images/climanova-blog-<slug>-ai.jpg" loading="lazy" alt="<keyword-relevant French alt text>" width="1672" height="941">
+     </picture>
+     ```
+   - Add or update a CSS banner class for the post so the featured image appears in the first viewport:
+     ```css
+     .cn-banner-blog-<short-slug> {
+       background-image: url('../../images/climanova-blog-<slug>-ai.webp');
+       background-position: center 45%;
+     }
+     ```
+   - Image QA: WebP hero should stay under 300KB, in-body WebP under 150KB when reused inline, JPG fallback should be reasonably compressed for social crawlers. Regenerate or recompress if the image is blurry, distorted, logo-like, text-heavy, or off-topic.
+   - Suggested prompt frame:
+     ```text
+     Use case: photorealistic-natural
+     Asset type: website blog featured and in-post image, 16:9 landscape
+     Primary request: Create a realistic editorial photo for a French HVAC/plumbing/energy renovation company blog article titled "<title>".
+     Scene/backdrop: <specific French home, apartment, building, or technical context tied to the keyword and city>.
+     Subject: <qualified technician, homeowner, equipment, or diagnostic moment tied to the service>.
+     Style: photorealistic, premium service-business editorial, natural light, believable French setting, crisp detail, no text, no logos, no watermark.
+     Composition: wide horizontal 16:9, subject slightly off-center, clean negative space for a banner overlay.
+     Avoid: visible brand logos, readable text, unsafe wiring, clutter, cartoon/CGI look, over-saturated color palette.
+     ```
 
 4. **Run the technical QA checklist** (above) against the drafted HTML before writing the final file. Fix anything that fails before proceeding.
 
@@ -72,5 +97,5 @@ Every post must be generated using **all five** project skills together, not `se
 - Never invent a `city` or `service` not present in the queue row.
 - If a generated slug happens to collide with an existing folder, skip that row (leave it `pending`), log a note, and move to the next pending row instead of overwriting.
 - Keep batch size modest (2–3/day is the default cadence this queue was sized for; see `scripts/content-queue.json`'s ~100 rows). Do not pad with filler topics once the queue is exhausted — report completion instead.
-- No AI image generation is wired into this pipeline (no free/no-risk option was available — see step 3). Do not attempt to call Higgsfield or any other image-generation tool as part of the daily run.
+- Do not use Higgsfield or third-party generators for this pipeline. Use ChatGPT/image generation, then store project-bound assets in `/images/`.
 - Keep image prompts brand-appropriate (professional, realistic, no text baked into images, no competitor logos) and visually consistent across posts.
