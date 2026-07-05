@@ -38,26 +38,31 @@ Every post must be generated using **all five** project skills together, not `se
    - CTA links always point to `https://climanova-energie.fr/demande-devis/`.
    - Internal links: prefer `/services/[service]/`, `/demande-devis/`, and 2–3 topically related existing posts (pick from the `blog/` directory listing).
 
-3. **Images: generate with ChatGPT image generation.** Every new blog post needs one unique featured/hero image and at least one in-body image, created with ChatGPT/image generation and saved into `/images/`.
-   - Generate a realistic, brand-appropriate 16:9 landscape image for the article's featured image. The scene must directly support `primary_keyword`, `service`, and the article angle. Avoid text inside the image, watermarks, competitor logos, unsafe work practices, or generic stock-photo staging.
-   - Use the same generated featured image for the banner background, OG/Twitter image, schema `BlogPosting.image`, blog index card, and the first in-post `<figure>` unless the article clearly benefits from a second supporting image.
-   - Copy the generated source from `$CODEX_HOME/generated_images/...` into the project, then create both WebP and JPG versions in `/images/`: `climanova-blog-<slug>-ai.webp` and `climanova-blog-<slug>-ai.jpg`. Keep the original generated source untouched.
+3. **Images: use the `imagegen` skill for 6 article images.** Every new blog post must use the Codex `imagegen` skill with the built-in `image_gen` tool to create **1 featured image + 5 in-article images**. These images are part of the article deliverable, not optional decoration.
+   - Generate **one featured/hero image** first. It must be a realistic, brand-appropriate 16:9 landscape image that directly supports `primary_keyword`, `service`, `city` when present, and the article angle. Avoid text inside the image, watermarks, competitor logos, unsafe work practices, or generic stock-photo staging.
+   - Generate **five distinct body images** after the featured image. Each body image must illustrate a different H2/H3 section of the article, such as diagnosis, equipment, cost comparison, maintenance step, local installation context, before/after comfort, or safety/repair process.
+   - Use the featured image for the banner background, OG/Twitter image, schema `BlogPosting.image`, blog index card, and the first in-post `<figure>`. Insert the five body images naturally inside the article near the matching section, not stacked together.
+   - Before writing the HTML, create an image plan table for each post with: `image_role`, `target_section`, `filename_base`, `prompt_summary`, `alt_text`, and `keyword_used`. The `alt_text` must be French, descriptive, and include the primary keyword or a close semantic variant without stuffing.
+   - Copy each generated source from `$CODEX_HOME/generated_images/...` into the project, then create both WebP and JPG versions in `/images/`. Keep the original generated sources untouched.
+   - Naming pattern:
+     - Featured image: `climanova-blog-<slug>-featured-ai.webp` and `.jpg`
+     - Body images: `climanova-blog-<slug>-01-ai.webp` through `climanova-blog-<slug>-05-ai.webp`, with matching `.jpg` fallbacks
    - Use WebP as the primary source and JPG as fallback everywhere:
      ```html
      <picture>
-       <source srcset="/images/climanova-blog-<slug>-ai.webp" type="image/webp">
-       <img src="/images/climanova-blog-<slug>-ai.jpg" loading="lazy" alt="<keyword-relevant French alt text>" width="1672" height="941">
+       <source srcset="/images/climanova-blog-<slug>-01-ai.webp" type="image/webp">
+       <img src="/images/climanova-blog-<slug>-01-ai.jpg" loading="lazy" alt="<French alt text with article keyword or semantic variant>" width="1672" height="941">
      </picture>
      ```
    - Add or update a CSS banner class for the post so the featured image appears in the first viewport:
      ```css
      .cn-banner-blog-<short-slug> {
-       background-image: url('../../images/climanova-blog-<slug>-ai.webp');
+       background-image: url('../../images/climanova-blog-<slug>-featured-ai.webp');
        background-position: center 45%;
      }
      ```
-   - Image QA: WebP hero should stay under 300KB, in-body WebP under 150KB when reused inline, JPG fallback should be reasonably compressed for social crawlers. Regenerate or recompress if the image is blurry, distorted, logo-like, text-heavy, or off-topic.
-   - Suggested prompt frame:
+   - Image QA: featured WebP should stay under 300KB; each body WebP should stay under 150KB. JPG fallbacks should be reasonably compressed for social crawlers. Regenerate or recompress if any image is blurry, distorted, logo-like, text-heavy, off-topic, or too similar to another image in the same article.
+   - Suggested featured prompt frame:
      ```text
      Use case: photorealistic-natural
      Asset type: website blog featured and in-post image, 16:9 landscape
@@ -67,6 +72,17 @@ Every post must be generated using **all five** project skills together, not `se
      Style: photorealistic, premium service-business editorial, natural light, believable French setting, crisp detail, no text, no logos, no watermark.
      Composition: wide horizontal 16:9, subject slightly off-center, clean negative space for a banner overlay.
      Avoid: visible brand logos, readable text, unsafe wiring, clutter, cartoon/CGI look, over-saturated color palette.
+     ```
+   - Suggested body-image prompt frame:
+     ```text
+     Use case: photorealistic-natural
+     Asset type: blog in-article image, 16:9 landscape
+     Primary request: Create a realistic editorial image for the section "<H2/H3 section title>" in an article targeting "<primary_keyword>".
+     Scene/backdrop: <specific scene that explains this section>.
+     Subject: <technician, equipment, homeowner, diagnostic action, or installation detail>.
+     Style: photorealistic, clean French service-business editorial, natural light, no text, no logos, no watermark.
+     Composition: horizontal 16:9, clear subject, useful as an explanatory article image.
+     Avoid: duplicate composition from the featured image, visible brand logos, readable text, unsafe work practices, cartoon/CGI look.
      ```
 
 4. **Run the technical QA checklist** (above) against the drafted HTML before writing the final file. Fix anything that fails before proceeding.
