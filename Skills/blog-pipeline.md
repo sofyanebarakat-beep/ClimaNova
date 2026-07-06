@@ -104,6 +104,12 @@ Every post must be generated using **all five** project skills together, not `se
 
 8. **Cross-link.** On 1–2 existing posts that are topically closest to the new one and that already have the `blog-details-sidebar-post-block` sidebar widget, add the new post to their sidebar "Vous aimerez aussi" list (swap out the least-related existing link if the sidebar already has 4 items) and/or add one contextual inline link where natural.
 
+8b. **Recent-articles + full CTA banner (every post, no exceptions).** The new post's own "Vous aimerez aussi" / "Articles récents" sidebar list must contain **exactly 4 items** (topically relevant existing posts, most recent preferred). Immediately after that list, insert this exact CTA banner verbatim — same HTML, same copy, every single post, no bespoke variants:
+    ```html
+    <div class="cn-blog-cta-banner cn-blog-cta-banner--full"><h3 class="cn-blog-cta-title">Besoin d'un devis&nbsp;?</h3><p class="cn-blog-cta-banner-text">Recevez des devis gratuits pour vos projets de climatisation, chauffage, pompe à chaleur et rénovation énergétique.</p><ul class="cn-blog-cta-list"><li>Étude technique à domicile</li><li>Jusqu'à 3 devis détaillés</li><li>Installateurs qualifiés de votre secteur</li></ul><a href="/demande-devis/" class="cn-blog-cta-banner-btn">Demander des devis gratuits</a><p class="cn-blog-cta-note">Service gratuit &amp; sans engagement</p></div>
+    ```
+    Never use a plain `cn-blog-cta-banner` (without `--full`) anywhere in a new post — any other CTA block in the body should be this exact `--full` banner too, not a bespoke-copy variant.
+
 9. **Mark done.** Set `"status": "done"` and add `"published": "<today's date>"` on each row generated in this run, in `scripts/content-queue.json`.
 
 10. **Commit and push.**
