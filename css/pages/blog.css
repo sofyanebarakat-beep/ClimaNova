@@ -199,6 +199,28 @@
   }
 }
 
+/* ── Article vs sidebar width balance ────────────────────────────────────── */
+/* .blog-details-sidebar-block has no width set upstream, so as a flex sibling
+   of the 852px-capped article it was eating width unpredictably; pin it to a
+   fixed column so the article can actually reach its max-width. */
+
+.blog-details-content-block {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.blog-details-sidebar-block {
+  width: 100%;
+  max-width: 340px;
+  flex: 0 0 auto;
+}
+
+@media screen and (max-width: 991px) {
+  .blog-details-sidebar-block {
+    max-width: 100%;
+  }
+}
+
 /* ── Article reading comfort ─────────────────────────────────────────────── */
 
 .blog-details-top-content-block,
