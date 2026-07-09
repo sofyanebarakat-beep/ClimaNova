@@ -88,7 +88,8 @@
     "service": "climatisation",
     "intent": "commercial",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-09"
   },
   {
     "slug": "prix-climatisation-maison-2026",
@@ -97,7 +98,8 @@
     "service": "climatisation",
     "intent": "commercial",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-09"
   },
   {
     "slug": "climatisation-aides-maprimerenov-cee-2026",
@@ -106,7 +108,8 @@
     "service": "climatisation",
     "intent": "commercial",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-09"
   },
   {
     "slug": "meilleure-periode-installer-climatisation",
