@@ -5,12 +5,6 @@ on:
     - cron: "15 7 * * *"
       timezone: "Europe/Paris"
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: "Preview the seven editorial tracks without generating or publishing"
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: write
@@ -36,23 +30,16 @@ jobs:
         with:
           node-version: 22
 
-      - name: Preview editorial plan
-        if: ${{ inputs.dry_run == true }}
-        run: node scripts/generate-daily-articles.mjs --dry-run
-
       - name: Generate seven articles
-        if: ${{ inputs.dry_run != true }}
         env:
           GITHUB_MODELS_TOKEN: ${{ github.token }}
           GITHUB_MODEL: ${{ vars.GITHUB_MODEL || 'openai/gpt-4.1' }}
         run: node scripts/generate-daily-articles.mjs
 
       - name: Validate generated pages
-        if: ${{ inputs.dry_run != true }}
         run: node scripts/validate-daily-articles.mjs
 
       - name: Commit and publish
-        if: ${{ inputs.dry_run != true }}
         run: |
           if git diff --quiet && test -z "$(git status --porcelain)"; then
             echo "Nothing new to publish."

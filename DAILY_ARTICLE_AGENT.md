@@ -7,8 +7,7 @@ Ce dépôt contient un agent GitHub Actions qui crée **7 articles français cha
 1. Pousser ces fichiers sur la branche `main`.
 2. Aucun secret API externe n'est nécessaire : le workflow utilise le `GITHUB_TOKEN` temporaire fourni automatiquement par GitHub Actions.
 3. Facultatif : dans **Settings → Secrets and variables → Actions → Variables**, créer `GITHUB_MODEL` pour remplacer le modèle GitHub Models par défaut `openai/gpt-4.1`.
-4. Dans **Actions → Daily ClimaNova SEO articles**, lancer d'abord **Run workflow** avec `dry_run: true`.
-5. Lancer ensuite sans dry run pour vérifier la première publication.
+4. Dans **Actions → Daily ClimaNova SEO articles**, cliquer sur **Run workflow**. Chaque lancement manuel génère et publie les 7 articles.
 
 Le planning automatique s'exécute à **07:15, heure de Nice (`Europe/Paris`)**, été comme hiver. GitHub peut parfois démarrer un workflow planifié avec quelques minutes de retard.
 
@@ -26,6 +25,8 @@ Le planning automatique s'exécute à **07:15, heure de Nice (`Europe/Paris`)**,
 node scripts/generate-daily-articles.mjs --dry-run
 node scripts/validate-daily-articles.mjs
 ```
+
+Le mode aperçu est volontairement disponible uniquement en local afin d'éviter de lancer par erreur un workflow GitHub vert qui ne publie aucun article.
 
 ## Coût et cadence
 
