@@ -321,7 +321,91 @@ function initBlogListing() {
   refreshCards();
 }
 
+async function initRelatedArticles() {
+  const detailsSection = document.querySelector(".blog-details-section");
+
+  if (!detailsSection || document.querySelector(".cn-related-articles")) {
+    return;
+  }
+
+  const currentPath = window.location.pathname.replace(/\/+$/, "/");
+
+  try {
+    const response = await fetch("/blog/", { credentials: "same-origin" });
+    if (!response.ok) return;
+
+    const source = new DOMParser().parseFromString(await response.text(), "text/html");
+    const sourceCards = Array.from(source.querySelectorAll(".blog-page .w-dyn-item"));
+    const currentTerms = currentPath.toLocaleLowerCase("fr");
+    const categoryRules = [
+      ["depannage", ["depannage", "entretien", "panne", "refroidit-plus", "duree-vie"]],
+      ["plomberie", ["plomb", "fuite", "eau", "pression"]],
+      ["electricite", ["electric", "tableau", "courant"]],
+      ["renovation", ["renovation", "isolation", "energetique", "aides-"]],
+      ["chauffage", ["chauffage", "pompe-a-chaleur", "pac-"]],
+      ["climatisation", ["climatisation", "clim-", "confort-thermique", "ete"]],
+    ];
+    const currentCategory = categoryRules.find(([, terms]) => terms.some((term) => currentTerms.includes(term)))?.[0];
+    const available = sourceCards.filter((card) => {
+      const href = card.querySelector("a")?.getAttribute("href");
+      return href && href.replace(/\/+$/, "/") !== currentPath;
+    });
+    const prioritized = available.sort((left, right) => {
+      const leftMatch = left.dataset.category === currentCategory ? 1 : 0;
+      const rightMatch = right.dataset.category === currentCategory ? 1 : 0;
+      return rightMatch - leftMatch;
+    }).slice(0, 3);
+
+    if (prioritized.length < 3) return;
+
+    const section = document.createElement("section");
+    section.className = "cn-related-articles";
+    section.setAttribute("aria-labelledby", "cn-related-title");
+    section.innerHTML = `<div class="container">
+      <div class="cn-related-heading">
+        <span>Conseils ClimaNova Énergie</span>
+        <h2 id="cn-related-title">Articles à découvrir</h2>
+      </div>
+      <div class="cn-related-grid"></div>
+    </div>`;
+
+    const relatedGrid = section.querySelector(".cn-related-grid");
+    const categoryLabels = {
+      climatisation: "Climatisation",
+      chauffage: "Chauffage",
+      electricite: "Électricité",
+      plomberie: "Plomberie",
+      renovation: "Rénovation",
+      depannage: "Dépannage",
+    };
+    prioritized.forEach((sourceCard) => {
+      const sourceLink = sourceCard.querySelector("a");
+      const title = sourceCard.querySelector("h2")?.textContent?.trim();
+      if (!sourceLink || !title) return;
+
+      const article = document.createElement("article");
+      article.className = "cn-related-card";
+      article.innerHTML = `<a href="${sourceLink.getAttribute("href")}" class="cn-related-link">
+        <div class="cn-related-media">${sourceCard.querySelector(".blog-widget-image-block")?.innerHTML || ""}</div>
+        <div class="cn-related-body">
+          <span class="cn-related-category">${categoryLabels[sourceCard.dataset.category] || "Conseils"}</span>
+          ${sourceCard.querySelector(".blog-slide-meta-block")?.outerHTML || ""}
+          <h3>${title}</h3>
+          <span class="cn-related-cta">Lire l’article →</span>
+        </div>
+      </a>`;
+      relatedGrid.append(article);
+    });
+
+    detailsSection.insertAdjacentElement("afterend", section);
+    document.documentElement.classList.add("cn-related-ready");
+  } catch (error) {
+    console.warn("Related articles could not be loaded", error);
+  }
+}
+
 mountComponents();
 initBlogShareLinks();
 initProjectCarousels();
 initBlogListing();
+initRelatedArticles();
