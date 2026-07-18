@@ -34,9 +34,13 @@ jobs:
         env:
           GITHUB_MODELS_TOKEN: ${{ github.token }}
           GITHUB_MODEL: ${{ vars.GITHUB_MODEL || 'openai/gpt-4.1' }}
+          MIN_ARTICLE_WORDS: ${{ vars.MIN_ARTICLE_WORDS || '900' }}
+          MAX_GENERATION_ATTEMPTS: ${{ vars.MAX_GENERATION_ATTEMPTS || '3' }}
         run: node scripts/generate-daily-articles.mjs
 
       - name: Validate generated pages
+        env:
+          DAILY_MIN_ARTICLES: ${{ vars.DAILY_MIN_ARTICLES || '1' }}
         run: node scripts/validate-daily-articles.mjs
 
       - name: Commit and publish

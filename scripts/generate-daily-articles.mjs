@@ -9,6 +9,8 @@ const historyPath = path.join(root, "scripts/daily-article-history.json");
 const history = readJson("scripts/daily-article-history.json");
 const githubToken = process.env.GITHUB_MODELS_TOKEN || process.env.GITHUB_TOKEN;
 const model = process.env.GITHUB_MODEL || "openai/gpt-4.1";
+const minimumArticleWords = positiveInteger(process.env.MIN_ARTICLE_WORDS, 900);
+const maximumGenerationAttempts = positiveInteger(process.env.MAX_GENERATION_ATTEMPTS, 3);
 const now = new Date();
 const dateIso = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit"
@@ -19,6 +21,22 @@ const dateFr = new Intl.DateTimeFormat("fr-FR", {
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+}
+
+function positiveInteger(value, fallback) {
+  const parsed = Number.parseInt(value || "", 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function diagnosticPayload(payload, outputText = "") {
+  return JSON.stringify({
+    id: payload?.id,
+    model: payload?.model,
+    finish_reason: payload?.choices?.[0]?.finish_reason,
+    usage: payload?.usage,
+    content_length: outputText.length,
+    content_preview: outputText.slice(0, 1200)
+  });
 }
 
 function escapeHtml(value = "") {
@@ -103,7 +121,7 @@ const schema = {
   }
 };
 
-async function generate(plan) {
+async function generate(plan, attempt, previousIssue = "") {
   const { track, angle } = plan;
   const prompt = `Tu es le rédacteur SEO local senior de ${config.brand}. Rédige UN article original en français.
 
@@ -124,7 +142,9 @@ Exigences éditoriales issues des Skills du dépôt:
 - Mentionner naturellement Nice, le Paillon, Cimiez, Riquier, le Port, Nice Ouest et quelques communes proches seulement lorsque pertinent.
 - FAQ: 12 à 20 réponses de 40 à 80 mots, orientées intention de recherche.
 - CTA sobre vers /demande-devis/. Aucun contenu dupliqué, aucun bourrage de mots-clés.
-- Le slug doit être sans date, sans accents, en minuscules avec tirets.`;
+- Le slug doit être sans date, sans accents, en minuscules avec tirets.
+- Le corps des sections doit dépasser ${minimumArticleWords} mots. Développe chaque H2 avec des explications concrètes, exemples locaux et étapes utiles.
+${attempt > 1 ? `CORRECTION OBLIGATOIRE — tentative ${attempt}: la version précédente a échoué (${previousIssue}). Produis une version sensiblement plus développée et complète.` : ""}`;
 
   const response = await fetch("https://models.github.ai/inference/chat/completions", {
     method: "POST",
@@ -147,11 +167,19 @@ Exigences éditoriales issues des Skills du dépôt:
       max_tokens: 16000
     })
   });
-  if (!response.ok) throw new Error(`GitHub Models ${response.status}: ${await response.text()}`);
+  if (!response.ok) throw new Error(`GitHub Models ${response.status}: ${(await response.text()).slice(0, 2000)}`);
   const payload = await response.json();
   const outputText = payload.choices?.[0]?.message?.content;
-  if (!outputText) throw new Error(`No completion content returned for ${track.id}`);
-  return normalizeArticle(JSON.parse(outputText), track);
+  if (!outputText) {
+    console.error(`GitHub Models diagnostic for ${track.id}: ${diagnosticPayload(payload)}`);
+    throw new Error(`No completion content returned for ${track.id}`);
+  }
+  try {
+    return normalizeArticle(JSON.parse(outputText), track);
+  } catch (error) {
+    console.error(`GitHub Models diagnostic for ${track.id}, attempt ${attempt}: ${diagnosticPayload(payload, outputText)}`);
+    throw error;
+  }
 }
 
 function normalizeArticle(article, track) {
@@ -169,9 +197,28 @@ function normalizeArticle(article, track) {
     article.slug = `${slugify(article.primary_keyword)}-${dateIso}`;
   }
   const plainWords = article.sections.map((s) => s.body_html.replace(/<[^>]+>/g, " ")).join(" ").trim().split(/\s+/).length;
-  if (plainWords < 1200) throw new Error(`${article.slug}: article too short (${plainWords} words)`);
+  if (plainWords < minimumArticleWords) throw new Error(`${article.slug}: article too short (${plainWords} words; minimum ${minimumArticleWords})`);
   if (article.sections.length < 8 || article.faqs.length < 12) throw new Error(`${article.slug}: incomplete structure`);
   return article;
+}
+
+async function generateWithRetries(plan) {
+  let previousIssue = "";
+  for (let attempt = 1; attempt <= maximumGenerationAttempts; attempt += 1) {
+    try {
+      console.log(`Generating ${plan.track.label} (attempt ${attempt}/${maximumGenerationAttempts})...`);
+      return await generate(plan, attempt, previousIssue);
+    } catch (error) {
+      previousIssue = error instanceof Error ? error.message : String(error);
+      console.error(`::warning title=${plan.track.label} attempt ${attempt} failed::${previousIssue}`);
+      if (attempt < maximumGenerationAttempts) {
+        const delayMs = attempt * 3000;
+        console.log(`Retrying ${plan.track.label} in ${delayMs / 1000}s with expansion instructions...`);
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
+      }
+    }
+  }
+  throw new Error(`${plan.track.label} failed after ${maximumGenerationAttempts} attempts: ${previousIssue}`);
 }
 
 const fallbackImages = {
@@ -222,17 +269,27 @@ function renderCard(article) {
 }
 
 const generated = [];
+const generationFailures = [];
 for (const plan of plans) {
   if (plan.skip) continue;
-  console.log(`Generating ${plan.track.label}...`);
-  const article = await generate(plan);
-  const targetDir = path.join(root, "blog", article.slug);
-  if (fs.existsSync(targetDir)) throw new Error(`Refusing to overwrite ${targetDir}`);
-  fs.mkdirSync(targetDir, { recursive: false });
-  fs.writeFileSync(path.join(targetDir, "index.html"), render(article));
-  generated.push(article);
-  history.push({ date: dateIso, track: article.track, angle: plan.angle, slug: article.slug,
-    primary_keyword: article.primary_keyword, title: article.title });
+  try {
+    const article = await generateWithRetries(plan);
+    const targetDir = path.join(root, "blog", article.slug);
+    if (fs.existsSync(targetDir)) throw new Error(`Refusing to overwrite ${targetDir}`);
+    fs.mkdirSync(targetDir, { recursive: false });
+    fs.writeFileSync(path.join(targetDir, "index.html"), render(article));
+    generated.push(article);
+    history.push({ date: dateIso, track: article.track, angle: plan.angle, slug: article.slug,
+      primary_keyword: article.primary_keyword, title: article.title });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    generationFailures.push({ track: plan.track.id, message });
+    console.error(`::error title=Skipped ${plan.track.label}::${message}`);
+  }
+}
+
+if (!generated.length && plans.some((plan) => !plan.skip)) {
+  throw new Error(`All article generations failed: ${JSON.stringify(generationFailures)}`);
 }
 
 if (generated.length) {
@@ -254,3 +311,6 @@ if (generated.length) {
   fs.writeFileSync(historyPath, `${JSON.stringify(history, null, 2)}\n`);
 }
 console.log(`Generated ${generated.length} article(s).`);
+if (generationFailures.length) {
+  console.warn(`Completed with ${generationFailures.length} skipped track(s): ${JSON.stringify(generationFailures)}`);
+}

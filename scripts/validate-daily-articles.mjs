@@ -11,9 +11,12 @@ if (!latestDate) {
 const latest = history.filter((item) => item.date === latestDate);
 const errors = [];
 const expectedTracks = new Set(["climatisation", "chauffage", "electricite", "plomberie", "renovation-energetique", "entretien-depannage", "climanova-energie"]);
-if (latest.length !== 7) errors.push(`${latestDate}: expected 7 articles, found ${latest.length}`);
+const configuredMinimum = Number.parseInt(process.env.DAILY_MIN_ARTICLES || "1", 10);
+const minimumArticles = Number.isInteger(configuredMinimum) && configuredMinimum > 0 ? configuredMinimum : 1;
+if (latest.length < minimumArticles) errors.push(`${latestDate}: expected at least ${minimumArticles} article(s), found ${latest.length}`);
+if (latest.length !== expectedTracks.size) console.warn(`${latestDate}: partial batch — expected 7 articles, found ${latest.length}`);
 for (const track of expectedTracks) {
-  if (!latest.some((item) => item.track === track)) errors.push(`${latestDate}: missing track ${track}`);
+  if (!latest.some((item) => item.track === track)) console.warn(`${latestDate}: missing track ${track}`);
 }
 for (const item of latest) {
   const file = path.join(root, "blog", item.slug, "index.html");

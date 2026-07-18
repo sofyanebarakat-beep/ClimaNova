@@ -28,6 +28,16 @@ node scripts/validate-daily-articles.mjs
 
 Le mode aperçu est volontairement disponible uniquement en local afin d'éviter de lancer par erreur un workflow GitHub vert qui ne publie aucun article.
 
+## Tolérance aux réponses courtes
+
+Le générateur retente chaque article jusqu'à 3 fois et demande explicitement au modèle de développer une réponse trop courte. Une piste qui échoue encore est ignorée sans bloquer les autres publications. Les diagnostics tronqués (modèle, usage, motif de fin et aperçu) sont écrits dans les logs sans exposer le jeton GitHub.
+
+Variables GitHub Actions facultatives :
+
+- `MIN_ARTICLE_WORDS` : minimum contrôlé sur le corps des sections, `900` par défaut.
+- `MAX_GENERATION_ATTEMPTS` : tentatives par piste, `3` par défaut.
+- `DAILY_MIN_ARTICLES` : nombre minimal d'articles réussis pour autoriser la publication, `1` par défaut.
+
 ## Coût et cadence
 
 Sept articles longs par jour représentent environ 210 articles par mois et peuvent atteindre les quotas ou limites de débit GitHub Models. Commencer par plusieurs exécutions manuelles et contrôler la qualité dans Google Search Console est recommandé. Pour réduire le rythme, diminuer `articles_per_run` dans `scripts/daily-article-config.json` ou modifier le cron.
