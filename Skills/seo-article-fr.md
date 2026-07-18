@@ -244,6 +244,7 @@ Format:
 | 1 | [anchor] | https://climanova-energie.fr/[page] | [where in article] |
 
 Use these confirmed pages:
+- https://climanova-energie.fr/climatisation-nice/ — mandatory contextual pillar link for all climatisation, reversible cooling, summer comfort, and climatisation maintenance/repair articles
 - https://climanova-energie.fr/services/climatisation/
 - https://climanova-energie.fr/services/chauffage/
 - https://climanova-energie.fr/services/electricite/
@@ -384,6 +385,8 @@ Before finalizing, verify:
 - [ ] All 7 tables generated
 - [ ] All 5 schema markups generated
 - [ ] 10 internal links placed naturally
+- [ ] If the topic is related to climatisation, summer comfort, or climatisation maintenance/repair, at least one contextual body link points to https://climanova-energie.fr/climatisation-nice/
+- [ ] Shared header and footer mount points are present exactly once and `/js/core/main.js` is loaded as a module
 - [ ] 4 CTA blocks placed strategically
 - [ ] Local SEO section present (if city provided)
 - [ ] AI Overview direct answers included

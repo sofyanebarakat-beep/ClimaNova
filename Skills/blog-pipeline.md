@@ -25,6 +25,8 @@ Every post must be generated using **all five** project skills together, not `se
 - [ ] Hero/featured image < 300KB, inline images < 150KB each
 - [ ] Canonical tag, OG tags, Twitter tags all present and self-referencing this post's URL
 - [ ] At least 3 internal links out (services page + 2+ related posts) and this post added to at least 1 existing post's internal links (the cross-link step below)
+- [ ] Shared site chrome is present: exactly one `<div data-component="site-header"></div>`, one `<div data-component="site-footer"></div>`, and `<script type="module" src="/js/core/main.js...">`
+- [ ] Every climatisation, climatisation réversible, entretien/dépannage climatisation, or closely related comfort article contains a contextual body link to `/climatisation-nice/` using a natural descriptive anchor
 
 ---
 
@@ -35,8 +37,10 @@ Every post must be generated using **all five** project skills together, not `se
 
 2. **Generate each article** by applying all five skills as described in the table above, using `INPUT VARIABLES` from the row: `Primary Keyword` = `primary_keyword`, `City` = `city` (if present, else omit city-specific Phase 4 content from seo-article-fr.md but still include the standard Nice/Alpes-Maritimes local section, as existing posts do), `Service` = `service`.
    - Match the exact HTML structure, CSS classes, and JSON-LD `@graph` pattern used in existing posts. Reference `blog/bruit-climatisation-que-faire/index.html` as the structural template.
+   - **Header and footer are mandatory and must never be copied as static markup.** Immediately inside `.page-wrapper`, keep `<div data-component="site-header"></div>`. Immediately after `</main>`, keep `<div data-component="site-footer"></div>`. Load `/js/core/main.js` as a module so both shared components render. Never omit, duplicate, or replace these component mount points.
    - CTA links always point to `https://climanova-energie.fr/demande-devis/`.
    - Internal links: prefer `/services/[service]/`, `/demande-devis/`, and 2–3 topically related existing posts (pick from the `blog/` directory listing).
+   - **Nice climatisation pillar link:** for every article whose topic concerns climatisation, climatiseurs, climatisation réversible, summer comfort, or climatisation maintenance/repair, place at least one contextual link in the article body to `/climatisation-nice/`. Use a natural anchor such as `climatisation à Nice`, `solutions de climatisation à Nice`, or `installateur de climatisation à Nice`; never use a bare URL, generic “cliquez ici”, footer-only link, or repeated exact-match anchors.
 
 3. **Images: generate 6 article images via the OpenAI Images API directly.** This pipeline runs in an isolated Claude Code cloud sandbox (no access to Codex, local tools, or `$CODEX_HOME`) — so image generation happens by calling OpenAI's API directly over HTTPS, authenticated with the `$OPENAI_API_KEY` environment variable configured on this routine's Environment (never hardcode the key; if the variable is unset/empty, skip image generation for this run, fall back to reusing an existing `/images/` file as in earlier posts, and note this in the commit message rather than failing the whole run). Every new blog post gets **1 featured image + 5 in-article images**. These images are part of the article deliverable, not optional decoration.
    - Generate **one featured/hero image** first. It must be a realistic, brand-appropriate 16:9 landscape image that directly supports `primary_keyword`, `service`, `city` when present, and the article angle. Avoid text inside the image, watermarks, competitor logos, unsafe work practices, or generic stock-photo staging.
@@ -98,6 +102,12 @@ Every post must be generated using **all five** project skills together, not `se
 
 5. **Write the file.** Create `blog/<slug>/index.html` with the generated content and images, `<slug>` = the row's `slug`.
 
+5b. **Validate the shared template and pillar link.** After writing all files in the batch, run:
+   ```bash
+   node scripts/validate-blog-template.mjs blog/<slug1>/index.html blog/<slug2>/index.html
+   ```
+   A failed validation is blocking: repair the article before updating the queue, committing, or pushing.
+
 6. **Update `blog/index.html`.** Insert a new `w-dyn-item` card at the top of the list (most recent first), using the post's real featured image (not a placeholder), following the exact markup pattern of existing cards.
 
 7. **Update `sitemap.xml`.** Add a `<url>` entry for `https://climanova-energie.fr/blog/<slug>/` with `lastmod` = today's date (ISO `YYYY-MM-DD`), `priority` 0.8, `changefreq` monthly, placed among the other `/blog/` entries. Bump the `/blog/` index entry's `lastmod` too.
@@ -128,5 +138,7 @@ Every post must be generated using **all five** project skills together, not `se
 - Never invent a `city` or `service` not present in the queue row.
 - If a generated slug happens to collide with an existing folder, skip that row (leave it `pending`), log a note, and move to the next pending row instead of overwriting.
 - Keep batch size modest (2–3/day is the default cadence this queue was sized for; see `scripts/content-queue.json`'s ~100 rows). Do not pad with filler topics once the queue is exhausted — report completion instead.
+- Never publish an article without the shared `site-header`, shared `site-footer`, and module script. Never hardcode a second copy of navigation or footer HTML into an article.
+- Never publish a climatisation-related article without one contextual body link to `/climatisation-nice/`.
 - Do not use Higgsfield or third-party generators for this pipeline. Use ChatGPT/image generation, then store project-bound assets in `/images/`.
 - Keep image prompts brand-appropriate (professional, realistic, no text baked into images, no competitor logos) and visually consistent across posts.

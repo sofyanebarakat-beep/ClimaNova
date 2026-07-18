@@ -120,6 +120,11 @@ Build a complete cluster for [TOPIC CLUSTER]:
 - Length: 3,000–5,000 words
 - Purpose: Comprehensive guide, links to all cluster pages
 
+For the **Climatisation à Nice** local cluster, use this confirmed local pillar instead of inventing another hub:
+- URL: https://climanova-energie.fr/climatisation-nice/
+- All climatisation, climatisation réversible, summer comfort, and climatisation entretien/dépannage cluster articles must link back to it contextually from the article body.
+- Use varied descriptive French anchors; do not repeat the same exact-match anchor across every article.
+
 #### Cluster Pages (sub-topics — target body + long-tail keywords)
 Generate 20 supporting article ideas:
 
