@@ -182,6 +182,44 @@ function initBlogListing() {
 
   page.dataset.blogEnhanced = "true";
 
+  const frenchMonths = {
+    janvier: 0,
+    fevrier: 1,
+    février: 1,
+    mars: 2,
+    avril: 3,
+    mai: 4,
+    juin: 5,
+    juillet: 6,
+    aout: 7,
+    août: 7,
+    septembre: 8,
+    octobre: 9,
+    novembre: 10,
+    decembre: 11,
+    décembre: 11,
+  };
+
+  function getPublishedTime(card) {
+    const dateText = card.querySelector(".blog-slide-meta-block .text-md")?.textContent?.trim().toLocaleLowerCase("fr") || "";
+    const match = dateText.match(/(\d{1,2})\s+([a-zéûôîàèùç]+)\s+(\d{4})/i);
+    if (!match) return 0;
+
+    const month = frenchMonths[match[2]];
+    return month === undefined ? 0 : Date.UTC(Number(match[3]), month, Number(match[1]));
+  }
+
+  cards
+    .map((card, index) => ({ card, index, published: getPublishedTime(card) }))
+    .sort((left, right) => right.published - left.published || right.index - left.index)
+    .forEach(({ card }) => grid.append(card));
+
+  cards.sort((left, right) => {
+    const dateDifference = getPublishedTime(right) - getPublishedTime(left);
+    if (dateDifference) return dateDifference;
+    return Array.from(grid.children).indexOf(left) - Array.from(grid.children).indexOf(right);
+  });
+
   const categories = [
     { id: "climatisation", label: "Climatisation", terms: ["climatisation", "clim-", "confort-thermique", "ete"] },
     { id: "chauffage", label: "Chauffage", terms: ["chauffage", "pompe-a-chaleur", "pac-"] },
