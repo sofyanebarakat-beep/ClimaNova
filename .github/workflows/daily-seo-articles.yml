@@ -1,0 +1,64 @@
+name: Daily ClimaNova SEO articles
+
+on:
+  schedule:
+    - cron: "15 7 * * *"
+      timezone: "Europe/Paris"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview the seven editorial tracks without generating or publishing"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-climanova-seo
+  cancel-in-progress: false
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preview editorial plan
+        if: ${{ inputs.dry_run == true }}
+        run: node scripts/generate-daily-articles.mjs --dry-run
+
+      - name: Generate seven articles
+        if: ${{ inputs.dry_run != true }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5-mini' }}
+        run: node scripts/generate-daily-articles.mjs
+
+      - name: Validate generated pages
+        if: ${{ inputs.dry_run != true }}
+        run: node scripts/validate-daily-articles.mjs
+
+      - name: Commit and publish
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if git diff --quiet && test -z "$(git status --porcelain)"; then
+            echo "Nothing new to publish."
+            exit 0
+          fi
+          git config user.name "climanova-content-bot"
+          git config user.email "climanova-content-bot@users.noreply.github.com"
+          git add blog/ sitemap.xml scripts/daily-article-history.json
+          git commit -m "Publish daily ClimaNova SEO articles $(date +%F)"
+          git push origin main
