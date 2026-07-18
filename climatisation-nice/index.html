@@ -135,6 +135,75 @@ fbq('track','PageView');
 <!-- End Meta Pixel Code -->
 <link rel="alternate" hreflang="fr" href="https://climanova-energie.fr/climatisation-nice/">
 <link rel="alternate" hreflang="x-default" href="https://climanova-energie.fr/climatisation-nice/">
+<style>
+.cn-nice-content{width:100%;display:flex;flex-direction:column;gap:64px;}
+.cn-nice-intro{display:flex;flex-wrap:wrap;gap:40px;align-items:center;}
+.cn-nice-intro-text{flex:1 1 420px;min-width:280px;}
+.cn-nice-intro-image{flex:1 1 380px;min-width:280px;}
+.cn-nice-intro-image img{width:100%;height:auto;border-radius:20px;display:block;}
+.cn-nice-eyebrow{display:inline-block;background:var(--cn-green-tint);color:var(--cn-green-dark);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:16px;}
+.cn-nice-intro-text h2{margin-bottom:16px;}
+.cn-nice-intro-text p{font-size:18px;margin-bottom:24px;}
+.cn-nice-intro-points{list-style:none;margin:0 0 28px;padding:0;display:flex;flex-direction:column;gap:12px;}
+.cn-nice-intro-points li{display:flex;gap:10px;align-items:flex-start;font-size:16px;color:var(--cn-n2);}
+.cn-nice-intro-points svg{flex:none;width:20px;height:20px;color:var(--cn-green-dark);margin-top:2px;}
+.cn-nice-section-title{margin-bottom:12px;}
+.cn-nice-section-sub{font-size:18px;color:var(--cn-n4);margin-bottom:36px;max-width:680px;}
+.cn-nice-solutions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+.cn-solution-card{position:relative;background:#fff;border:1px solid var(--cn-n11);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:8px;}
+.cn-solution-card--popular{border-color:var(--cn-green);box-shadow:0 8px 28px rgba(3,190,99,.14);}
+.cn-solution-badge{position:absolute;top:-13px;left:28px;background:var(--cn-green);color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:100px;}
+.cn-solution-card h3{font-size:22px;margin:0 0 4px;}
+.cn-solution-card p{color:var(--cn-n4);font-size:15px;margin:0 0 18px;flex:1;}
+.cn-solution-price{font-size:22px;font-weight:700;color:var(--cn-blue-dark);}
+.cn-solution-price-note{font-size:13px;color:var(--cn-n4);margin-bottom:18px;}
+.cn-solution-cta{display:inline-flex;justify-content:center;align-items:center;padding:12px 20px;border-radius:100px;border:1.5px solid var(--cn-blue);color:var(--cn-blue);font-weight:600;font-size:14px;text-decoration:none;transition:.2s;}
+.cn-solution-cta:hover{background:var(--cn-blue);color:#fff;}
+.cn-nice-process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.cn-process-card{text-align:center;padding:28px 20px;}
+.cn-process-num{width:52px;height:52px;border-radius:50%;background:var(--cn-blue-tint);color:var(--cn-blue-dark);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.cn-process-card h3{font-size:18px;margin:0 0 8px;}
+.cn-process-card p{font-size:14px;color:var(--cn-n4);margin:0;}
+.cn-nice-brands-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+.cn-brand-card{background:var(--cn-bg);border-radius:16px;padding:26px 22px;text-align:center;}
+.cn-brand-card img{height:34px;width:auto;max-width:100%;object-fit:contain;margin-bottom:16px;}
+.cn-brand-card p{font-size:14px;color:var(--cn-n4);margin:0;}
+.cn-nice-aids{background:var(--cn-green-tint);border-radius:28px;padding:48px 40px;}
+.cn-nice-aids .cn-nice-section-title,.cn-nice-aids .cn-nice-section-sub{text-align:center;margin-left:auto;margin-right:auto;}
+.cn-nice-aids-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:28px;}
+.cn-aid-card{background:#fff;border-radius:16px;padding:24px 22px;}
+.cn-aid-card h3{font-size:16px;margin:0 0 6px;}
+.cn-aid-value{font-size:22px;font-weight:700;color:var(--cn-green-dark);margin-bottom:10px;}
+.cn-aid-card p{font-size:14px;color:var(--cn-n4);margin:0;}
+.cn-nice-aids-note{background:var(--cn-blue-dark);color:#fff;border-radius:14px;padding:18px 24px;font-size:15px;text-align:center;}
+.cn-nice-why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.cn-why-card{border:1px solid var(--cn-n11);border-radius:16px;padding:24px 22px;}
+.cn-why-icon{width:44px;height:44px;border-radius:12px;background:var(--cn-blue-tint);color:var(--cn-blue-dark);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.cn-why-card h3{font-size:17px;margin:0 0 8px;}
+.cn-why-card p{font-size:14px;color:var(--cn-n4);margin:0;}
+.cn-nice-zones-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px;}
+.cn-zone-card{background:var(--cn-bg);border-radius:14px;padding:18px;text-align:center;}
+.cn-zone-card strong{display:block;font-size:16px;color:var(--cn-n1);margin-bottom:4px;}
+.cn-zone-card span{font-size:13px;color:var(--cn-n4);}
+.cn-nice-nearby{display:flex;flex-wrap:wrap;gap:10px;}
+.cn-nice-nearby span{background:#fff;border:1px solid var(--cn-n11);border-radius:100px;padding:8px 16px;font-size:14px;color:var(--cn-n3);}
+.cn-nice-testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+.cn-testimonial-card{background:var(--cn-bg);border-radius:18px;padding:26px 24px;}
+.cn-testimonial-stars{color:var(--cn-green-dark);font-size:14px;margin-bottom:12px;}
+.cn-testimonial-card p{font-size:15px;color:var(--cn-n2);margin:0 0 16px;}
+.cn-testimonial-name{font-weight:600;font-size:14px;color:var(--cn-n1);}
+.cn-nice-faq-list{display:flex;flex-direction:column;gap:12px;max-width:820px;}
+.cn-faq-item{border:1px solid var(--cn-n11);border-radius:14px;padding:6px 22px;}
+.cn-faq-item summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:600;font-size:16px;color:var(--cn-n1);display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.cn-faq-item summary::-webkit-details-marker{display:none;}
+.cn-faq-item summary::after{content:"+";flex:none;font-size:22px;color:var(--cn-blue);transition:transform .2s;}
+.cn-faq-item[open] summary::after{transform:rotate(45deg);}
+.cn-faq-item p{font-size:15px;color:var(--cn-n4);margin:0 0 18px;}
+@media (max-width:767px){
+.cn-nice-content{gap:48px;}
+.cn-nice-aids{padding:32px 22px;}
+}
+</style>
 </head>
 <body>
 
@@ -188,120 +257,174 @@ fbq('track','PageView');
 
  <div class="cn-blog-cta-banner cn-blog-cta-banner--full"><h3 class="cn-blog-cta-title">Besoin d'un devis&nbsp;?</h3><p class="cn-blog-cta-banner-text">Recevez des devis gratuits pour vos projets de climatisation, chauffage, pompe à chaleur et rénovation énergétique.</p><ul class="cn-blog-cta-list"><li>Étude technique à domicile</li><li>Jusqu'à 3 devis détaillés</li><li>Installateurs qualifiés de votre secteur</li></ul><a href="/demande-devis/" class="cn-blog-cta-banner-btn">Demander des devis gratuits</a><p class="cn-blog-cta-note">Service gratuit &amp; sans engagement</p></div>
 
- <!-- Content + form -->
+ <!-- Content: single column -->
  <div class="service-details-content-wrapper">
+ <div class="cn-nice-content">
 
- <!-- Left: rich text + images + why choose -->
- <div class="service-details-content-block">
-
- <div class="service-details-top-content w-richtext">
- <p>ClimaNova Energie installe, entretient et dépanne votre climatisation à Nice avec des techniciens certifiés RGE QualiPAC. Rafraîchissement en été, chauffage en hiver grâce à la climatisation réversible : une solution 2-en-1 économique et confortable, posée dans les règles de l'art et accompagnée d'un devis gratuit sous 24h.</p>
- <p>‍</p>
- <h2>Nos solutions climatisation à Nice</h2>
- <p>Une installation adaptée à votre logement, quelle que soit sa configuration.</p>
- <ul role="list">
- <li><strong>Mono-split</strong> — idéal pour une pièce principale, installation en demi-journée, solution économique et efficace.</li>
- <li><strong>Multi-split</strong> — de 2 à 5 pièces raccordées à une seule unité extérieure, discret et adapté aux maisons comme aux appartements niçois.</li>
- <li><strong>Gainable</strong> — diffusion par gaines cachées, une solution haut de gamme invisible, particulièrement adaptée aux rénovations.</li>
+ <!-- Intro -->
+ <div class="cn-nice-intro">
+ <div class="cn-nice-intro-text">
+ <div class="cn-nice-eyebrow">Expert local</div>
+ <h2>Installation Climatisation Nice — Certifié RGE QualiPAC</h2>
+ <p>ClimaNova Energie, votre spécialiste climatisation à Nice. Installateur certifié RGE QualiPAC, nous réalisons la pose de climatisation réversible à Nice et dans toute la région. Rafraîchissement en été, chauffage en hiver — une solution 2-en-1 économique et écologique, accompagnée d'un devis gratuit sous 24h.</p>
+ <ul class="cn-nice-intro-points">
+ <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Clim réversible Nice — mono-split, multi-split, gainable, toutes configurations adaptées à votre logement</li>
+ <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Certification RGE QualiPAC — éligibilité garantie aux aides MaPrimeRénov', CEE, TVA 5,5 % et Éco-PTZ</li>
+ <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Techniciens qualifiés — intervention soignée, respect des normes frigorifiques et de l'environnement</li>
+ <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>SAV &amp; entretien — contrats de maintenance climatisation disponibles à Nice, SAV réactif</li>
  </ul>
- <h2>Comment se déroule votre installation climatisation à Nice ?</h2>
- <p>Un processus simple et transparent en 4 étapes.</p>
- <ul role="list">
- <li><strong>1. Prise de contact</strong> — appelez-nous ou remplissez le formulaire, nous vous rappelons sous 24h pour discuter de votre projet à Nice.</li>
- <li><strong>2. Devis gratuit</strong> — étude technique et devis détaillé, transparent et sans surprise.</li>
- <li><strong>3. Installation</strong> — nos techniciens certifiés RGE interviennent à Nice pour un travail soigné, propre et rapide.</li>
- <li><strong>4. Mise en service</strong> — réglages complets, explications d'utilisation et accompagnement dans vos démarches d'aides financières.</li>
- </ul>
- <h2>Marques de climatisation installées à Nice</h2>
- <p>ClimaNova Energie installe des climatiseurs Mitsubishi Electric, Toshiba, Panasonic, Hisense et Atlantic Fujitsu, reconnues pour leur fiabilité, leur efficacité énergétique et leur discrétion sonore — un choix adapté à chaque budget et à chaque logement niçois.</p>
- <h2>Aides financières pour votre climatisation à Nice</h2>
- <p>Une installation réalisée par un professionnel certifié RGE QualiPAC comme ClimaNova Energie peut ouvrir droit à plusieurs dispositifs de soutien.</p>
- <ul role="list">
- <li><strong>MaPrimeRénov'</strong> — aide de l'État pour l'installation d'une pompe à chaleur air/air, sous conditions de ressources.</li>
- <li><strong>CEE</strong> — Certificats d'Économies d'Énergie versés par les fournisseurs d'énergie, cumulables avec MaPrimeRénov'.</li>
- <li><strong>TVA réduite à 5,5 %</strong> — au lieu de 20 %, pour les travaux de rénovation énergétique dans votre résidence principale.</li>
- <li><strong>Éco-PTZ</strong> — prêt à taux zéro pour financer vos travaux sans intérêts.</li>
- </ul>
- <p>ClimaNova Energie vous accompagne dans toutes les démarches administratives liées à ces aides.</p>
- <h2>Zones d'intervention climatisation à Nice</h2>
- <p>Nous intervenons dans tous les quartiers de Nice — Centre, Nord, Est, Cimiez, Riquier — ainsi que dans les communes voisines : Cagnes-sur-Mer, Saint-Laurent-du-Var, Villefranche-sur-Mer, Antibes, Cannes, Vence et Menton.</p>
- <h2>Pourquoi choisir ClimaNova pour votre climatisation à Nice ?</h2>
- <p>Une entreprise implantée à Nice facilite les échanges et accélère les délais d'intervention. Nous connaissons les contraintes des appartements anciens du centre-ville, des copropriétés, des villas des collines niçoises et des commerces exposés au soleil toute l'année. Cette proximité nous permet de proposer des solutions cohérentes et de rester disponibles après la pose pour les réglages ou l'entretien.</p>
- <h2>Services complémentaires pour votre confort</h2>
- <p>Votre projet peut aussi concerner le <a href="/services/chauffage/">chauffage</a>, la <a href="/services/electricite/">mise en sécurité électrique</a>, la <a href="/services/plomberie/">plomberie</a> ou une <a href="/services/renovation-energetique/">rénovation énergétique</a>. En regroupant ces compétences, ClimaNova Energie simplifie la coordination de vos travaux à Nice.</p>
- <h2>FAQ climatisation Nice</h2>
- <h3>Quel est le prix d'une installation de climatisation à Nice ?</h3>
- <p>Le prix varie généralement entre 1 700 et 4 500 € selon la puissance, la marque et le type de système (mono-split, multi-split ou gainable). ClimaNova Energie propose un devis gratuit et détaillé sous 24h.</p>
- <h3>ClimaNova Energie intervient-il partout à Nice ?</h3>
- <p>Oui, nous intervenons dans tous les quartiers de Nice ainsi que dans les communes voisines comme Cagnes-sur-Mer, Saint-Laurent-du-Var, Villefranche-sur-Mer, Antibes et Cannes.</p>
- <h3>Quelles aides pour une climatisation à Nice ?</h3>
- <p>Une climatisation réversible air/air installée par un professionnel RGE peut être éligible à MaPrimeRénov', aux CEE, à la TVA réduite à 5,5 % et à l'Éco-PTZ, selon vos revenus et la nature des travaux.</p>
- <h3>Quelle marque de climatisation choisir à Nice ?</h3>
- <p>ClimaNova Energie installe des climatiseurs Mitsubishi Electric, Toshiba, Panasonic, Hisense et Atlantic Fujitsu à Nice. Le choix dépend de votre budget, du niveau sonore souhaité et de la configuration de votre logement.</p>
- <h3>Combien de temps prend l'installation d'une climatisation à Nice ?</h3>
- <p>Une installation mono-split se réalise généralement en une demi-journée. Un système multi-split ou gainable demande souvent une journée complète selon l'accès et la configuration du logement.</p>
+ <a href="/demande-devis/" class="button-primary w-inline-block">
+ <div class="button-text-wrapper"><div class="button-text">Demander un devis gratuit</div><div class="button-text absolute">Demander un devis gratuit</div></div>
+ <div class="button-arrow-wrap"><div class="button-arrow-block"><div class="button-right-arrow w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"></path><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="button-right-arrow absolute w-embed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L6 18" stroke="white" stroke-width="2" stroke-linecap="round"></path><path d="M18 13L18 7C18 6.5286 18 6.29289 17.8536 6.14645C17.7071 6 17.4714 6 17 6L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div>
+ </a>
  </div>
-
- <div class="service-details-image-block">
+ <div class="cn-nice-intro-image">
  <picture>
  <source srcset="/images/climanova-project-01.webp" type="image/webp">
- <img src="/images/climanova-project-01.jpg" loading="lazy" alt="installation climatisation à Nice" class="service-details-image"/>
-</picture>
- <picture>
- <source srcset="/images/climanova-project-02.webp" type="image/webp">
- <img src="/images/climanova-project-02.jpg" loading="lazy" alt="technicien climatisation ClimaNova Energie à Nice" class="service-details-image-02"/>
-</picture>
- </div>
-
- <div class="service-details-why-choose-wrapper">
- <h2 class="h4-style">Pourquoi choisir ClimaNova à Nice ?</h2>
- <div class="service-details-why-choose-block-wrap">
-
- <div class="service-details-why-choose-block">
- <div class="service-details-why-choose-icon-block">
- <img src="/images/695fa55c4f2bd1ad92f40d46_Skilled Professionals-icon.svg" loading="lazy" alt="Techniciens qualifiés ClimaNova Énergie" class="service-details-why-choose-icon"/>
- </div>
- <div class="service-details-why-choose-text-block">
- <h3 class="h5-style">Techniciens certifiés RGE</h3>
- <p class="text-md">Nos experts sont qualifiés QualiPAC et formés aux dernières technologies pour chaque installation à Nice.</p>
+ <img src="/images/climanova-project-01.jpg" loading="lazy" alt="installation climatisation à Nice par ClimaNova Energie" width="1400" height="1026">
+ </picture>
  </div>
  </div>
 
- <div class="service-details-why-choose-block">
- <div class="service-details-why-choose-icon-block">
- <img src="/images/695fa94d99393d6ad9ce5125_Honest Pricing%252C No Surprises.svg" loading="lazy" alt="Tarifs transparents sans surprise — ClimaNova" class="service-details-why-choose-icon"/>
+ <!-- Solutions -->
+ <div class="cn-nice-section">
+ <h2 class="cn-nice-section-title">Nos Solutions Climatisation Nice</h2>
+ <p class="cn-nice-section-sub">Installation clim réversible adaptée à votre logement à Nice.</p>
+ <div class="cn-nice-solutions-grid">
+ <div class="cn-solution-card">
+ <h3>Mono-Split Nice</h3>
+ <p>Idéal pour une pièce principale à Nice. Solution économique et efficace, installation en demi-journée.</p>
+ <div class="cn-solution-price">À partir de 1 700 €</div>
+ <div class="cn-solution-price-note">Installation complète incluse</div>
+ <a href="/demande-devis/" class="cn-solution-cta">Demander un devis</a>
  </div>
- <div class="service-details-why-choose-text-block">
- <h3 class="h5-style">Prix transparents</h3>
- <p class="text-md">Contactez-nous sous 24 h, sans frais cachés ni mauvaise surprise sur la facture finale.</p>
+ <div class="cn-solution-card cn-solution-card--popular">
+ <div class="cn-solution-badge">Le plus populaire</div>
+ <h3>Multi-Split Nice</h3>
+ <p>2 à 5 pièces avec une seule unité extérieure à Nice. Économique et discret, idéal maisons et appartements.</p>
+ <div class="cn-solution-price">Sur devis</div>
+ <div class="cn-solution-price-note">Selon nombre de pièces</div>
+ <a href="/demande-devis/" class="cn-solution-cta">Demander un devis</a>
+ </div>
+ <div class="cn-solution-card">
+ <h3>Gainable Nice</h3>
+ <p>Diffusion par gaines cachées à Nice. Solution haut de gamme invisible, parfaite pour les rénovations.</p>
+ <div class="cn-solution-price">Sur devis</div>
+ <div class="cn-solution-price-note">Solution premium</div>
+ <a href="/demande-devis/" class="cn-solution-cta">Demander un devis</a>
+ </div>
+ </div>
+ </div>
+
+ <!-- Process -->
+ <div class="cn-nice-section">
+ <h2 class="cn-nice-section-title">Comment se déroule votre installation clim à Nice ?</h2>
+ <p class="cn-nice-section-sub">Un processus simple et transparent en 4 étapes.</p>
+ <div class="cn-nice-process-grid">
+ <div class="cn-process-card">
+ <div class="cn-process-num">01</div>
+ <h3>Prise de contact</h3>
+ <p>Appelez-nous ou remplissez le formulaire. Nous vous rappelons sous 24h pour discuter de votre projet à Nice.</p>
+ </div>
+ <div class="cn-process-card">
+ <div class="cn-process-num">02</div>
+ <h3>Devis gratuit</h3>
+ <p>Nous établissons un devis détaillé et personnalisé pour votre installation à Nice. Transparent, sans surprise.</p>
+ </div>
+ <div class="cn-process-card">
+ <div class="cn-process-num">03</div>
+ <h3>Installation</h3>
+ <p>Nos techniciens certifiés RGE interviennent à Nice pour poser votre climatisation. Travail soigné, propre et rapide.</p>
+ </div>
+ <div class="cn-process-card">
+ <div class="cn-process-num">04</div>
+ <h3>Mise en service</h3>
+ <p>Mise en service complète avec explications. Nous vous accompagnons pour les démarches d'aides financières.</p>
+ </div>
  </div>
  </div>
 
- <div class="service-details-why-choose-block">
- <div class="service-details-why-choose-icon-block">
- <img src="/images/695fa716af89561106a696da_Fast %2526 Reliable Service-icon.svg" loading="lazy" alt="Intervention rapide et fiable — ClimaNova Énergie" class="service-details-why-choose-icon"/>
+ <!-- Brands -->
+ <div class="cn-nice-section">
+ <h2 class="cn-nice-section-title">Marques Installées à Nice</h2>
+ <p class="cn-nice-section-sub">Mitsubishi Electric, Toshiba, Panasonic, Hisense, Atlantic Fujitsu — un choix adapté à chaque budget.</p>
+ <div class="cn-nice-brands-grid">
+ <div class="cn-brand-card"><img src="/images/logo-mitsubishi.png" loading="lazy" alt="Mitsubishi Electric"><p>Technologie japonaise, fonctionnement silencieux et grande fiabilité.</p></div>
+ <div class="cn-brand-card"><img src="/images/logo-toshiba.png" loading="lazy" alt="Toshiba"><p>Performance énergétique élevée et confort thermique en toute saison.</p></div>
+ <div class="cn-brand-card"><img src="/images/logo-panasonic.png" loading="lazy" alt="Panasonic"><p>Filtration d'air avancée et pilotage connecté pour un confort sur-mesure.</p></div>
+ <div class="cn-brand-card"><img src="/images/logo-hisense.png" loading="lazy" alt="Hisense"><p>Excellent rapport qualité-prix, une solution fiable pour tous les budgets.</p></div>
+ <div class="cn-brand-card"><img src="/images/logo-atlantic-fujitsu.png" loading="lazy" alt="Atlantic Fujitsu"><p>Robustesse reconnue et service après-vente réactif.</p></div>
  </div>
- <div class="service-details-why-choose-text-block">
- <h3 class="h5-style">Intervention rapide</h3>
- <p class="text-md">Disponible 6 j/7 à Nice pour vos urgences, nouvelles installations et contrats d'entretien.</p>
+ </div>
+
+ <!-- Financial aid -->
+ <div class="cn-nice-section cn-nice-aids">
+ <h2 class="cn-nice-section-title">Aides Financières pour votre Clim à Nice</h2>
+ <p class="cn-nice-section-sub">Profitez des dispositifs de soutien grâce à notre certification RGE QualiPAC.</p>
+ <div class="cn-nice-aids-grid">
+ <div class="cn-aid-card"><h3>MaPrimeRénov'</h3><div class="cn-aid-value">jusqu'à 4 000 €</div><p>Aide de l'État pour l'installation d'une PAC air-air. Accessible sous conditions de revenus.</p></div>
+ <div class="cn-aid-card"><h3>CEE</h3><div class="cn-aid-value">Variable</div><p>Certificats d'Économies d'Énergie versés par les fournisseurs d'énergie. Cumulable avec MaPrimeRénov'.</p></div>
+ <div class="cn-aid-card"><h3>TVA Réduite</h3><div class="cn-aid-value">5,5 %</div><p>TVA à 5,5 % au lieu de 20 % pour vos travaux de rénovation énergétique dans votre résidence principale.</p></div>
+ <div class="cn-aid-card"><h3>Éco-PTZ</h3><div class="cn-aid-value">0 % jusqu'à 50k €</div><p>Prêt à taux zéro pour financer vos travaux de rénovation énergétique sans intérêts.</p></div>
+ </div>
+ <p class="cn-nice-aids-note">Ces aides sont accessibles uniquement avec un installateur RGE QualiPAC comme ClimaNova Energie. Nous gérons toutes vos démarches administratives à Nice.</p>
+ </div>
+
+ <!-- Why choose -->
+ <div class="cn-nice-section">
+ <h2 class="cn-nice-section-title">Pourquoi choisir ClimaNova pour votre climatisation à Nice ?</h2>
+ <p class="cn-nice-section-sub">6 bonnes raisons de nous faire confiance.</p>
+ <div class="cn-nice-why-grid">
+ <div class="cn-why-card"><div class="cn-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>RGE QualiPAC</h3><p>Certification officielle obligatoire pour bénéficier des aides de l'État, garantissant une installation conforme aux normes les plus strictes à Nice.</p></div>
+ <div class="cn-why-card"><div class="cn-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Devis gratuit sous 24h</h3><p>Réponse rapide garantie pour votre projet de climatisation à Nice. Devis détaillé, transparent et sans engagement.</p></div>
+ <div class="cn-why-card"><div class="cn-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Techniciens qualifiés</h3><p>Une équipe formée et certifiée, reconnue pour son professionnalisme et la qualité de ses interventions à Nice.</p></div>
+ <div class="cn-why-card"><div class="cn-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Intervention rapide</h3><p>Disponible 6 j/7 à Nice pour vos urgences, nouvelles installations et contrats d'entretien.</p></div>
+ <div class="cn-why-card"><div class="cn-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Aides financières maximisées</h3><p>Nous vous accompagnons pour obtenir toutes les aides disponibles à Nice : MaPrimeRénov', CEE, TVA 5,5 % et Éco-PTZ.</p></div>
+ <div class="cn-why-card"><div class="cn-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>SAV &amp; entretien annuel</h3><p>Service après-vente réactif et contrats d'entretien annuel disponibles à Nice pour préserver la performance de votre installation.</p></div>
  </div>
  </div>
 
- <div class="service-details-why-choose-block">
- <div class="service-details-why-choose-icon-block">
- <img src="/images/695fa74477c3fe3b0a1897c2_Guaranteed Quality %2526 Safety.svg" loading="lazy" alt="Qualité et sécurité garanties — ClimaNova Énergie" class="service-details-why-choose-icon"/>
+ <!-- Service zones -->
+ <div class="cn-nice-section">
+ <h2 class="cn-nice-section-title">Climatisation Nice et Environs</h2>
+ <p class="cn-nice-section-sub">Zones d'intervention certifiées RGE QualiPAC.</p>
+ <div class="cn-nice-zones-grid">
+ <div class="cn-zone-card"><strong>Nice Centre</strong><span>06000</span></div>
+ <div class="cn-zone-card"><strong>Nice Nord</strong><span>06100</span></div>
+ <div class="cn-zone-card"><strong>Nice Est</strong><span>06300</span></div>
+ <div class="cn-zone-card"><strong>Cagnes-sur-Mer</strong><span>06800</span></div>
+ <div class="cn-zone-card"><strong>Saint-Laurent-du-Var</strong><span>06700</span></div>
+ <div class="cn-zone-card"><strong>Antibes</strong><span>06600</span></div>
  </div>
- <div class="service-details-why-choose-text-block">
- <h3 class="h5-style">Satisfaction garantie</h3>
- <p class="text-md">Travaux garantis et suivi après installation — votre confort est notre priorité absolue.</p>
+ <div class="cn-nice-nearby">
+ <span>Cannes</span><span>Menton</span><span>Vence</span><span>Grasse</span><span>Villefranche-sur-Mer</span>
+ </div>
+ </div>
+
+ <!-- Testimonials -->
+ <div class="cn-nice-section">
+ <h2 class="cn-nice-section-title">Ce que disent nos clients</h2>
+ <p class="cn-nice-section-sub">Note 4.9/5 — avis vérifiés ClimaNova Energie.</p>
+ <div class="cn-nice-testimonial-grid">
+ <div class="cn-testimonial-card"><div class="cn-testimonial-stars">★★★★★</div><p>« Travailler avec ClimaNova Energie a été une excellente expérience. Une équipe professionnelle et réactive, avec des résultats à la hauteur. »</p><div class="cn-testimonial-name">Pierre Martin</div></div>
+ <div class="cn-testimonial-card"><div class="cn-testimonial-stars">★★★★★</div><p>« ClimaNova Energie est une équipe remarquable. Professionnels, disponibles et efficaces — les résultats parlent d'eux-mêmes. »</p><div class="cn-testimonial-name">Sophie Lefèvre</div></div>
+ <div class="cn-testimonial-card"><div class="cn-testimonial-stars">★★★★★</div><p>« Notre expérience avec ClimaNova Energie a été remarquable. Toute l'équipe est réactive, professionnelle et garantit des résultats de qualité. »</p><div class="cn-testimonial-name">Nicolas Garnier</div></div>
+ </div>
+ </div>
+
+ <!-- FAQ -->
+ <div class="cn-nice-section cn-nice-faq">
+ <h2 class="cn-nice-section-title">FAQ — Climatisation Nice</h2>
+ <div class="cn-nice-faq-list">
+ <details class="cn-faq-item"><summary>Quel est le prix d'une installation de climatisation à Nice ?</summary><p>Le prix varie généralement entre 1 700 et 4 500 € selon la puissance, la marque et le type de système (mono-split, multi-split ou gainable). ClimaNova Energie propose un devis gratuit et détaillé sous 24h.</p></details>
+ <details class="cn-faq-item"><summary>ClimaNova Energie intervient-il partout à Nice ?</summary><p>Oui, nous intervenons dans tous les quartiers de Nice ainsi que dans les communes voisines comme Cagnes-sur-Mer, Saint-Laurent-du-Var, Villefranche-sur-Mer, Antibes et Cannes.</p></details>
+ <details class="cn-faq-item"><summary>Quelles aides pour une clim à Nice ?</summary><p>Une climatisation réversible air/air installée par un professionnel RGE peut être éligible à MaPrimeRénov', aux CEE, à la TVA réduite à 5,5 % et à l'Éco-PTZ, selon vos revenus et la nature des travaux.</p></details>
+ <details class="cn-faq-item"><summary>Quelle marque de climatisation choisir à Nice ?</summary><p>ClimaNova Energie installe des climatiseurs Mitsubishi Electric, Toshiba, Panasonic, Hisense et Atlantic Fujitsu à Nice. Le choix dépend de votre budget, du niveau sonore souhaité et de la configuration de votre logement.</p></details>
+ <details class="cn-faq-item"><summary>Combien de temps prend l'installation d'une clim à Nice ?</summary><p>Une installation mono-split se réalise généralement en une demi-journée. Un système multi-split ou gainable demande souvent une journée complète selon l'accès et la configuration du logement.</p></details>
+ </div>
  </div>
 
  </div>
- <p class="text-lg">Choisissez ClimaNova Energie pour une installation climatisation soignée à Nice, un service réactif et une garantie sur l'ensemble de nos travaux.</p>
- </div>
-
- </div>
-
  </div>
  </div>
  </section>
