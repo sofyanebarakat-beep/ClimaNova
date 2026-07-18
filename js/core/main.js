@@ -246,7 +246,6 @@ function initBlogListing() {
   const filters = toolbar.querySelector(".cn-blog-filters");
   const filterOptions = [{ id: "all", label: "Tous" }, ...categories];
   let activeCategory = "all";
-  let visibleLimit = 12;
 
   filterOptions.forEach((option) => {
     const button = document.createElement("button");
@@ -263,42 +262,54 @@ function initBlogListing() {
   resultsStatus.setAttribute("aria-live", "polite");
   page.querySelector(".blog-content-wrapper")?.append(resultsStatus);
 
-  const loadMore = document.createElement("button");
-  loadMore.type = "button";
-  loadMore.className = "cn-blog-load-more";
-  loadMore.textContent = "Voir plus d’articles";
-  page.querySelector(".blog-content-wrapper")?.append(loadMore);
+  const pagination = document.createElement("nav");
+  pagination.className = "cn-blog-pagination";
+  pagination.setAttribute("aria-label", "Pagination des articles");
+  pagination.innerHTML = `<button type="button" class="cn-blog-page-nav" data-nav="prev">← Précédent</button>
+    <div class="cn-blog-page-numbers"></div>
+    <button type="button" class="cn-blog-page-nav" data-nav="next">Suivant →</button>`;
+  page.querySelector(".blog-content-wrapper")?.append(pagination);
 
-  function createInlineCta(index) {
-    const cta = document.createElement("aside");
-    cta.className = "cn-blog-grid-cta";
-    cta.dataset.dynamicCta = "true";
-    cta.setAttribute("role", "listitem");
-    cta.innerHTML = `<div><span>Votre projet à Nice</span><strong>Besoin d’un conseil ou d’un devis personnalisé ?</strong></div>
-      <a href="/demande-devis/">Demander un devis gratuit →</a>`;
-    cta.dataset.ctaIndex = String(index);
-    return cta;
-  }
+  const prevButton = pagination.querySelector('[data-nav="prev"]');
+  const nextButton = pagination.querySelector('[data-nav="next"]');
+  const pageNumbers = pagination.querySelector(".cn-blog-page-numbers");
+
+  const pageSize = 12;
+  let currentPage = 1;
 
   function refreshCards() {
-    grid.querySelectorAll("[data-dynamic-cta]").forEach((cta) => cta.remove());
     const matchingCards = cards.filter((card) => card.dataset.featuredSource !== "true" && (activeCategory === "all" || card.dataset.category === activeCategory));
+    const totalPages = Math.max(1, Math.ceil(matchingCards.length / pageSize));
+    currentPage = Math.min(currentPage, totalPages);
+
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    const shownCards = matchingCards.slice(start, end);
 
     cards.forEach((card) => {
-      const matches = matchingCards.includes(card);
-      const position = matchingCards.indexOf(card);
-      card.hidden = !matches || position >= visibleLimit;
+      card.hidden = !shownCards.includes(card);
     });
 
-    const shownCards = matchingCards.slice(0, visibleLimit);
-    shownCards.forEach((card, index) => {
-      if ((index + 1) % 6 === 0) {
-        card.insertAdjacentElement("afterend", createInlineCta(index + 1));
-      }
-    });
+    pageNumbers.innerHTML = "";
+    for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+      const pageButton = document.createElement("button");
+      pageButton.type = "button";
+      pageButton.className = "cn-blog-page-number";
+      pageButton.textContent = String(pageNumber);
+      pageButton.setAttribute("aria-current", pageNumber === currentPage ? "page" : "false");
+      pageButton.addEventListener("click", () => {
+        currentPage = pageNumber;
+        refreshCards();
+        pagination.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      pageNumbers.append(pageButton);
+    }
 
-    loadMore.hidden = matchingCards.length <= visibleLimit;
-    resultsStatus.textContent = `${Math.min(matchingCards.length, visibleLimit)} article${matchingCards.length > 1 ? "s" : ""} affiché${matchingCards.length > 1 ? "s" : ""}.`;
+    prevButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= totalPages;
+    pagination.hidden = totalPages <= 1;
+
+    resultsStatus.textContent = `Page ${currentPage} sur ${totalPages} — ${matchingCards.length} article${matchingCards.length > 1 ? "s" : ""} au total.`;
   }
 
   filters.addEventListener("click", (event) => {
@@ -306,16 +317,23 @@ function initBlogListing() {
     if (!button) return;
 
     activeCategory = button.dataset.filter;
-    visibleLimit = 12;
+    currentPage = 1;
     filters.querySelectorAll("button").forEach((filter) => {
       filter.setAttribute("aria-pressed", filter === button ? "true" : "false");
     });
     refreshCards();
   });
 
-  loadMore.addEventListener("click", () => {
-    visibleLimit += 12;
+  prevButton.addEventListener("click", () => {
+    currentPage -= 1;
     refreshCards();
+    pagination.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  nextButton.addEventListener("click", () => {
+    currentPage += 1;
+    refreshCards();
+    pagination.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   refreshCards();
