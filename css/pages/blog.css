@@ -1080,7 +1080,8 @@
 
 /* ── Consistent related-article section on every article page ───────────── */
 
-.cn-related-ready .blog-details-recent-post-content-block {
+.cn-related-ready .blog-details-recent-post-content-block,
+.cn-related-ready .cn-lire-aussi {
   display: none;
 }
 
