@@ -7,7 +7,8 @@ const dryRun = args.has("--dry-run");
 const config = readJson("scripts/daily-article-config.json");
 const historyPath = path.join(root, "scripts/daily-article-history.json");
 const history = readJson("scripts/daily-article-history.json");
-const model = process.env.OPENAI_MODEL || "gpt-5-mini";
+const githubToken = process.env.GITHUB_MODELS_TOKEN || process.env.GITHUB_TOKEN;
+const model = process.env.GITHUB_MODEL || "openai/gpt-4.1";
 const now = new Date();
 const dateIso = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit"
@@ -74,7 +75,7 @@ for (const plan of plans) {
   console.log(`${plan.skip ? "SKIP" : "PLAN"} ${plan.track.label}: ${plan.angle}`);
 }
 if (dryRun) process.exit(0);
-if (!process.env.OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is required (use --dry-run to preview without it).");
+if (!githubToken) throw new Error("GITHUB_MODELS_TOKEN is required (the workflow supplies github.token automatically; use --dry-run to preview without it).");
 
 const schema = {
   type: "object",
@@ -125,24 +126,31 @@ Exigences éditoriales issues des Skills du dépôt:
 - CTA sobre vers /demande-devis/. Aucun contenu dupliqué, aucun bourrage de mots-clés.
 - Le slug doit être sans date, sans accents, en minuscules avec tirets.`;
 
-  const response = await fetch("https://api.openai.com/v1/responses", {
+  const response = await fetch("https://models.github.ai/inference/chat/completions", {
     method: "POST",
-    headers: { "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+    headers: {
+      "Authorization": `Bearer ${githubToken}`,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2026-03-10",
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
       model,
-      input: [
+      messages: [
         { role: "system", content: "Produis un article SEO local factuel au format JSON demandé. N'invente jamais de preuves commerciales." },
         { role: "user", content: prompt }
       ],
-      text: { format: { type: "json_schema", name: "climanova_article", strict: true, schema } },
-      max_output_tokens: 16000
+      response_format: {
+        type: "json_schema",
+        json_schema: { name: "climanova_article", strict: true, schema }
+      },
+      max_tokens: 16000
     })
   });
-  if (!response.ok) throw new Error(`OpenAI ${response.status}: ${await response.text()}`);
+  if (!response.ok) throw new Error(`GitHub Models ${response.status}: ${await response.text()}`);
   const payload = await response.json();
-  const outputText = payload.output_text || payload.output?.flatMap((item) => item.content || [])
-    .find((item) => item.type === "output_text")?.text;
-  if (!outputText) throw new Error(`No output_text returned for ${track.id}`);
+  const outputText = payload.choices?.[0]?.message?.content;
+  if (!outputText) throw new Error(`No completion content returned for ${track.id}`);
   return normalizeArticle(JSON.parse(outputText), track);
 }
 
