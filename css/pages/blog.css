@@ -616,12 +616,22 @@
 
 .blog-page .w-dyn-items {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
   align-items: stretch;
 }
 
+/* Normalize legacy Webflow cards and newer generated cards to the same box.
+ * Older entries mix picture, JPG and SVG media with different source sizes. */
+.blog-page .w-dyn-items > .w-dyn-item {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+}
+
 .blog-page .blog-widget {
+  width: 100%;
+  min-width: 0;
   flex-direction: column;
   align-items: stretch;
   gap: 0;
@@ -639,15 +649,62 @@
 }
 
 .blog-page .blog-widget-image-block {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 0;
   max-width: none;
   border-radius: 0;
   aspect-ratio: 16 / 10;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: #eaf1f2;
+}
+
+.blog-page .blog-widget-image-block picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.blog-page .blog-widget-image-block .blog-widget-image,
+.blog-page .blog-widget-image-block picture .blog-widget-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  object-fit: cover !important;
+  object-position: center;
 }
 
 .blog-page .blog-widget-content-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
   max-width: none;
   flex: 1;
   padding: 20px 22px 22px;
+}
+
+.blog-page .blog-widget-content-block-inner {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.blog-page .blog-slide-meta-block {
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+.blog-page .blog-widget-text-block {
+  flex: 1 1 auto;
 }
 
 .blog-page .blog-widget-text-block h2 {
@@ -674,7 +731,7 @@
 
 @media screen and (max-width: 991px) {
   .blog-page .w-dyn-items {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
 }
