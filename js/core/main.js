@@ -172,7 +172,7 @@ function initProjectCarousels() {
 }
 
 function initBlogListing() {
-  const page = document.querySelector(".blog-page");
+  const page = document.querySelector(".blog-page:not([data-blog-static-grid])");
   const grid = page?.querySelector(".w-dyn-items");
   const cards = grid ? Array.from(grid.querySelectorAll(":scope > .w-dyn-item")) : [];
 
