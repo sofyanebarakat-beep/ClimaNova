@@ -190,7 +190,8 @@
     "service": "climatisation",
     "intent": "transactional",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-22"
   },
   {
     "slug": "climatisation-cannes-installateur",
@@ -199,7 +200,8 @@
     "service": "climatisation",
     "intent": "transactional",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-22"
   },
   {
     "slug": "climatisation-antibes-installateur",
@@ -208,7 +210,8 @@
     "service": "climatisation",
     "intent": "transactional",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-22"
   },
   {
     "slug": "devis-climatisation-menton",
@@ -236,7 +239,8 @@
     "service": "chauffage",
     "intent": "informational",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-22"
   },
   {
     "slug": "prix-pompe-a-chaleur-2026",
@@ -245,7 +249,8 @@
     "service": "chauffage",
     "intent": "commercial",
     "priority": 1,
-    "status": "pending"
+    "status": "done",
+    "published": "2026-07-22"
   },
   {
     "slug": "pompe-a-chaleur-aides-maprimerenov-2026",

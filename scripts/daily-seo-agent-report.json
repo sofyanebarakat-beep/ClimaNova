@@ -1,0 +1,32 @@
+{
+  "date": "2026-07-22",
+  "model": "openai/gpt-4.1",
+  "requested": 5,
+  "generated": [
+    {
+      "slug": "panne-climatisation-urgence-ete-nice",
+      "keyword": "panne climatisation urgence été",
+      "words": 895
+    },
+    {
+      "slug": "climatisation-cannes-installateur",
+      "keyword": "installateur climatisation Cannes",
+      "words": 965
+    },
+    {
+      "slug": "climatisation-antibes-installateur",
+      "keyword": "installateur climatisation Antibes",
+      "words": 968
+    },
+    {
+      "slug": "pompe-a-chaleur-air-air-guide-complet",
+      "keyword": "pompe à chaleur air-air",
+      "words": 1054
+    },
+    {
+      "slug": "prix-pompe-a-chaleur-2026",
+      "keyword": "prix pompe à chaleur",
+      "words": 882
+    }
+  ]
+}
