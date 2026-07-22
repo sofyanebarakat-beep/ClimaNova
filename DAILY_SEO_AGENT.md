@@ -30,7 +30,7 @@ If GitHub reports that pushes are forbidden, enable **Settings → Actions → G
 
 - The GitHub Models model is locked to `openai/gpt-4.1` in the workflow.
 - `DAILY_ARTICLE_COUNT`: defaults to `5` and is capped at five.
-- `MIN_ARTICLE_WORDS`: defaults to `3000` so the complete structured response fits GitHub Models' limits.
+- `MIN_ARTICLE_WORDS`: defaults to `1200`, matching the reliable structured-output range observed from GitHub Models `openai/gpt-4.1`. The 20 FAQs, seven tables, direct-answer blocks, schemas, and technical checks remain separately enforced.
 - `MAX_GENERATION_ATTEMPTS`: defaults to `3`.
 
 Every run writes `scripts/daily-seo-agent-report.json`, which records the date, model, generated slugs, keywords, and article-body word counts.
