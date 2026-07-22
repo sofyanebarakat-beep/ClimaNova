@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - ".github/workflows/daily-seo-agent.yml"
+      - "scripts/run-daily-seo-agent.mjs"
+      - "scripts/validate-daily-seo-agent.mjs"
   schedule:
     - cron: "20 7 * * *"
       timezone: "Europe/Paris"

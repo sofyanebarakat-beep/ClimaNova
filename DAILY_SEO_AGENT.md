@@ -9,6 +9,7 @@ The first commit that installs or changes the workflow also triggers one immedia
 1. Selects pending queue entries by priority and original queue order.
 2. Sends the queue item, `Skills/blog-pipeline.md`, and all five SEO skill files to GitHub Models.
 3. Retries incomplete or invalid generations up to three times.
+   Rate-limit responses use a 65-second cooldown. Missing tables and direct-answer blocks are completed deterministically from the queue topic before validation, avoiding unnecessary model retries.
 4. Writes the article pages only after every selected generation succeeds.
 5. Updates the blog index, sitemap, queue, and run report.
 6. Runs structural validation and pushes to `main` only when validation passes.

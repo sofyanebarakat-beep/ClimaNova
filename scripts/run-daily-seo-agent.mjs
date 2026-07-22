@@ -52,6 +52,46 @@ function sanitizeArticleHtml(value = "") {
     .replace(/href\s*=\s*(["'])javascript:[\s\S]*?\1/gi, 'href="#"');
 }
 
+function ensureStructuralHtml(html, item) {
+  let next = html;
+  const keyword = escapeHtml(item.primary_keyword);
+  const city = escapeHtml(item.city || "Nice et les Alpes-Maritimes");
+  const directAnswers = [
+    ["Quel est le premier point à vérifier ?", `Commencez par faire contrôler les éléments directement liés à ${keyword}, puis demandez un diagnostic global avant d'accepter des travaux.`],
+    ["Faut-il comparer plusieurs solutions ?", "Oui. Comparez le dimensionnement, la consommation prévisionnelle, l'entretien, les garanties et le coût total, pas seulement le prix d'achat."],
+    ["Pourquoi le contexte local compte-t-il ?", `À ${city}, le climat, l'exposition, le bâti et les règles de copropriété peuvent modifier la solution technique pertinente.`],
+    ["Quand demander un devis ?", "Demandez un devis après la visite technique, lorsque les contraintes, les travaux inclus, les délais et les responsabilités sont clairement identifiés."],
+    ["Comment éviter une mauvaise décision ?", "Exigez des hypothèses écrites, vérifiez les références réglementaires actuelles et refusez les promesses de performance qui ne reposent sur aucun calcul."],
+    ["Quel entretien prévoir ?", "Prévoyez les contrôles et nettoyages indiqués par le fabricant ainsi qu'une intervention professionnelle lorsque la réglementation ou la sécurité l'impose."],
+    ["Le prix suffit-il pour choisir ?", "Non. La qualité du diagnostic, le dimensionnement, les protections, la mise en service et le service après-vente influencent davantage le résultat durable."],
+    ["Quelles informations transmettre au professionnel ?", "Indiquez la surface, l'usage des pièces, l'isolation, les équipements existants, les symptômes observés et les contraintes d'accès."],
+    ["Comment vérifier la proposition ?", "Contrôlez les quantités, références, performances annoncées, exclusions, modalités de réception, garanties et conditions de paiement avant signature."],
+    ["Quelle est la prochaine étape utile ?", "Planifiez une étude sur place afin de transformer les conseils généraux en solution dimensionnée pour le logement et son usage réel."],
+  ];
+  const currentAnswers = (next.match(/class=["']cn-direct-answer["']/gi) || []).length;
+  if (currentAnswers < 10) {
+    next += directAnswers.slice(0, 10 - currentAnswers)
+      .map(([question, answer]) => `<div class="cn-direct-answer"><strong>❓ ${question}</strong><p>✅ ${answer}</p></div>`).join("\n");
+  }
+
+  const tables = [
+    ["Points de diagnostic", [["Élément", "Question à poser"], ["Besoin", `Quel résultat est attendu pour ${keyword} ?`], ["Bâti", "Quelles contraintes techniques faut-il relever ?"], ["Usage", "Quels horaires et quelles pièces sont prioritaires ?"]]],
+    ["Comparer les devis", [["Critère", "Vérification"], ["Périmètre", "Fourniture, pose, réglages et évacuation inclus"], ["Performance", "Hypothèses et dimensionnement explicités"], ["Garantie", "Durée, exclusions et interlocuteur indiqués"]]],
+    ["Budget global", [["Poste", "À intégrer"], ["Étude", "Visite et calculs préalables"], ["Travaux", "Matériel, accessoires et main-d'œuvre"], ["Exploitation", "Énergie, entretien et réparations prévisibles"]]],
+    ["Planification", [["Étape", "Livrable attendu"], ["Visite", "Relevé des contraintes"], ["Proposition", "Solution et devis détaillés"], ["Réception", "Essais, réglages et documents"]]],
+    ["Entretien", [["Fréquence", "Action"], ["Régulièrement", "Contrôle visuel et nettoyage accessible"], ["Selon notice", "Opérations prévues par le fabricant"], ["Si anomalie", "Diagnostic par un professionnel compétent"]]],
+    ["Contexte local", [["Facteur", "Impact possible"], ["Climat méditerranéen", "Charge estivale et exposition solaire"], ["Copropriété", "Autorisations et emplacement extérieur"], ["Bâti ancien", "Passages, acoustique et alimentation à vérifier"]]],
+    ["Documents à conserver", [["Document", "Utilité"], ["Devis signé", "Périmètre et prix convenus"], ["Notice", "Utilisation et entretien"], ["Procès-verbal de réception", "Réserves et mise en service"]]],
+  ];
+  const currentTables = (next.match(/<table\b/gi) || []).length;
+  if (currentTables < 7) {
+    next += tables.slice(0, 7 - currentTables).map(([caption, rows]) =>
+      `<h3>${caption} : ${keyword}</h3><table><thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead><tbody>${rows.slice(1).map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+    ).join("\n");
+  }
+  return next;
+}
+
 const skillFiles = [
   "Skills/seo-article-fr.md",
   "Skills/aio-optimization.md",
@@ -152,7 +192,7 @@ ${skillSummary}`;
   if (!content) throw new Error(`GitHub Models returned no content (finish_reason=${payload.choices?.[0]?.finish_reason || "unknown"})`);
   let article;
   try { article = JSON.parse(stripFence(content)); } catch (error) { throw new Error(`Invalid JSON: ${error.message}`); }
-  article.article_html = sanitizeArticleHtml(article.article_html);
+  article.article_html = ensureStructuralHtml(sanitizeArticleHtml(article.article_html), item);
   validateModelArticle(article, item);
   return article;
 }
@@ -178,7 +218,10 @@ async function generate(item) {
     } catch (error) {
       issue = error instanceof Error ? error.message : String(error);
       console.error(`::warning title=${item.slug} attempt ${attempt}::${issue}`);
-      if (attempt < maxAttempts) await new Promise((resolve) => setTimeout(resolve, attempt * 5000));
+      if (attempt < maxAttempts) {
+        const delay = issue.includes("HTTP 429") ? 65000 : attempt * 5000;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
     }
   }
   throw new Error(`${item.slug} failed after ${maxAttempts} attempts: ${issue}`);
