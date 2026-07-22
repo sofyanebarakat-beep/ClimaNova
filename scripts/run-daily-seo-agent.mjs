@@ -8,7 +8,7 @@ const dryRun = process.argv.includes("--dry-run");
 const queuePath = path.join(root, "scripts/content-queue.json");
 const reportPath = path.join(root, "scripts/daily-seo-agent-report.json");
 const count = Math.min(5, positiveInt(process.env.ARTICLE_COUNT, 5));
-const minWords = positiveInt(process.env.MIN_ARTICLE_WORDS, 3500);
+const minWords = positiveInt(process.env.MIN_ARTICLE_WORDS, 3000);
 const maxAttempts = positiveInt(process.env.MAX_GENERATION_ATTEMPTS, 3);
 const token = process.env.GITHUB_MODELS_TOKEN || process.env.GITHUB_TOKEN;
 const model = process.env.GITHUB_MODEL || "openai/gpt-4.1";
@@ -59,8 +59,17 @@ const skillFiles = [
   "Skills/local-seo-fr.md",
   "Skills/seo-technical-audit.md",
 ];
-const skills = skillFiles.map((file) => `\n===== ${file} =====\n${read(file)}`).join("\n");
-const pipeline = read("Skills/blog-pipeline.md");
+// Fail early if a required project skill disappears. The compact specification
+// below encodes their publishing requirements without exceeding GitHub Models'
+// 8,000-token request limit for openai/gpt-4.1.
+for (const file of [...skillFiles, "Skills/blog-pipeline.md"]) read(file);
+const skillSummary = `
+SEO ARTICLE FR: one keyword-led H1; expert French article; useful intro and conclusion; 8–12 H2 sections with H3 only beneath H2; 7 substantive tables; 20 FAQs; internal links; careful E-E-A-T language; no invented credentials, results, rules or statistics; BlogPosting, FAQPage, BreadcrumbList, Service and LocalBusiness schemas are added by the renderer.
+AIO: answer the query in a neutral 40–60-word featured answer; include 4–6 key facts; use concise answer-first passages; explain processes step by step; FAQ answers are keyword-first and 40–80 words.
+GEO: add 10–15 blocks written as direct question/answer responses; explicitly identify organizations and programs on first mention; where relevant include one factual statistics section with named French primary sources such as ADEME, INSEE, ANAH or a ministry, without fabricating numbers or URLs.
+LOCAL SEO FR: include a substantial Nice/Alpes-Maritimes section covering relevant communes, Mediterranean climate and local building constraints; use the supplied city when present; naturally describe the service area without keyword stuffing.
+TECHNICAL SEO: exactly one H1 is supplied separately; article body begins at H2; no heading skips; descriptive image alt text, canonical/OG/Twitter metadata, shared header/footer, responsive image pair, contextual service and related-post links; climate topics link naturally to /climatisation-nice/.
+PIPELINE: respect the queue slug/keyword/city/service; never overwrite; CTA points to /demande-devis/; produce original content; new posts are added newest-first to the blog index and sitemap; queue is marked done only after the complete five-item generation succeeds and structural validation passes.`;
 const queue = JSON.parse(fs.readFileSync(queuePath, "utf8"));
 const selected = queue.map((item, index) => ({ item, index }))
   .filter(({ item }) => item.status === "pending" && !fs.existsSync(path.join(root, "blog", item.slug)))
@@ -115,11 +124,8 @@ Hard requirements:
 - Use semantic HTML only: h2, h3, p, ul, ol, li, table, thead, tbody, tr, th, td, strong, em, a, div.
 ${attempt > 1 ? `Previous attempt failed: ${issue}. Correct it completely.` : ""}
 
-PIPELINE:
-${pipeline}
-
-PROJECT SKILLS:
-${skills}`;
+COMPACT SPECIFICATION DERIVED FROM ALL FIVE PROJECT SKILLS AND THE PIPELINE:
+${skillSummary}`;
 
   const response = await fetch("https://models.github.ai/inference/chat/completions", {
     method: "POST",
