@@ -26,7 +26,7 @@ If GitHub reports that pushes are forbidden, enable **Settings → Actions → G
 
 ## Optional repository variables
 
-- `GITHUB_MODEL`: defaults to `openai/gpt-4.1`.
+- The GitHub Models model is locked to `openai/gpt-4.1` in the workflow.
 - `DAILY_ARTICLE_COUNT`: defaults to `5` and is capped at five.
 - `MIN_ARTICLE_WORDS`: defaults to `3500`.
 - `MAX_GENERATION_ATTEMPTS`: defaults to `3`.

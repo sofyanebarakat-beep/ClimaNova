@@ -10,10 +10,6 @@ on:
         description: "Number of queued articles to publish"
         required: false
         default: "5"
-      model:
-        description: "GitHub Models model ID"
-        required: false
-        default: "openai/gpt-4.1"
       dry_run:
         description: "Select and validate the queue without publishing"
         type: boolean
@@ -34,7 +30,7 @@ jobs:
     timeout-minutes: 120
     env:
       GITHUB_MODELS_TOKEN: ${{ github.token }}
-      GITHUB_MODEL: ${{ inputs.model || vars.GITHUB_MODEL || 'openai/gpt-4.1' }}
+      GITHUB_MODEL: openai/gpt-4.1
       ARTICLE_COUNT: ${{ inputs.article_count || vars.DAILY_ARTICLE_COUNT || '5' }}
       MIN_ARTICLE_WORDS: ${{ vars.MIN_ARTICLE_WORDS || '3500' }}
       MAX_GENERATION_ATTEMPTS: ${{ vars.MAX_GENERATION_ATTEMPTS || '3' }}
@@ -73,4 +69,3 @@ jobs:
           git add blog/ sitemap.xml scripts/content-queue.json scripts/daily-seo-agent-report.json
           git commit -m "Publish five daily SEO articles $(date +%F)"
           git push origin main
-
