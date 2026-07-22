@@ -1,0 +1,76 @@
+name: Daily SEO publishing agent
+
+on:
+  schedule:
+    - cron: "20 7 * * *"
+      timezone: "Europe/Paris"
+  workflow_dispatch:
+    inputs:
+      article_count:
+        description: "Number of queued articles to publish"
+        required: false
+        default: "5"
+      model:
+        description: "GitHub Models model ID"
+        required: false
+        default: "openai/gpt-4.1"
+      dry_run:
+        description: "Select and validate the queue without publishing"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  models: read
+
+concurrency:
+  group: daily-climanova-seo-agent
+  cancel-in-progress: false
+
+jobs:
+  generate-validate-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GITHUB_MODELS_TOKEN: ${{ github.token }}
+      GITHUB_MODEL: ${{ inputs.model || vars.GITHUB_MODEL || 'openai/gpt-4.1' }}
+      ARTICLE_COUNT: ${{ inputs.article_count || vars.DAILY_ARTICLE_COUNT || '5' }}
+      MIN_ARTICLE_WORDS: ${{ vars.MIN_ARTICLE_WORDS || '3500' }}
+      MAX_GENERATION_ATTEMPTS: ${{ vars.MAX_GENERATION_ATTEMPTS || '3' }}
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preview queue
+        run: node scripts/run-daily-seo-agent.mjs --dry-run
+
+      - name: Generate five SEO articles
+        if: ${{ inputs.dry_run != true }}
+        run: node scripts/run-daily-seo-agent.mjs
+
+      - name: Validate generated articles
+        if: ${{ inputs.dry_run != true }}
+        run: node scripts/validate-daily-seo-agent.mjs
+
+      - name: Commit and publish
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if git diff --quiet && test -z "$(git status --porcelain)"; then
+            echo "Queue exhausted; nothing to publish."
+            exit 0
+          fi
+          git config user.name "climanova-seo-agent"
+          git config user.email "climanova-seo-agent@users.noreply.github.com"
+          git add blog/ sitemap.xml scripts/content-queue.json scripts/daily-seo-agent-report.json
+          git commit -m "Publish five daily SEO articles $(date +%F)"
+          git push origin main
+
