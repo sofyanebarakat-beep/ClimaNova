@@ -1,6 +1,11 @@
 name: Daily SEO publishing agent
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/daily-seo-agent.yml"
   schedule:
     - cron: "20 7 * * *"
       timezone: "Europe/Paris"

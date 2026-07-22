@@ -2,6 +2,8 @@
 
 The agent publishes up to five pending entries from `scripts/content-queue.json` every day at 07:20 Europe/Paris.
 
+The first commit that installs or changes the workflow also triggers one immediate publishing run. Content commits made by the agent do not match that trigger, so they cannot create a loop.
+
 ## How it works
 
 1. Selects pending queue entries by priority and original queue order.
