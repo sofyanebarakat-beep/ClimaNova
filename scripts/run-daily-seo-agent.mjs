@@ -102,14 +102,25 @@ const skillFiles = [
 // Fail early if a required project skill disappears. The compact specification
 // below encodes their publishing requirements without exceeding GitHub Models'
 // 8,000-token request limit for openai/gpt-4.1.
-for (const file of [...skillFiles, "Skills/blog-pipeline.md"]) read(file);
+for (const file of [...skillFiles, "Skills/blog-pipeline.md"]) {
+  try {
+    read(file);
+  } catch (error) {
+    if (error instanceof Error && error.code === "ENOENT") {
+      throw new Error(`Required skill file not found: ${file}`);
+    }
+    throw error;
+  }
+}
+
 const skillSummary = `
 SEO ARTICLE FR: one keyword-led H1; expert French article; useful intro and conclusion; 8–12 H2 sections with H3 only beneath H2; 7 substantive tables; 20 FAQs; internal links; careful E-E-A-T [...]
-AIO: answer the query in a neutral 40–60-word featured answer; include 4–6 key facts; use concise answer-first passages; explain processes step by step; FAQ answers are keyword-first and 40··[...]
+AIO: answer the query in a neutral 40–60-word featured answer; include 4–6 key facts; use concise answer-first passages; explain processes step by step; FAQ answers are keyword-first and 40·[...]
 GEO: add 10–15 blocks written as direct question/answer responses; explicitly identify organizations and programs on first mention; where relevant include one factual statistics section with na[...]
 LOCAL SEO FR: include a substantial Nice/Alpes-Maritimes section covering relevant communes, Mediterranean climate and local building constraints; use the supplied city when present; naturally de[...]
 TECHNICAL SEO: exactly one H1 is supplied separately; article body begins at H2; no heading skips; descriptive image alt text, canonical/OG/Twitter metadata, shared header/footer, responsive imag[...]
 PIPELINE: respect the queue slug/keyword/city/service; never overwrite; CTA points to /demande-devis/; produce original content; new posts are added newest-first to the blog index and sitemap; qu[...]
+`;
 const queue = JSON.parse(fs.readFileSync(queuePath, "utf8"));
 const selected = queue.map((item, index) => ({ item, index }))
   .filter(({ item }) => item.status === "pending" && !fs.existsSync(path.join(root, "blog", item.slug)))
@@ -185,7 +196,7 @@ ${skillSummary}`;
     body: JSON.stringify({
       model,
       messages: [
-        { role: "system", content: "You are ClimaNova's senior French SEO editor. Follow supplied project skills exactly. Output valid JSON only. CRITICAL: Ensure the faqs array has exactly 20 items with question and answer fields." },
+        { role: "system", content: "You are ClimaNova's senior French SEO editor. Follow supplied project skills exactly. Output valid JSON only. CRITICAL: Ensure the faqs array has exactly 20 it[...]
         { role: "user", content: prompt },
       ],
       response_format: { type: "json_object" },
@@ -242,10 +253,11 @@ function jsonLd(article, item, image) {
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/[...]
     { "@type": "Service", name: item.primary_keyword, provider: { "@type": "LocalBusiness", name: "ClimaNova Énergie" }, areaServed: item.city || "Alpes-Maritimes" },
     { "@type": "LocalBusiness", name: "ClimaNova Énergie", url: siteUrl, telephone: "+33 7 68 69 48 13", address: { "@type": "PostalAddress", streetAddress: "218 Route de Turin", postalCode: "06[...]
-  ]}).replaceAll("<", "\\u003c");
+   ]}).replaceAll("<", "\\u003c");
 }
 
 const cta = `<div class="cn-blog-cta-banner cn-blog-cta-banner--full"><h3 class="cn-blog-cta-title">Besoin d'un devis&nbsp;?</h3><p class="cn-blog-cta-banner-text">Recevez des devis gratuits pour[...]
+`;
 
 function renderPage(article, item) {
   const [webp, jpg] = imageFor(item.service);
