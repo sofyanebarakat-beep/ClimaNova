@@ -9,7 +9,7 @@ const queuePath = path.join(root, "scripts/content-queue.json");
 const reportPath = path.join(root, "scripts/daily-seo-agent-report.json");
 const count = Math.min(5, positiveInt(process.env.ARTICLE_COUNT, 5));
 const minWords = positiveInt(process.env.MIN_ARTICLE_WORDS, 800);
-const maxAttempts = positiveInt(process.env.MAX_GENERATION_ATTEMPTS, 3);
+const maxAttempts = positiveInt(process.env.MAX_GENERATION_ATTEMPTS, 5);
 const token = process.env.GITHUB_MODELS_TOKEN || process.env.GITHUB_TOKEN;
 const model = process.env.GITHUB_MODEL || "openai/gpt-4.1";
 const siteUrl = "https://climanova-energie.fr";
@@ -61,11 +61,11 @@ function ensureStructuralHtml(html, item) {
     ["Faut-il comparer plusieurs solutions ?", "Oui. Comparez le dimensionnement, la consommation prévisionnelle, l'entretien, les garanties et le coût total, pas seulement le prix d'achat."],
     ["Pourquoi le contexte local compte-t-il ?", `À ${city}, le climat, l'exposition, le bâti et les règles de copropriété peuvent modifier la solution technique pertinente.`],
     ["Quand demander un devis ?", "Demandez un devis après la visite technique, lorsque les contraintes, les travaux inclus, les délais et les responsabilités sont clairement identifiés."],
-    ["Comment éviter une mauvaise décision ?", "Exigez des hypothèses écrites, vérifiez les références réglementaires actuelles et refusez les promesses de performance qui ne reposent sur aucun calcul."],
-    ["Quel entretien prévoir ?", "Prévoyez les contrôles et nettoyages indiqués par le fabricant ainsi qu'une intervention professionnelle lorsque la réglementation ou la sécurité l'impose."],
-    ["Le prix suffit-il pour choisir ?", "Non. La qualité du diagnostic, le dimensionnement, les protections, la mise en service et le service après-vente influencent davantage le résultat durable."],
-    ["Quelles informations transmettre au professionnel ?", "Indiquez la surface, l'usage des pièces, l'isolation, les équipements existants, les symptômes observés et les contraintes d'accès."],
-    ["Comment vérifier la proposition ?", "Contrôlez les quantités, références, performances annoncées, exclusions, modalités de réception, garanties et conditions de paiement avant signature."],
+    ["Comment éviter une mauvaise décision ?", "Exigez des hypothèses écrites, vérifiez les références réglementaires actuelles et refusez les promesses de performance qui ne reposent sur [...]
+    ["Quel entretien prévoir ?", "Prévoyez les contrôles et nettoyages indiqués par le fabricant ainsi qu'une intervention professionnelle lorsque la réglementation ou la sécurité l'impose.[...]
+    ["Le prix suffit-il pour choisir ?", "Non. La qualité du diagnostic, le dimensionnement, les protections, la mise en service et le service après-vente influencent davantage le résultat dura[...]
+    ["Quelles informations transmettre au professionnel ?", "Indiquez la surface, l'usage des pièces, l'isolation, les équipements existants, les symptômes observés et les contraintes d'accès[...]
+    ["Comment vérifier la proposition ?", "Contrôlez les quantités, références, performances annoncées, exclusions, modalités de réception, garanties et conditions de paiement avant signat[...]
     ["Quelle est la prochaine étape utile ?", "Planifiez une étude sur place afin de transformer les conseils généraux en solution dimensionnée pour le logement et son usage réel."],
   ];
   const currentAnswers = (next.match(/class=["']cn-direct-answer["']/gi) || []).length;
@@ -75,18 +75,18 @@ function ensureStructuralHtml(html, item) {
   }
 
   const tables = [
-    ["Points de diagnostic", [["Élément", "Question à poser"], ["Besoin", `Quel résultat est attendu pour ${keyword} ?`], ["Bâti", "Quelles contraintes techniques faut-il relever ?"], ["Usage", "Quels horaires et quelles pièces sont prioritaires ?"]]],
-    ["Comparer les devis", [["Critère", "Vérification"], ["Périmètre", "Fourniture, pose, réglages et évacuation inclus"], ["Performance", "Hypothèses et dimensionnement explicités"], ["Garantie", "Durée, exclusions et interlocuteur indiqués"]]],
-    ["Budget global", [["Poste", "À intégrer"], ["Étude", "Visite et calculs préalables"], ["Travaux", "Matériel, accessoires et main-d'œuvre"], ["Exploitation", "Énergie, entretien et réparations prévisibles"]]],
+    ["Points de diagnostic", [["Élément", "Question à poser"], ["Besoin", `Quel résultat est attendu pour ${keyword} ?`], ["Bâti", "Quelles contraintes techniques faut-il relever ?"], ["Usage[...]
+    ["Comparer les devis", [["Critère", "Vérification"], ["Périmètre", "Fourniture, pose, réglages et évacuation inclus"], ["Performance", "Hypothèses et dimensionnement explicités"], ["Ga[...]
+    ["Budget global", [["Poste", "À intégrer"], ["Étude", "Visite et calculs préalables"], ["Travaux", "Matériel, accessoires et main-d'œuvre"], ["Exploitation", "Énergie, entretien et rép[...]
     ["Planification", [["Étape", "Livrable attendu"], ["Visite", "Relevé des contraintes"], ["Proposition", "Solution et devis détaillés"], ["Réception", "Essais, réglages et documents"]]],
-    ["Entretien", [["Fréquence", "Action"], ["Régulièrement", "Contrôle visuel et nettoyage accessible"], ["Selon notice", "Opérations prévues par le fabricant"], ["Si anomalie", "Diagnostic par un professionnel compétent"]]],
-    ["Contexte local", [["Facteur", "Impact possible"], ["Climat méditerranéen", "Charge estivale et exposition solaire"], ["Copropriété", "Autorisations et emplacement extérieur"], ["Bâti ancien", "Passages, acoustique et alimentation à vérifier"]]],
-    ["Documents à conserver", [["Document", "Utilité"], ["Devis signé", "Périmètre et prix convenus"], ["Notice", "Utilisation et entretien"], ["Procès-verbal de réception", "Réserves et mise en service"]]],
+    ["Entretien", [["Fréquence", "Action"], ["Régulièrement", "Contrôle visuel et nettoyage accessible"], ["Selon notice", "Opérations prévues par le fabricant"], ["Si anomalie", "Diagnostic[...]
+    ["Contexte local", [["Facteur", "Impact possible"], ["Climat méditerranéen", "Charge estivale et exposition solaire"], ["Copropriété", "Autorisations et emplacement extérieur"], ["Bâti a[...]
+    ["Documents à conserver", [["Document", "Utilité"], ["Devis signé", "Périmètre et prix convenus"], ["Notice", "Utilisation et entretien"], ["Procès-verbal de réception", "Réserves et m[...]
   ];
   const currentTables = (next.match(/<table\b/gi) || []).length;
   if (currentTables < 7) {
     next += tables.slice(0, 7 - currentTables).map(([caption, rows]) =>
-      `<h3>${caption} : ${keyword}</h3><table><thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead><tbody>${rows.slice(1).map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+      `<h3>${caption} : ${keyword}</h3><table><thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead><tbody>${rows.slice(1).map((row) => `<tr>${row.map((cell) => `<td>${cell}[...]
     ).join("\n");
   }
   return next;
@@ -104,19 +104,19 @@ const skillFiles = [
 // 8,000-token request limit for openai/gpt-4.1.
 for (const file of [...skillFiles, "Skills/blog-pipeline.md"]) read(file);
 const skillSummary = `
-SEO ARTICLE FR: one keyword-led H1; expert French article; useful intro and conclusion; 8–12 H2 sections with H3 only beneath H2; 7 substantive tables; 20 FAQs; internal links; careful E-E-A-T language; no invented credentials, results, rules or statistics; BlogPosting, FAQPage, BreadcrumbList, Service and LocalBusiness schemas are added by the renderer.
-AIO: answer the query in a neutral 40–60-word featured answer; include 4–6 key facts; use concise answer-first passages; explain processes step by step; FAQ answers are keyword-first and 40–80 words.
-GEO: add 10–15 blocks written as direct question/answer responses; explicitly identify organizations and programs on first mention; where relevant include one factual statistics section with named French primary sources such as ADEME, INSEE, ANAH or a ministry, without fabricating numbers or URLs.
-LOCAL SEO FR: include a substantial Nice/Alpes-Maritimes section covering relevant communes, Mediterranean climate and local building constraints; use the supplied city when present; naturally describe the service area without keyword stuffing.
-TECHNICAL SEO: exactly one H1 is supplied separately; article body begins at H2; no heading skips; descriptive image alt text, canonical/OG/Twitter metadata, shared header/footer, responsive image pair, contextual service and related-post links; climate topics link naturally to /climatisation-nice/.
-PIPELINE: respect the queue slug/keyword/city/service; never overwrite; CTA points to /demande-devis/; produce original content; new posts are added newest-first to the blog index and sitemap; queue is marked done only after the complete five-item generation succeeds and structural validation passes.`;
+SEO ARTICLE FR: one keyword-led H1; expert French article; useful intro and conclusion; 8–12 H2 sections with H3 only beneath H2; 7 substantive tables; 20 FAQs; internal links; careful E-E-A-T [...]
+AIO: answer the query in a neutral 40–60-word featured answer; include 4–6 key facts; use concise answer-first passages; explain processes step by step; FAQ answers are keyword-first and 40··[...]
+GEO: add 10–15 blocks written as direct question/answer responses; explicitly identify organizations and programs on first mention; where relevant include one factual statistics section with na[...]
+LOCAL SEO FR: include a substantial Nice/Alpes-Maritimes section covering relevant communes, Mediterranean climate and local building constraints; use the supplied city when present; naturally de[...]
+TECHNICAL SEO: exactly one H1 is supplied separately; article body begins at H2; no heading skips; descriptive image alt text, canonical/OG/Twitter metadata, shared header/footer, responsive imag[...]
+PIPELINE: respect the queue slug/keyword/city/service; never overwrite; CTA points to /demande-devis/; produce original content; new posts are added newest-first to the blog index and sitemap; qu[...]
 const queue = JSON.parse(fs.readFileSync(queuePath, "utf8"));
 const selected = queue.map((item, index) => ({ item, index }))
   .filter(({ item }) => item.status === "pending" && !fs.existsSync(path.join(root, "blog", item.slug)))
   .sort((a, b) => (a.item.priority - b.item.priority) || (a.index - b.index))
   .slice(0, count);
 
-console.log(`Daily SEO agent: ${today}; requested=${count}; selected=${selected.length}; model=${model}`);
+console.log(`Daily SEO agent: ${today}; requested=${count}; selected=${selected.length}; model=${model}; maxAttempts=${maxAttempts}`);
 for (const { item } of selected) console.log(`- P${item.priority} ${item.slug}: ${item.primary_keyword}`);
 if (dryRun || selected.length === 0) process.exit(0);
 if (!token) throw new Error("GITHUB_MODELS_TOKEN is missing. The workflow must grant models: read.");
@@ -160,9 +160,16 @@ Hard requirements:
 - Include a sourced statistics passage when relevant. Do not fabricate facts, ratings, certifications, prices, laws, sources, or URLs.
 - Include natural internal links to ${servicePath(item.service)}, /demande-devis/, two relevant /blog/.../ pages, and /climatisation-nice/ for every climate-related topic.
 - Apply the local Nice/Alpes-Maritimes layer even when city is null. If city is present, prioritize that city without inventing another.
-- FAQs are 40–80 words each and factual. Meta description max 160 characters.
+- Meta description max 160 characters.
 - Use semantic HTML only: h2, h3, p, ul, ol, li, table, thead, tbody, tr, th, td, strong, em, a, div.
-${attempt > 1 ? `Previous attempt failed: ${issue}. Correct it completely.` : ""}
+
+**CRITICAL FAQ REQUIREMENT:**
+- The "faqs" field MUST be an array containing EXACTLY 20 objects.
+- Each object MUST have exactly two fields: "question" (string) and "answer" (string).
+- Each FAQ answer must be 40–80 words and factual.
+- All 20 FAQ items are mandatory. Do not return fewer than 20 items.
+- Validate your JSON: the faqs array length must equal 20.
+${attempt > 1 ? `Previous attempt failed: ${issue}. Correct it completely and verify the faqs array has exactly 20 items.` : ""}
 
 COMPACT SPECIFICATION DERIVED FROM ALL FIVE PROJECT SKILLS AND THE PIPELINE:
 ${skillSummary}`;
@@ -178,7 +185,7 @@ ${skillSummary}`;
     body: JSON.stringify({
       model,
       messages: [
-        { role: "system", content: "You are ClimaNova's senior French SEO editor. Follow supplied project skills exactly. Output valid JSON only." },
+        { role: "system", content: "You are ClimaNova's senior French SEO editor. Follow supplied project skills exactly. Output valid JSON only. CRITICAL: Ensure the faqs array has exactly 20 items with question and answer fields." },
         { role: "user", content: prompt },
       ],
       response_format: { type: "json_object" },
@@ -204,9 +211,9 @@ function validateModelArticle(article, item) {
   if ((article.article_html.match(/<table\b/gi) || []).length < 7) throw new Error("Article needs at least 7 tables");
   if ((article.article_html.match(/class=["']cn-direct-answer["']/gi) || []).length < 10) throw new Error("Article needs at least 10 direct-answer blocks");
   if (/<h1\b/i.test(article.article_html)) throw new Error("article_html must not contain an H1");
-  if (!Array.isArray(article.faqs) || article.faqs.length !== 20) throw new Error("Exactly 20 FAQs are required");
+  if (!Array.isArray(article.faqs) || article.faqs.length !== 20) throw new Error(`Exactly 20 FAQs are required; got ${Array.isArray(article.faqs) ? article.faqs.length : "non-array"}`);
   if (!article.h1.toLocaleLowerCase("fr").includes(item.primary_keyword.toLocaleLowerCase("fr"))) throw new Error("H1 must contain the primary keyword");
-  if (/climatisation|climatiseur|confort thermique/i.test(`${item.slug} ${item.primary_keyword}`) && !/href=["'](?:https:\/\/climanova-energie\.fr)?\/climatisation-nice\/?["']/i.test(article.article_html)) throw new Error("Missing contextual /climatisation-nice/ link");
+  if (/climatisation|climatiseur|confort thermique/i.test(`${item.slug} ${item.primary_keyword}`) && !/href=["'](?:https:\/\/climanova-energie\.fr)?\/climatisation-nice\/?["']/i.test(article.arti[...]
 }
 
 async function generate(item) {
@@ -230,27 +237,27 @@ async function generate(item) {
 function jsonLd(article, item, image) {
   const canonical = `${siteUrl}/blog/${item.slug}/`;
   return JSON.stringify({ "@context": "https://schema.org", "@graph": [
-    { "@type": "BlogPosting", headline: article.h1, description: article.meta_description, datePublished: today, dateModified: today, inLanguage: "fr-FR", mainEntityOfPage: canonical, image: `${siteUrl}${image}`, author: { "@type": "Organization", name: "ClimaNova Énergie" }, publisher: { "@type": "Organization", name: "ClimaNova Énergie" } },
+    { "@type": "BlogPosting", headline: article.h1, description: article.meta_description, datePublished: today, dateModified: today, inLanguage: "fr-FR", mainEntityOfPage: canonical, image: `${s[...]
     { "@type": "FAQPage", mainEntity: article.faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
-    { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog/` }, { "@type": "ListItem", position: 3, name: article.title, item: canonical }] },
+    { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/[...]
     { "@type": "Service", name: item.primary_keyword, provider: { "@type": "LocalBusiness", name: "ClimaNova Énergie" }, areaServed: item.city || "Alpes-Maritimes" },
-    { "@type": "LocalBusiness", name: "ClimaNova Énergie", url: siteUrl, telephone: "+33 7 68 69 48 13", address: { "@type": "PostalAddress", streetAddress: "218 Route de Turin", postalCode: "06300", addressLocality: "Nice", addressCountry: "FR" }, areaServed: ["Nice", "Cannes", "Antibes", "Menton", "Cagnes-sur-Mer"].map((name) => ({ "@type": "City", name })), openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "18:00" }] },
+    { "@type": "LocalBusiness", name: "ClimaNova Énergie", url: siteUrl, telephone: "+33 7 68 69 48 13", address: { "@type": "PostalAddress", streetAddress: "218 Route de Turin", postalCode: "06[...]
   ]}).replaceAll("<", "\\u003c");
 }
 
-const cta = `<div class="cn-blog-cta-banner cn-blog-cta-banner--full"><h3 class="cn-blog-cta-title">Besoin d'un devis&nbsp;?</h3><p class="cn-blog-cta-banner-text">Recevez des devis gratuits pour vos projets de climatisation, chauffage, pompe à chaleur et rénovation énergétique.</p><ul class="cn-blog-cta-list"><li>Étude technique à domicile</li><li>Jusqu'à 3 devis détaillés</li><li>Installateurs qualifiés de votre secteur</li></ul><a href="/demande-devis/" class="cn-blog-cta-banner-btn">Demander des devis gratuits</a><p class="cn-blog-cta-note">Service gratuit &amp; sans engagement</p></div>`;
+const cta = `<div class="cn-blog-cta-banner cn-blog-cta-banner--full"><h3 class="cn-blog-cta-title">Besoin d'un devis&nbsp;?</h3><p class="cn-blog-cta-banner-text">Recevez des devis gratuits pour[...]
 
 function renderPage(article, item) {
   const [webp, jpg] = imageFor(item.service);
   const canonical = `${siteUrl}/blog/${item.slug}/`;
   const faqs = article.faqs.map((faq) => `<h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p>`).join("\n");
   const related = relatedPosts(item.slug).map((slug) => `<div class="blog-details-sidebar-post-block"><a href="/blog/${slug}/">${escapeHtml(slug.replaceAll("-", " "))}</a></div>`).join("\n");
-  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(article.title)} | ClimaNova Énergie</title><meta name="description" content="${escapeHtml(article.meta_description).slice(0, 160)}"><link rel="canonical" href="${canonical}"><meta property="og:type" content="article"><meta property="og:title" content="${escapeHtml(article.title)}"><meta property="og:description" content="${escapeHtml(article.meta_description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${siteUrl}${webp}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escapeHtml(article.title)}"><meta name="twitter:description" content="${escapeHtml(article.meta_description)}"><meta name="twitter:image" content="${siteUrl}${webp}"><link href="/css/global.css" rel="stylesheet"><link href="/css/pages/blog.css" rel="stylesheet"><script type="application/ld+json">${jsonLd(article, item, webp)}</script></head><body><div class="page-wrapper"><div data-component="site-header"></div><main class="main-wrapper"><section class="blog-details-banner-section"><div class="container"><h1>${escapeHtml(article.h1)}</h1><p>${dateFr} · ${positiveInt(article.reading_minutes, 20)} min de lecture</p></div></section><section class="blog-details-section"><div class="container"><div class="blog-details-content-wrapper"><article class="blog-details-content-block"><div class="blog-details-top-content-block w-richtext"><p>${escapeHtml(article.excerpt)}</p><div class="cn-direct-answer"><strong>Réponse courte :</strong> ${escapeHtml(article.featured_answer)}</div><div class="cn-key-takeaway"><strong>Points clés</strong><ul>${(article.key_points || []).map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></div><picture><source srcset="${webp}" type="image/webp"><img src="${jpg}" alt="${escapeHtml(item.primary_keyword)} — guide ClimaNova Énergie" width="1400" height="787" loading="eager"></picture>${article.article_html}<h2>Questions fréquentes</h2>${faqs}${cta}</div></article><aside class="cn-blog-sidebar"><h2>Articles récents</h2>${related}${cta}</aside></div></div></section></main><div data-component="site-footer"></div></div><script type="module" src="/js/core/main.js?v=${today.replaceAll("-", "")}"></script></body></html>`;
+  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(article.title)} | ClimaNova Énergie</t[...]
 }
 
 function renderCard(article, item) {
   const [webp, jpg] = imageFor(item.service);
-  return `<div role="listitem" class="w-dyn-item" data-category="${escapeHtml(item.service)}"><a href="/blog/${item.slug}/" class="blog-widget w-inline-block"><div class="blog-widget-image-block"><picture><source srcset="${webp}" type="image/webp"><img src="${jpg}" loading="lazy" alt="${escapeHtml(item.primary_keyword)}" class="blog-widget-image" width="1400" height="787"></picture></div><div class="blog-widget-content-block"><div class="blog-widget-content-block-inner"><div class="blog-slide-meta-block"><div class="text-md">${dateFr}</div><div class="blog-slide-meta-divider"></div><div class="text-md">${positiveInt(article.reading_minutes, 20)} min de lecture</div></div><div class="blog-widget-text-block"><h2 class="h4-style">${escapeHtml(article.title)}</h2><p class="text-md">${escapeHtml(article.excerpt)}</p></div></div><div class="blog-widget-button"><div class="blog-button-link cn-text-dark"><div class="button-text">Lire la suite</div></div></div></div></a><div class="blog-widget-divider"></div></div>`;
+  return `<div role="listitem" class="w-dyn-item" data-category="${escapeHtml(item.service)}"><a href="/blog/${item.slug}/" class="blog-widget w-inline-block"><div class="blog-widget-image-block"[...]
 }
 
 const generated = [];
@@ -279,5 +286,5 @@ fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 
 for (const { index } of generated) queue[index] = { ...queue[index], status: "done", published: today };
 fs.writeFileSync(queuePath, `${JSON.stringify(queue, null, 2)}\n`);
-fs.writeFileSync(reportPath, `${JSON.stringify({ date: today, model, requested: count, generated: generated.map(({ item, article }) => ({ slug: item.slug, keyword: item.primary_keyword, words: plainWordCount(article.article_html) })) }, null, 2)}\n`);
+fs.writeFileSync(reportPath, `${JSON.stringify({ date: today, model, requested: count, generated: generated.map(({ item, article }) => ({ slug: item.slug, keyword: item.primary_keyword, words: pl[...]
 console.log(`Generated and staged ${generated.length} article(s).`);
