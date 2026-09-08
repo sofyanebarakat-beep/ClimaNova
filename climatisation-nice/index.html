@@ -57,26 +57,6 @@
  { "@type": "City", "name": "Roquebrune-Cap-Martin" },
  { "@type": "City", "name": "Menton" },
  { "@type": "AdministrativeArea", "name": "Alpes-Maritimes" }
- ],
- "review": [
- {
- "@type": "Review",
- "author": { "@type": "Person", "name": "Pierre Martin" },
- "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
- "reviewBody": "Travailler avec ClimaNova Energie a été une excellente expérience. Une équipe professionnelle et réactive, avec des résultats à la hauteur."
- },
- {
- "@type": "Review",
- "author": { "@type": "Person", "name": "Sophie Lefèvre" },
- "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
- "reviewBody": "ClimaNova Energie est une équipe remarquable. Professionnels, disponibles et efficaces — les résultats parlent d'eux-mêmes."
- },
- {
- "@type": "Review",
- "author": { "@type": "Person", "name": "Nicolas Garnier" },
- "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
- "reviewBody": "Notre expérience avec ClimaNova Energie a été remarquable. Toute l'équipe est réactive, professionnelle et garantit des résultats de qualité."
- }
  ]
  },
  {
@@ -93,6 +73,72 @@
  "position": 2,
  "name": "Climatisation Nice"
  }
+ ]
+ },
+ {
+ "@type": "HVACBusiness",
+ "@id": "https://climanova-energie.fr/climatisation-nice/#hvacbusiness",
+ "name": "ClimaNova Énergie — Climatisation Nice",
+ "image": "https://climanova-energie.fr/images/climanova-service-02.jpg",
+ "url": "https://climanova-energie.fr/climatisation-nice/",
+ "telephone": "+33652238164",
+ "priceRange": "€€",
+ "currenciesAccepted": "EUR",
+ "paymentAccepted": "Espèces, Carte bancaire, Virement, Chèque, Financement",
+ "parentOrganization": { "@id": "https://climanova-energie.fr/#organization" },
+ "address": {
+ "@type": "PostalAddress",
+ "streetAddress": "218 Route de Turin",
+ "addressLocality": "Nice",
+ "addressRegion": "Alpes-Maritimes",
+ "postalCode": "06300",
+ "addressCountry": "FR"
+ },
+ "geo": {
+ "@type": "GeoCoordinates",
+ "latitude": 43.726332,
+ "longitude": 7.286618
+ },
+ "hasMap": "https://www.google.com/maps/place/218+Route+de+Turin,+06300+Nice",
+ "openingHoursSpecification": [
+ {
+ "@type": "OpeningHoursSpecification",
+ "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+ "opens": "08:00",
+ "closes": "18:00"
+ },
+ {
+ "@type": "OpeningHoursSpecification",
+ "dayOfWeek": "Saturday",
+ "opens": "09:00",
+ "closes": "17:00"
+ }
+ ],
+ "areaServed": [
+ { "@type": "City", "name": "Nice" },
+ { "@type": "City", "name": "Saint-Laurent-du-Var" },
+ { "@type": "City", "name": "Cagnes-sur-Mer" },
+ { "@type": "City", "name": "Villeneuve-Loubet" },
+ { "@type": "City", "name": "Antibes" },
+ { "@type": "City", "name": "Cannes" },
+ { "@type": "City", "name": "Le Cannet" },
+ { "@type": "City", "name": "Vence" },
+ { "@type": "City", "name": "Villefranche-sur-Mer" },
+ { "@type": "City", "name": "Beaulieu-sur-Mer" },
+ { "@type": "City", "name": "Menton" },
+ { "@type": "AdministrativeArea", "name": "Alpes-Maritimes" }
+ ],
+ "makesOffer": [
+ { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Installation de climatisation réversible à Nice" } },
+ { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Installation de climatisation gainable à Nice" } },
+ { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dépannage de climatisation à Nice" } },
+ { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Entretien de climatisation à Nice" } },
+ { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Installation de pompe à chaleur air/air à Nice" } }
+ ],
+ "sameAs": [
+ "https://www.google.com/maps/place/218+Route+de+Turin,+06300+Nice",
+ "https://www.facebook.com/profile.php?id=61589614010567",
+ "https://www.instagram.com/climanova.energie/"
  ]
  }
  ]
@@ -143,6 +189,70 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Une installation mono-split se realise generalement en une demi-journee a Nice. Un systeme multi-split ou gainable demande souvent une journee complete selon l'acces et la configuration du logement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il l'accord de la copropriete pour installer une climatisation a Nice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dans la plupart des immeubles nicois, la pose d'une unite exterieure visible depuis l'exterieur necessite une autorisation de l'assemblee generale ou au minimum une declaration au syndic, car elle touche a l'aspect de la facade. ClimaNova Energie vous aide a constituer le dossier (plan d'implantation, photo-montage, fiche technique du groupe) et privilegie des unites discretes et silencieuses conformes au reglement de copropriete."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on installer une climatisation dans le Vieux-Nice ou pres d'un monument historique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, mais dans les perimetres proteges (Vieux-Nice, abords de Cimiez, sites classes) l'Architecte des Batiments de France peut imposer une implantation non visible depuis l'espace public et une teinte assortie a la facade. Une solution gainable, une unite en toiture-terrasse ou un groupe dissimule derriere un claustra permet le plus souvent de respecter ces exigences. Une declaration prealable de travaux en mairie est alors necessaire."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la consommation electrique d'une climatisation reversible a Nice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour un appartement nicois de 60 a 80 m2, une climatisation reversible bien dimensionnee consomme environ 250 a 500 kWh par an en mode rafraichissement, soit 50 a 120 euros d'electricite sur la saison estivale. En hiver, grace a un SCOP de 4 a 5, elle restitue 4 a 5 kWh de chaleur pour 1 kWh consomme, ce qui en fait un chauffage d'appoint tres economique sur le littoral azureen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'entretien d'une climatisation est-il obligatoire a Nice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'entretien d'une climatisation dont la charge en fluide frigorigene est comprise entre 2 et 30 kg de CO2 equivalent (la majorite des splits domestiques) est obligatoire tous les deux ans, realise par un professionnel titulaire de l'attestation de capacite. ClimaNova Energie propose des contrats d'entretien annuels a Nice incluant le nettoyage, le controle d'etancheite et la verification des performances."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vos installations de climatisation a Nice sont-elles garanties ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le materiel est couvert par la garantie constructeur (2 a 5 ans selon la marque, extensible chez Mitsubishi Electric et Toshiba), la pose beneficie de la garantie de parfait achevement d'un an, et l'ensemble est couvert par notre assurance decennale et notre garantie biennale sur les equipements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Intervenez-vous en urgence pour une panne de climatisation a Nice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, ClimaNova Energie assure le depannage de climatisation a Nice et dans l'agglomeration 6 jours sur 7, avec une intervention prioritaire lors des episodes de forte chaleur. Contactez-nous au +33 6 52 23 81 64 pour un diagnostic rapide."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel type de climatisation choisir pour un appartement a Nice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour un studio ou un T2, un mono-split suffit. Pour un T3 a T5, un multi-split (une unite exterieure, 2 a 5 unites interieures) est le meilleur compromis discretion / budget en copropriete. Dans un logement renove avec faux plafonds, le gainable offre une diffusion invisible. Dans les quartiers cotiers (Riquier, Promenade des Anglais), nous recommandons un groupe exterieur a traitement anticorrosion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "En combien de temps recevez-vous un devis climatisation a Nice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Apres votre demande, nous vous rappelons sous 24 heures et fixons une visite technique a domicile. Le devis detaille et gratuit vous est transmis sous 24 a 48 heures apres cette visite, avec le chiffrage des aides mobilisables (CEE, TVA 5,5 %)."
       }
     }
   ]
@@ -238,6 +348,7 @@ fbq('track','PageView');
  <div class="cn-nice-eyebrow">Expert local</div>
  <h2>Installation Climatisation Nice — Certifié RGE QualiPAC</h2>
  <p>ClimaNova Energie, votre spécialiste <a href="/services/climatisation/">climatisation à Nice</a>. Installateur certifié RGE QualiPAC, nous réalisons la pose de climatisation réversible à Nice et dans toute la région, du Vieux-Nice à la Promenade des Anglais. Que vous cherchiez une solution <a href="#solutions">mono-split, multi-split ou gainable</a>, chaque installation est dimensionnée selon le <a href="#climat">climat méditerranéen et le bâti niçois</a>. Rafraîchissement en été, chauffage en hiver — une solution 2-en-1 économique et écologique, accompagnée d'un devis gratuit sous 24h et d'un accompagnement complet pour vos <a href="#aides">aides financières</a>.</p>
+ <p class="cn-nice-snippet" style="border:1px solid rgba(127,127,127,.25);border-left:3px solid #17a2b8;padding:14px 16px;border-radius:8px;margin:6px 0 4px;font-weight:500">En 2026, installer une climatisation à Nice coûte entre 1&nbsp;800 et 3&nbsp;200&nbsp;€ pour un mono-split, 3&nbsp;200 à 4&nbsp;800&nbsp;€ pour un bi-split et 8&nbsp;000 à 14&nbsp;000&nbsp;€ pour un système gainable, pose comprise. Après déduction des CEE et de la TVA réduite à 5,5&nbsp;%, le reste à charge démarre autour de 1&nbsp;400&nbsp;€. Le devis de ClimaNova Énergie est gratuit et transmis sous 24&nbsp;à&nbsp;48&nbsp;h.</p>
  <ul class="cn-nice-intro-points">
  <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Clim réversible Nice — mono-split, multi-split, gainable, toutes configurations adaptées à votre logement</li>
  <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Certification RGE QualiPAC — éligibilité garantie aux <a href="/blog/climatisation-aides-maprimerenov-cee-2026/">aides MaPrimeRénov', CEE, TVA 5,5 % et Éco-PTZ</a></li>
@@ -336,6 +447,27 @@ fbq('track','PageView');
  </table>
  </div>
  <p class="cn-brand-table-note">Valeurs indicatives constructeur, variables selon le modèle et la puissance choisie. SCOP = coefficient de performance saisonnier en mode chauffage (plus il est élevé, plus la pompe à chaleur air-air est économe).</p>
+ </div>
+
+ <!-- Prix -->
+ <div class="cn-nice-section cn-nice-section--tint" id="prix">
+ <h2 class="cn-nice-section-title">Prix Climatisation à Nice 2026</h2>
+ <p class="cn-nice-section-sub">Fourchettes de prix constatées à Nice et dans les Alpes-Maritimes, pose et mise en service comprises, et reste à charge après aides.</p>
+ <div class="cn-brand-table-wrap">
+ <table class="cn-brand-table">
+ <thead><tr><th>Système</th><th>Logement type</th><th>Prix pose comprise</th><th>Reste à charge estimé*</th></tr></thead>
+ <tbody>
+ <tr><td>Mono-split (2–3,5 kW)</td><td>Studio, T2, une chambre</td><td>1&nbsp;800 – 3&nbsp;200&nbsp;€</td><td>dès 1&nbsp;400&nbsp;€</td></tr>
+ <tr><td>Bi-split (2 unités intérieures)</td><td>T2 / T3 — séjour + chambre</td><td>3&nbsp;200 – 4&nbsp;800&nbsp;€</td><td>dès 2&nbsp;600&nbsp;€</td></tr>
+ <tr><td>Multi-split 3 unités</td><td>T3 / T4</td><td>5&nbsp;000 – 7&nbsp;500&nbsp;€</td><td>dès 4&nbsp;000&nbsp;€</td></tr>
+ <tr><td>Multi-split 4 à 5 unités</td><td>T4 / T5, maison</td><td>7&nbsp;500 – 11&nbsp;000&nbsp;€</td><td>dès 6&nbsp;000&nbsp;€</td></tr>
+ <tr><td>Gainable</td><td>T3 à T5 rénové, maison</td><td>8&nbsp;000 – 14&nbsp;000&nbsp;€</td><td>dès 6&nbsp;500&nbsp;€</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <p class="cn-brand-table-note">*Reste à charge après déduction des Certificats d'Économies d'Énergie (CEE / prime énergie) et application de la TVA réduite à 5,5&nbsp;% par un installateur RGE. Une aide MaPrimeRénov' peut s'ajouter dans le cadre d'une rénovation d'ampleur, sous conditions de revenus. Montants indicatifs 2026 pour Nice et les Alpes-Maritimes&nbsp;: seul un devis après visite technique fait foi. À Nice, prévoir un supplément pour un groupe extérieur à traitement anticorrosion dans les quartiers côtiers (Riquier, Promenade des Anglais, Saint-Laurent-du-Var) et pour une pose en étage élevé sans accès balcon.</p>
+ <p style="margin-top:14px"><a href="/blog/prix-climatisation-appartement-2026/">Détail des prix en appartement</a> · <a href="/blog/prix-climatisation-maison-2026/">détail des prix en maison</a> · <a href="/blog/climatisation-aides-maprimerenov-cee-2026/">le point complet sur les aides 2026</a>.</p>
+ <a href="/demande-devis/" class="cn-solution-cta">Obtenir mon prix exact — devis gratuit</a>
  </div>
 
  <!-- Financial aid -->
@@ -488,6 +620,14 @@ fbq('track','PageView');
  <details class="cn-faq-item"><summary>Quelles aides pour une clim à Nice ?</summary><p>Une climatisation réversible air/air installée par un professionnel RGE peut être éligible à MaPrimeRénov', aux CEE, à la TVA réduite à 5,5 % et à l'Éco-PTZ, selon vos revenus et la nature des travaux.</p></details>
  <details class="cn-faq-item"><summary>Quelle marque de climatisation choisir à Nice ?</summary><p>ClimaNova Energie installe des climatiseurs Mitsubishi Electric, Toshiba, Panasonic, Hisense et Atlantic Fujitsu à Nice. Le choix dépend de votre budget, du niveau sonore souhaité et de la configuration de votre logement.</p></details>
  <details class="cn-faq-item"><summary>Combien de temps prend l'installation d'une clim à Nice ?</summary><p>Une installation mono-split se réalise généralement en une demi-journée. Un système multi-split ou gainable demande souvent une journée complète selon l'accès et la configuration du logement.</p></details>
+ <details class="cn-faq-item"><summary>Faut-il l'accord de la copropriété pour installer une climatisation à Nice ?</summary><p>Dans la plupart des immeubles niçois, la pose d'une unité extérieure visible depuis l'extérieur nécessite une autorisation de l'assemblée générale ou au minimum une déclaration au syndic. ClimaNova Énergie vous aide à constituer le dossier (plan d'implantation, photo-montage, fiche technique) et privilégie des groupes discrets et silencieux conformes au règlement de copropriété.</p></details>
+ <details class="cn-faq-item"><summary>Peut-on installer une climatisation dans le Vieux-Nice ou près d'un monument historique ?</summary><p>Oui, mais dans les périmètres protégés (Vieux-Nice, abords de Cimiez, sites classés), l'Architecte des Bâtiments de France peut imposer une implantation non visible depuis l'espace public et une teinte assortie à la façade. Une solution gainable ou une unité dissimulée permet le plus souvent de répondre à ces exigences. Une déclaration préalable de travaux en mairie est alors nécessaire.</p></details>
+ <details class="cn-faq-item"><summary>Quelle est la consommation électrique d'une climatisation réversible à Nice ?</summary><p>Pour un appartement niçois de 60 à 80 m², une climatisation réversible bien dimensionnée consomme environ 250 à 500 kWh par an en rafraîchissement, soit 50 à 120 € sur la saison estivale. En hiver, avec un SCOP de 4 à 5, elle restitue 4 à 5 kWh de chaleur pour 1 kWh consommé.</p></details>
+ <details class="cn-faq-item"><summary>L'entretien d'une climatisation est-il obligatoire ?</summary><p>Oui, l'entretien d'un système dont la charge en fluide frigorigène est comprise entre 2 et 30 kg CO₂ équivalent (la majorité des splits domestiques) est obligatoire tous les deux ans, par un professionnel titulaire de l'attestation de capacité. ClimaNova Énergie propose des contrats d'entretien annuels à Nice.</p></details>
+ <details class="cn-faq-item"><summary>Vos installations à Nice sont-elles garanties ?</summary><p>Le matériel est couvert par la garantie constructeur (2 à 5 ans selon la marque), la pose par la garantie de parfait achevement d'un an, et l'ensemble par notre assurance décennale et notre garantie biennale sur les équipements.</p></details>
+ <details class="cn-faq-item"><summary>Intervenez-vous en urgence pour une panne de climatisation à Nice ?</summary><p>Oui, nous assurons le dépannage de climatisation à Nice et dans l'agglomération 6 j/7, avec une intervention prioritaire lors des épisodes de forte chaleur. Appelez le +33 6 52 23 81 64 pour un diagnostic rapide.</p></details>
+ <details class="cn-faq-item"><summary>Quel type de climatisation choisir pour un appartement à Nice ?</summary><p>Un mono-split suffit pour un studio ou un T2. Pour un T3 à T5, le multi-split est le meilleur compromis discrétion / budget en copropriété. Dans un logement rénové avec faux plafonds, le gainable offre une diffusion invisible. Dans les quartiers côtiers, prévoyez un groupe extérieur à traitement anticorrosion.</p></details>
+ <details class="cn-faq-item"><summary>En combien de temps recevez-vous un devis à Nice ?</summary><p>Nous vous rappelons sous 24 heures et fixons une visite technique à domicile. Le devis détaillé et gratuit vous est transmis sous 24 à 48 heures après la visite, avec le chiffrage des aides mobilisables (CEE, TVA 5,5 %).</p></details>
  </div>
  </div>
 
