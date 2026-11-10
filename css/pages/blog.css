@@ -53,6 +53,36 @@
   background-image: url('../../images/climanova-blog-fuite-eau-urgence-que-faire-featured-ai.webp');
   background-position: center 45%;
 }
+
+/* Banners for articles that previously fell back to the default image */
+.cn-banner-blog-antibes {
+  background-image: url('../../images/climanova-service-02.webp');
+  background-position: center 40%;
+}
+.cn-banner-blog-cannes {
+  background-image: url('../../images/climanova-service-02.webp');
+  background-position: center 40%;
+}
+.cn-banner-blog-clim-rev-nice {
+  background-image: url('../../images/climanova-service-06.webp');
+  background-position: center 40%;
+}
+.cn-banner-blog-devis-clim-nice {
+  background-image: url('../../images/climanova-blog-04.webp');
+  background-position: center 40%;
+}
+.cn-banner-blog-panne-clim {
+  background-image: url('../../images/climanova-service-02.webp');
+  background-position: center 40%;
+}
+.cn-banner-blog-pac-air-air {
+  background-image: url('../../images/climanova-service-01.webp');
+  background-position: center 40%;
+}
+.cn-banner-blog-prix-pac {
+  background-image: url('../../images/climanova-service-01.webp');
+  background-position: center 40%;
+}
 .cn-banner-blog-install-clim {
   background-image: url('../../images/climanova-blog-04.webp');
   background-position: center 40%;
