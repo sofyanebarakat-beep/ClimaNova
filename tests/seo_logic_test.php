@@ -116,6 +116,57 @@ check('bad language', $err(['language' => 'xx']), ['Choose a language from the l
 check('days label weekdays', seo_days_label([5, 1, 2, 3, 4]), 'Mon–Fri');
 check('days label list', seo_days_label([1, 3, 5]), 'Mon, Wed, Fri');
 
+// Keywords & topics: text matching
+check('normalize accents and punctuation', seo_normalize('Climatisation à Nice : Prix 2026 !'), 'climatisation a nice prix 2026');
+check('tokens drop stopwords and plurals', seo_tokens('Les pompes à chaleur pour votre maison'), ['pompe', 'chaleur', 'maison']);
+check('exact duplicate overlaps', seo_overlaps('Climatisation Nice', 'climatisation  NICE'), true);
+check('plural/accents overlap', seo_overlaps('pompe à chaleur nice', 'Pompes a chaleur Nice'), true);
+check('short phrase contained in longer one', seo_overlaps('clim réversible nice', 'installation clim réversible nice'), true);
+check('different topics do not overlap', seo_overlaps('entretien climatisation nice', 'fuite d’eau urgence plombier'), false);
+check('similar long titles overlap', seo_overlaps('Prix climatisation maison 2026 : budget complet', 'Climatisation maison : prix et budget 2026'), true);
+check('distinct titles on same offer do not', seo_overlaps('Climatisation : 5 erreurs à éviter avant l’été', 'Prix d’une climatisation réversible à Nice en 2026'), false);
+check('brand query detected', [seo_is_brand_query('ClimaNova énergie avis'), seo_is_brand_query('clima nova nice'), seo_is_brand_query('climatisation nice')], [true, true, false]);
+$titles = ['Prix pompe à chaleur 2026', 'Fuite d’eau : que faire', 'Climatisation réversible Nice', 'Entretien climatisation Nice', 'Électricien Nice'];
+check('related titles ranked by shared words', seo_related_titles($titles, ['Climatisation à Nice', 'clim réversible'], 60), ['Climatisation réversible Nice', 'Entretien climatisation Nice', 'Électricien Nice']);
+check('related titles limit', count(seo_related_titles(array_fill(0, 100, 'climatisation x') + ['a'], ['climatisation'], 60)), 1);
+$gscRows = [
+    ['keys' => ['climanova energie'], 'impressions' => 900, 'clicks' => 80, 'position' => 1.2],
+    ['keys' => ['climatisation nice'], 'impressions' => 500, 'clicks' => 3, 'position' => 18.4],
+    ['keys' => ['prix clim reversible appartement'], 'impressions' => 120, 'clicks' => 1, 'position' => 22.06],
+    ['keys' => ['entretien pac air eau'], 'impressions' => 300, 'clicks' => 0, 'position' => 31],
+];
+check('gsc ideas: brand + existing removed, sorted by impressions', array_column(seo_gsc_ideas($gscRows, ['Climatisation Nice']), 'query'), ['entretien pac air eau', 'prix clim reversible appartement']);
+check('gsc ideas keep real figures', seo_gsc_ideas($gscRows, [])[0], ['query' => 'climatisation nice', 'impressions' => 500, 'clicks' => 3, 'position' => 18.4]);
+check('gsc ideas top N', count(seo_gsc_ideas(array_fill(0, 40, ['keys' => ['x y z'], 'impressions' => 1, 'clicks' => 0, 'position' => 9]), [], 25)), 25);
+
+// Weekly plan
+check('monday of a Thursday', seo_monday('2026-11-19'), '2026-11-16');
+check('monday of a Monday', seo_monday('2026-11-16'), '2026-11-16');
+check('monday of a Sunday', seo_monday('2026-11-22'), '2026-11-16');
+check('week index 0 in first week', seo_week_index('2026-11-18', '2026-11-16'), 0);
+check('week index counts weeks', seo_week_index('2026-11-18', '2026-12-07'), 3);
+$camp = ['weekly_target' => 4, 'publish_days' => [1, 3, 5], 'publish_times' => ['17:00', '09:00'], 'start_date' => '2026-11-01', 'end_date' => null, 'week_index' => 0];
+$kws = [['id' => 11, 'offer_id' => 1], ['id' => 12, 'offer_id' => 1], ['id' => 21, 'offer_id' => 2], ['id' => 90, 'offer_id' => null]];
+$plan = seo_plan_week($camp, '2026-11-16', [1, 2], $kws, []);
+check('plan fills weekly target', count($plan), 4);
+check('plan dates/times in order', array_map(static fn ($s) => $s['date'] . ' ' . $s['time'], $plan), ['2026-11-16 09:00', '2026-11-16 17:00', '2026-11-18 09:00', '2026-11-18 17:00']);
+check('plan balances offers', array_column($plan, 'offer_id'), [1, 2, 1, 2]);
+check('plan uses each keyword once, then campaign-wide, then none', array_column($plan, 'keyword_id'), [11, 21, 12, 90]);
+check('rotation: next week starts with the next offer', array_column(seo_plan_week(['week_index' => 1] + $camp, '2026-11-23', [1, 2], [], []), 'offer_id'), [2, 1, 2, 1]);
+check('rotation with 3 offers, week 2', array_column(seo_plan_week(['week_index' => 2, 'weekly_target' => 3] + $camp, '2026-11-30', [1, 2, 3], [], []), 'offer_id'), [3, 1, 2]);
+$taken = [['date' => '2026-11-16', 'offer_id' => 1], ['date' => '2026-11-18', 'offer_id' => 1], ['date' => '2026-11-18', 'offer_id' => 2]];
+$refill = seo_plan_week($camp, '2026-11-16', [1, 2], [], $taken);
+check('refill uses the free slot, not a taken one', array_map(static fn ($s) => $s['date'] . ' ' . $s['time'], $refill), ['2026-11-16 17:00']);
+check('refill goes to the offer with fewest topics', array_column($refill, 'offer_id'), [2]);
+check('full week plans nothing', seo_plan_week($camp, '2026-11-16', [1, 2], [], array_fill(0, 4, ['date' => '2026-11-20', 'offer_id' => 1])), []);
+check('balance with 3 offers and 7 slots', array_count_values(array_column(seo_plan_week(['weekly_target' => 6, 'publish_days' => [1, 2, 3]] + $camp, '2026-11-16', [1, 2, 3], [], []), 'offer_id')), [1 => 2, 2 => 2, 3 => 2]);
+check('dates outside campaign skipped', array_column(seo_plan_week(['start_date' => '2026-11-18', 'end_date' => '2026-11-18'] + $camp, '2026-11-16', [1], [], []), 'date'), ['2026-11-18', '2026-11-18']);
+check('no offers plans nothing', seo_plan_week($camp, '2026-11-16', [], $kws, []), []);
+check('target above slots is capped by slots', count(seo_plan_week(['weekly_target' => 12] + $camp, '2026-11-16', [1], [], [])), 6);
+[$d, $errs] = seo_validate_topic(['title' => '  Clim  à Nice : 5 conseils ', 'angle' => 'x', 'planned_for' => '2026-11-18']);
+check('topic validation cleans title', [$d['title'], $errs], ['Clim à Nice : 5 conseils', []]);
+check('topic validation errors', seo_validate_topic(['title' => 'Court', 'planned_for' => '2026-13-01'])[1], ['Topic title must be between 10 and 160 characters.', 'Choose a valid date for the topic.']);
+
 // Migration splitter
 require __DIR__ . '/../db/sql_split.php';
 check('splits simple statements', sql_split_statements("create table a (x int);\n-- note; here\nselect 1;"), ['create table a (x int)', 'select 1']);

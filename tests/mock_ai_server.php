@@ -39,6 +39,47 @@ if (($rf['type'] ?? '') !== 'json_schema' || ($rf['json_schema']['strict'] ?? fa
     return;
 }
 $model = $body['model'] ?? '';
+$schemaName = $rf['json_schema']['name'] ?? '';
+$user = json_decode((string) ($body['messages'][1]['content'] ?? '{}'), true) ?: [];
+$send = static function (array $data) {
+    echo json_encode(['choices' => [['message' => ['role' => 'assistant', 'content' => json_encode($data, JSON_UNESCAPED_UNICODE)], 'finish_reason' => 'stop']],
+        'usage' => ['prompt_tokens' => 2000, 'completion_tokens' => 800]]);
+};
+$short = static fn (string $offer) => mb_strtolower(trim(preg_replace('/\s+(à|a)\s+nice.*$|\s+nice.*$|\s*&.*$/iu', '', $offer)));
+if ($model === 'mock-ok' && $schemaName === 'keyword_ideas') {
+    $patterns = ['devis gratuit %s', '%s appartement ancien', 'aide financière %s', '%s silencieux chambre', 'délai installation %s',
+                 'entretien annuel %s', '%s copropriété autorisation', 'meilleur installateur %s avis', '%s consommation électrique', 'garantie décennale %s'];
+    $ideas = [];
+    foreach ($patterns as $i => $pat) {
+        $o = $user['offers'][$i % count($user['offers'])];
+        $ideas[] = ['keyword' => sprintf($pat, $short($o['name'])), 'offerId' => $o['offerId'], 'searchIntent' => $i % 2 ? 'commercial' : 'local',
+            'cluster' => 'Cluster ' . ($i % 3 + 1), 'rationale' => 'Phrase de recherche locale liée à cette offre.'];
+    }
+    $ideas[] = ['keyword' => 'idée offre inconnue nice', 'offerId' => 999999, 'searchIntent' => 'local', 'cluster' => 'Divers', 'rationale' => 'Offre qui n’existe pas dans la campagne.'];
+    $dup = $user['existingKeywords'][0] ?? $ideas[0]['keyword'];
+    $ideas[] = ['keyword' => mb_strtoupper($dup), 'offerId' => $user['offers'][0]['offerId'], 'searchIntent' => 'local', 'cluster' => 'Divers', 'rationale' => 'Doublon volontaire d’un mot-clé existant.'];
+    $send(['ideas' => $ideas]);
+    return;
+}
+if ($model === 'mock-ok' && in_array($schemaName, ['weekly_plan', 'regenerate_topic'], true)) {
+    $tpl = ['%s : le guide pour bien choisir son installateur', 'Bruit climatisation : que faire ?', 'Quelles aides financières pour %s en 2026 ?',
+            'Entretien annuel : le calendrier idéal pour %s', 'Erreurs fréquentes à éviter lors d’un projet de %s', 'Comparatif des solutions disponibles pour %s',
+            'Témoignage client : un chantier réussi pour %s', 'Délais d’intervention et organisation : %s', 'Check-list avant la visite technique : %s',
+            'Garanties et assurances à vérifier pour %s', 'Logement ancien ou neuf : adapter %s', 'Copropriété : démarches et autorisations pour %s'];
+    $regen = ['Nouveau regard sur %s : ce qu’il faut savoir avant de signer', 'Questions des lecteurs niçois sur %s, nos réponses d’experts',
+              'Budget maîtrisé : planifier %s sans mauvaise surprise'];
+    $topics = [];
+    foreach ($user['slots'] as $i => $s) {
+        $off = $short($s['offer']);
+        $title = $schemaName === 'regenerate_topic'
+            ? sprintf($regen[count($user['existingTitles'] ?? []) % count($regen)], $off)
+            : (count($user['slots']) > 1 ? sprintf($tpl[$i % count($tpl)], $off) : sprintf('Mythes et idées reçues autour de %s, démêlés', $off));
+        $topics[] = ['slot' => $s['slot'], 'title' => $title,
+            'angle' => 'Le lecteur se demande comment avancer sur ' . $off . ' ; l’article répond point par point et renvoie vers ' . $s['offerPage'] . '.'];
+    }
+    $send(['topics' => $topics]);
+    return;
+}
 $reply = static function (?string $content, string $finish = 'stop') {
     echo json_encode(['choices' => [['message' => ['role' => 'assistant', 'content' => $content], 'finish_reason' => $finish]],
         'usage' => ['prompt_tokens' => 1000, 'completion_tokens' => 500]]);

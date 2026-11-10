@@ -244,3 +244,176 @@ function seo_money(float $usd): string
 {
     return '$' . number_format($usd, 2, '.', ',');
 }
+
+/* ---------- Keywords & topics: text matching ---------- */
+
+const SEO_INTENTS = ['informational' => 'Informational', 'commercial' => 'Commercial', 'transactional' => 'Transactional', 'local' => 'Local', 'navigational' => 'Navigational'];
+const SEO_STOPWORDS = ['le', 'la', 'les', 'l', 'de', 'des', 'du', 'd', 'un', 'une', 'et', 'en', 'a', 'au', 'aux', 'pour', 'sur', 'avec',
+    'par', 'ou', 'dans', 'votre', 'vos', 'notre', 'nos', 'son', 'sa', 'ses', 'ce', 'cette', 'ces', 'est', 'que', 'qui', 'quoi',
+    'comment', 'quel', 'quelle', 'quels', 'quelles', 'pourquoi', 'faut', 'il', 'elle', 'on', 'se', 's', 'y', 'ne', 'pas', 'plus',
+    'tout', 'tous', 'guide', 'complet', 'climanova', 'energie', 'the', 'of', 'and', 'to', 'in', 'for'];
+
+/** "Climatisation à Nice : prix 2026 !" → "climatisation a nice prix 2026" */
+function seo_normalize(string $text): string
+{
+    $t = mb_strtolower(trim($text));
+    $t = strtr($t, ['à' => 'a', 'â' => 'a', 'ä' => 'a', 'á' => 'a', 'ç' => 'c', 'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
+        'î' => 'i', 'ï' => 'i', 'í' => 'i', 'ô' => 'o', 'ö' => 'o', 'ó' => 'o', 'ù' => 'u', 'û' => 'u', 'ü' => 'u', 'ú' => 'u',
+        'ÿ' => 'y', 'ñ' => 'n', 'œ' => 'oe', 'æ' => 'ae', '’' => ' ', "'" => ' ']);
+    $t = preg_replace('/[^a-z0-9]+/', ' ', $t);
+    return trim(preg_replace('/\s+/', ' ', $t));
+}
+
+/** Significant words, singular-ish (trailing s/x dropped), without stopwords. */
+function seo_tokens(string $text): array
+{
+    $out = [];
+    foreach (explode(' ', seo_normalize($text)) as $w) {
+        if ($w === '' || in_array($w, SEO_STOPWORDS, true)) continue;
+        if (strlen($w) > 3) $w = preg_replace('/[sx]$/', '', $w);
+        $out[$w] = true;
+    }
+    return array_keys($out);
+}
+
+/**
+ * Do two keywords/titles say the same thing? Same normalized text, one containing the other (for short phrases),
+ * or ≥ $threshold of shared significant words (Jaccard).
+ */
+function seo_overlaps(string $a, string $b, float $threshold = 0.6): bool
+{
+    $na = seo_normalize($a);
+    $nb = seo_normalize($b);
+    if ($na === '' || $nb === '') return false;
+    if ($na === $nb) return true;
+    $ta = seo_tokens($a);
+    $tb = seo_tokens($b);
+    if (!$ta || !$tb) return false;
+    $inter = count(array_intersect($ta, $tb));
+    if ($inter === min(count($ta), count($tb)) && min(count($ta), count($tb)) >= 2 && max(count($ta), count($tb)) <= 4) return true;
+    return $inter / count(array_unique(array_merge($ta, $tb))) >= $threshold;
+}
+
+function seo_overlaps_any(string $text, array $others, float $threshold = 0.6): bool
+{
+    foreach ($others as $o) if (seo_overlaps($text, (string) $o, $threshold)) return true;
+    return false;
+}
+
+function seo_is_brand_query(string $query): bool
+{
+    return (bool) preg_match('/clima\s*nova|climanova/', seo_normalize($query));
+}
+
+/** Up to $limit titles that share the most significant words with $terms (offer names + target keywords). */
+function seo_related_titles(array $titles, array $terms, int $limit = 60): array
+{
+    $vocab = [];
+    foreach ($terms as $t) foreach (seo_tokens((string) $t) as $w) $vocab[$w] = true;
+    $scored = [];
+    foreach (array_unique($titles) as $i => $title) {
+        $score = count(array_intersect(seo_tokens((string) $title), array_keys($vocab)));
+        if ($score > 0) $scored[] = [$score, $i, $title];
+    }
+    usort($scored, static fn ($a, $b) => [$b[0], $a[1]] <=> [$a[0], $b[1]]);
+    return array_column(array_slice($scored, 0, $limit), 2);
+}
+
+/**
+ * Search Console query rows → idea rows: brand searches and anything overlapping existing keywords removed,
+ * top $limit by impressions.
+ */
+function seo_gsc_ideas(array $rows, array $existing, int $limit = 25): array
+{
+    $ideas = [];
+    foreach ($rows as $r) {
+        $q = trim((string) ($r['keys'][0] ?? $r['query'] ?? ''));
+        if ($q === '' || seo_is_brand_query($q) || seo_overlaps_any($q, $existing)) continue;
+        $ideas[] = ['query' => $q, 'impressions' => (int) $r['impressions'], 'clicks' => (int) $r['clicks'], 'position' => round((float) $r['position'], 1)];
+    }
+    usort($ideas, static fn ($a, $b) => [$b['impressions'], $b['clicks']] <=> [$a['impressions'], $a['clicks']]);
+    return array_slice($ideas, 0, $limit);
+}
+
+/* ---------- Weekly plan ---------- */
+
+function seo_monday(string $date): string
+{
+    return (new DateTimeImmutable($date))->modify('monday this week')->format('Y-m-d');
+}
+
+/** Weeks since the campaign's first Monday (0 for the first week); drives the offer rotation. */
+function seo_week_index(string $campaignStart, string $monday): int
+{
+    $d = (new DateTimeImmutable(seo_monday($campaignStart)))->diff(new DateTimeImmutable($monday));
+    return intdiv((int) $d->days, 7) * ($d->invert ? -1 : 1);
+}
+
+/**
+ * Plans the open slots of one week.
+ *   $campaign: weekly_target, publish_days (1-7), publish_times, start_date, end_date (nullable), week_index
+ *   $offers:   offer ids in priority order (enabled offers of the campaign)
+ *   $keywords: unused keywords [['id', 'offer_id' (null = campaign-wide)]] in priority order
+ *   $taken:    topics already planned that week (not rejected): [['date' => Y-m-d, 'offer_id' => id], …]
+ * Returns [['date', 'time', 'offer_id', 'keyword_id'], …] for at most (target − taken) FREE slots.
+ * Balancing: each slot goes to the offer with the fewest topics this week; ties follow the rotation order,
+ * which starts at (week index mod offer count) so each week begins with the next offer.
+ * Each keyword is used once; an offer with no keyword left falls back to a campaign-wide keyword, then to none.
+ */
+function seo_plan_week(array $campaign, string $monday, array $offers, array $keywords, array $taken = []): array
+{
+    if (!$offers) return [];
+    $need = (int) $campaign['weekly_target'] - count($taken);
+    if ($need <= 0) return [];
+    $start = new DateTimeImmutable($monday);
+    $days = array_map('intval', $campaign['publish_days']);
+    sort($days);
+    $times = $campaign['publish_times'];
+    sort($times);
+    $usedPerDate = array_count_values(array_column($taken, 'date'));
+    $slots = [];
+    foreach ($days as $d) {
+        $date = $start->modify('+' . ($d - 1) . ' days')->format('Y-m-d');
+        if ($date < $campaign['start_date'] || (!empty($campaign['end_date']) && $date > $campaign['end_date'])) continue;
+        foreach (array_slice($times, $usedPerDate[$date] ?? 0) as $t) $slots[] = ['date' => $date, 'time' => $t];
+    }
+    $slots = array_slice($slots, 0, $need);
+
+    $byOffer = [];
+    $wide = [];
+    foreach ($keywords as $k) {
+        if ($k['offer_id'] === null || $k['offer_id'] === '') $wide[] = (int) $k['id'];
+        else $byOffer[(int) $k['offer_id']][] = (int) $k['id'];
+    }
+    $n = count($offers);
+    $offset = (($campaign['week_index'] ?? 0) % $n + $n) % $n;
+    $order = array_map('intval', array_merge(array_slice($offers, $offset), array_slice($offers, 0, $offset)));
+    $count = array_fill_keys($order, 0);
+    foreach ($taken as $t) if (isset($count[(int) $t['offer_id']])) $count[(int) $t['offer_id']]++;
+    $cursor = 0;
+    foreach ($slots as &$s) {
+        $best = null;
+        for ($j = 0; $j < $n; $j++) {               // fewest topics wins; ties → next offer in rotation order
+            $o = $order[($cursor + $j) % $n];
+            if ($best === null || $count[$o] < $count[$best]) $best = $o;
+        }
+        $count[$best]++;
+        $cursor = (array_search($best, $order, true) + 1) % $n;
+        $s['offer_id'] = $best;
+        $s['keyword_id'] = !empty($byOffer[$best]) ? array_shift($byOffer[$best]) : (array_shift($wide) ?? null);
+    }
+    return $slots;
+}
+
+/** Manual/edited topic fields → [clean, errors]. */
+function seo_validate_topic(array $in): array
+{
+    $e = [];
+    $title = trim(preg_replace('/\s+/u', ' ', (string) ($in['title'] ?? '')));
+    $angle = trim((string) ($in['angle'] ?? ''));
+    $date = trim((string) ($in['planned_for'] ?? ''));
+    if (mb_strlen($title) < 10 || mb_strlen($title) > 160) $e[] = 'Topic title must be between 10 and 160 characters.';
+    if (mb_strlen($angle) > 600) $e[] = 'The angle must be 600 characters or fewer.';
+    if (!seo_valid_date($date)) $e[] = 'Choose a valid date for the topic.';
+    return [['title' => $title, 'angle' => $angle, 'planned_for' => $date], $e];
+}

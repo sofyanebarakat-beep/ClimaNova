@@ -268,3 +268,39 @@ fieldset.field legend { font-size: 13px; font-weight: 600; color: var(--ink); pa
 .inline-form { margin: 8px 0 4px; }
 .stack-form select { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
 .stack-form input[type=password] { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; }
+
+/* Keywords & Topics */
+.field.inline { flex-direction: row; align-items: center; gap: 8px; }
+.field.inline select, .field.inline input { width: auto; }
+.kw-actions { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; align-items: start; margin-bottom: 8px; }
+.kw-add { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 10px; align-items: end; }
+.kw-gen { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.kw-gen form { margin: 0; }
+.kw-gen p { margin: 0; }
+.kw-table tr.is-used td { opacity: .6; }
+.row-form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 0; }
+.row-form select { font: inherit; padding: 6px 8px; border: 1px solid var(--border); border-radius: 8px; }
+.topic-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.topic { display: flex; gap: 16px; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; padding: 14px; scroll-margin-top: 80px; }
+.topic h3 { margin: 6px 0 4px; font-size: 15px; }
+.topic p { margin: 0; color: var(--text); }
+.topic-main { min-width: 0; flex: 1; }
+.topic-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.topic-meta .badge { margin: 0; }
+.topic-actions { display: flex; flex-direction: column; gap: 6px; align-items: stretch; width: 210px; flex: none; }
+.topic-actions form { margin: 0; }
+.topic-actions .btn { width: 100%; text-align: center; display: block; }
+.topic-edit summary { list-style: none; color: var(--text); margin: 0; }
+.topic-edit summary::-webkit-details-marker { display: none; }
+.topic-edit .stack-form { margin-top: 8px; }
+.manual-topic { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+.manual-topic .form-grid { margin-top: 12px; }
+button[disabled] { opacity: .5; cursor: not-allowed; }
+@media (max-width: 900px) {
+  .kw-actions { grid-template-columns: 1fr; }
+  .kw-add { grid-template-columns: 1fr 1fr; }
+  .topic { flex-direction: column; }
+  .topic-actions { width: auto; flex-direction: row; flex-wrap: wrap; }
+  .topic-actions .btn { width: auto; }
+}
+@media (max-width: 560px) { .kw-add { grid-template-columns: 1fr; } }
