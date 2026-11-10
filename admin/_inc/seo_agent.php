@@ -67,9 +67,56 @@ function seo_dashboard_data(): array
     return ['counts' => $c, 'budget' => $budget, 'logs' => $logs, 'week' => [$weekStart, $weekEnd]];
 }
 
+/** All offers for the Offers tab: enabled first, then priority, then title. */
+function seo_list_offers(): array
+{
+    seo_require_admin();
+    $rows = db_query('select id, slug, name, path, url, description, is_active, promotion_enabled, target_keywords,
+                             seo_priority, synced_at, updated_at
+                        from seo_offers
+                       order by is_active desc, promotion_enabled desc, seo_priority desc, name');
+    foreach ($rows as &$r) {
+        $r['is_active'] = $r['is_active'] === 't' || $r['is_active'] === 'true';
+        $r['promotion_enabled'] = $r['promotion_enabled'] === 't' || $r['promotion_enabled'] === 'true';
+        $r['target_keywords'] = seo_pg_array_parse($r['target_keywords']);
+        $r['seo_priority'] = (int) $r['seo_priority'];
+    }
+    return $rows;
+}
+
+/** Saves the admin settings of one offer. Returns the cleaned values. */
+function seo_save_offer(int $id, bool $enabled, string $keywordsRaw, mixed $priorityRaw): array
+{
+    seo_require_admin();
+    $priority = seo_parse_priority($priorityRaw);
+    if ($priority === null) throw new InvalidArgumentException('SEO priority must be a whole number from 1 to 100.');
+    $keywords = seo_parse_keywords($keywordsRaw);
+    $rows = db_query('update seo_offers set promotion_enabled = $2, target_keywords = $3::text[], seo_priority = $4, updated_at = now()
+                      where id = $1 returning slug', [$id, $enabled, seo_pg_array($keywords), $priority]);
+    if (!$rows) throw new InvalidArgumentException('This offer no longer exists — sync the catalog and try again.');
+    seo_log('save_offer', 'info', "Offer {$rows[0]['slug']} saved: promotion " . ($enabled ? 'on' : 'off') . ", priority $priority, " . count($keywords) . ' keyword(s).');
+    return ['slug' => $rows[0]['slug'], 'keywords' => $keywords, 'priority' => $priority];
+}
+
+/** Offers that campaigns and articles may use: still in the catalog AND promotion enabled. */
+function seo_usable_offers(): array
+{
+    seo_require_admin();
+    return db_query('select id, slug, name, path, seo_priority from seo_offers
+                     where is_active and promotion_enabled order by seo_priority desc, name');
+}
+
+function seo_assert_offer_usable(int $offerId): void
+{
+    if (!in_array((string) $offerId, array_column(seo_usable_offers(), 'id'), true)) {
+        throw new InvalidArgumentException('This offer is not enabled for promotion — turn it on in the Offers tab first.');
+    }
+}
+
 /**
  * Imports the service catalog (every /services/<slug>/ page in the sitemap) into seo_offers.
- * Never deletes: services no longer in the sitemap are only marked inactive.
+ * Upsert only: never deletes rows and never touches the admin's settings
+ * (promotion_enabled, target_keywords, seo_priority). Services that left the catalog are marked inactive.
  */
 function seo_sync_offers(string $root): array
 {
@@ -87,16 +134,18 @@ function seo_sync_offers(string $root): array
     $values = [];
     $params = [];
     foreach ($found as $i => $o) {
-        $b = $i * 4;
-        $values[] = sprintf('($%d, $%d, $%d, $%d, true, now())', $b + 1, $b + 2, $b + 3, $b + 4);
-        array_push($params, $o['slug'], $o['name'], $o['url'], $o['description']);
+        $b = $i * 5;
+        $values[] = sprintf('($%d, $%d, $%d, $%d, $%d, true, now())', $b + 1, $b + 2, $b + 3, $b + 4, $b + 5);
+        $path = seo_offer_path($o['slug']);
+        array_push($params, $o['slug'], $o['name'], $path, SITE . $path, $o['description']);
     }
     $slugs = array_column($found, 'slug');
     $marks = implode(',', array_map(static fn ($i) => '$' . ($i + 1), array_keys($slugs)));
     [$upserted, $deactivated] = db_batch([
-        ['insert into seo_offers (slug, name, url, description, is_active, synced_at) values ' . implode(',', $values) . '
-          on conflict (slug) do update set name = excluded.name, url = excluded.url, description = excluded.description,
-            is_active = true, synced_at = now(), updated_at = now()
+        // Only catalog fields are updated on conflict; admin settings keep their values.
+        ['insert into seo_offers (slug, name, path, url, description, is_active, synced_at) values ' . implode(',', $values) . '
+          on conflict (slug) do update set name = excluded.name, path = excluded.path, url = excluded.url,
+            description = excluded.description, is_active = true, synced_at = now(), updated_at = now()
           returning slug', $params],
         ["update seo_offers set is_active = false, updated_at = now() where is_active and slug not in ($marks) returning slug", $slugs],
     ]);

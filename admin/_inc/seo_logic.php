@@ -57,6 +57,56 @@ function seo_offer_from_path(string $path, string $title): ?array
     return ['slug' => $m[1], 'name' => $name !== '' ? $name : ucfirst(str_replace('-', ' ', $m[1]))];
 }
 
+/** Public page path of an offer, built from OFFER_PAGE_PATH (https://climanova-energie.fr/services/<slug>/). */
+function seo_offer_path(string $slug): string
+{
+    return '/services/' . trim($slug, '/') . '/';
+}
+
+/**
+ * "clim nice, Clim Nice ,, pompe à chaleur" → ['clim nice', 'pompe à chaleur']
+ * Trims, collapses spaces, drops empties and case-insensitive duplicates, max 30 keywords of 80 chars.
+ */
+function seo_parse_keywords(string $raw): array
+{
+    $seen = [];
+    $out = [];
+    foreach (preg_split('/[,\n;]+/u', $raw) as $k) {
+        $k = trim(preg_replace('/\s+/u', ' ', $k));
+        if ($k === '') continue;
+        $k = mb_substr($k, 0, 80);
+        $key = mb_strtolower($k);
+        if (isset($seen[$key])) continue;
+        $seen[$key] = true;
+        $out[] = $k;
+        if (count($out) === 30) break;
+    }
+    return $out;
+}
+
+/** Whole number 1–100, or null when invalid. */
+function seo_parse_priority(mixed $raw): ?int
+{
+    $s = trim((string) $raw);
+    if (!preg_match('/^\d{1,3}$/', $s)) return null;
+    $n = (int) $s;
+    return $n >= 1 && $n <= 100 ? $n : null;
+}
+
+/** Postgres text[] literal ↔ PHP array (keywords never contain quotes-escaping surprises after this). */
+function seo_pg_array(array $items): string
+{
+    return '{' . implode(',', array_map(static fn ($s) => '"' . str_replace(['\\', '"'], ['\\\\', '\\"'], $s) . '"', $items)) . '}';
+}
+
+function seo_pg_array_parse(?string $lit): array
+{
+    if ($lit === null || $lit === '{}' || $lit === '') return [];
+    $inner = substr($lit, 1, -1);
+    preg_match_all('/"((?:[^"\\\\]|\\\\.)*)"|([^,]+)/', $inner, $m, PREG_SET_ORDER);
+    return array_map(static fn ($x) => isset($x[2]) && $x[2] !== '' ? $x[2] : stripcslashes($x[1]), $m);
+}
+
 function seo_money(float $usd): string
 {
     return '$' . number_format($usd, 2, '.', ',');

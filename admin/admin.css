@@ -209,3 +209,19 @@ details > summary { cursor: pointer; font-weight: 600; color: var(--blue); margi
 @media (max-width: 1200px) { .tiles-6 { grid-template-columns: repeat(4, 1fr); } }
 @media (max-width: 1000px) { .tiles-6 { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 560px) { .tiles-6 { grid-template-columns: repeat(2, 1fr); } }
+
+/* Offers */
+.offer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.offer-card { display: flex; flex-direction: column; gap: 10px; margin: 0; scroll-margin-top: 80px; }
+.offer-card.is-off { background: #fbfbfa; }
+.offer-card.is-off h2 { color: var(--muted); }
+.offer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.offer-top h2 { margin: 0 0 2px; }
+.offer-card .alert, .offer-card .success { margin: 0; }
+.check { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: var(--ink); cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--blue); }
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); }
+.field input { font: inherit; font-weight: 400; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; width: 100%; }
+.field input:focus { outline: 2px solid var(--blue); outline-offset: 0; border-color: var(--blue); }
+.offer-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; }
+@media (max-width: 560px) { .offer-grid { grid-template-columns: 1fr; } }

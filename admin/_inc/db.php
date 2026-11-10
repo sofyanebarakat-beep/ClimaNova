@@ -123,6 +123,8 @@ function admin_error(Throwable $e, string $doing): string
 {
     error_log("[admin] $doing: " . get_class($e) . ': ' . $e->getMessage());
     $msg = $e->getMessage();
+    if ($e instanceof InvalidArgumentException) return $msg; // already a one-sentence validation message
+    if (str_contains($msg, 'not enabled for promotion')) return 'This offer is not enabled for promotion — turn it on in the Offers tab first.';
     if ($e instanceof DbError) {
         if (str_contains($msg, 'non configurée')) return 'The database is not connected yet — add it in Paramètres.';
         if (str_contains($msg, 'does not exist')) return "Could not $doing because the database is missing a table — run the latest migration.";

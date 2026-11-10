@@ -60,5 +60,32 @@ check('missing title falls back to slug', seo_offer_from_path('/services/renovat
     ['slug' => 'renovation-energetique', 'name' => 'Renovation energetique']);
 check('money format', seo_money(1234.5), '$1,234.50');
 
+// Offers: path, keywords, priority
+check('offer path from slug', seo_offer_path('climatisation'), '/services/climatisation/');
+check('keywords trimmed, deduped, empties dropped', seo_parse_keywords(" clim nice, Clim  Nice ,, pompe à chaleur ,"), ['clim nice', 'pompe à chaleur']);
+check('keywords accept new lines and semicolons', seo_parse_keywords("a\nb;c"), ['a', 'b', 'c']);
+check('empty keywords', seo_parse_keywords('  , ,'), []);
+check('keyword length capped', mb_strlen(seo_parse_keywords(str_repeat('é', 120))[0]), 80);
+check('at most 30 keywords', count(seo_parse_keywords(implode(',', range(1, 50)))), 30);
+check('priority 1 ok', seo_parse_priority('1'), 1);
+check('priority 100 ok', seo_parse_priority(' 100 '), 100);
+check('priority 0 rejected', seo_parse_priority('0'), null);
+check('priority 101 rejected', seo_parse_priority('101'), null);
+check('priority decimal rejected', seo_parse_priority('5.5'), null);
+check('priority text rejected', seo_parse_priority('high'), null);
+check('priority empty rejected', seo_parse_priority(''), null);
+$kw = ['clim nice', 'pompe "air-air"', 'a,b', 'back\\slash', 'é'];
+check('pg array round trip', seo_pg_array_parse(seo_pg_array($kw)), $kw);
+check('pg array parses unquoted words', seo_pg_array_parse('{clim,"pompe à chaleur"}'), ['clim', 'pompe à chaleur']);
+check('pg empty array', seo_pg_array_parse('{}'), []);
+
+// Migration splitter
+require __DIR__ . '/../db/sql_split.php';
+check('splits simple statements', sql_split_statements("create table a (x int);\n-- note; here\nselect 1;"), ['create table a (x int)', 'select 1']);
+check('keeps $$ bodies whole', count(sql_split_statements("create function f() returns int language plpgsql as \$\$ begin return 1; end \$\$;\nselect 2;")), 2);
+check('keeps tagged dollar bodies', sql_split_statements("do \$x\$ begin perform 1; end \$x\$;"), ["do \$x\$ begin perform 1; end \$x\$"]);
+check('ignores semicolons in strings', sql_split_statements("insert into t values ('a;b', 'it''s');"), ["insert into t values ('a;b', 'it''s')"]);
+check('ignores block comments', sql_split_statements("/* x; y */ select 1;"), ['select 1']);
+
 echo "\n$passed passed, $failed failed\n";
 exit($failed ? 1 : 0);
