@@ -3,6 +3,7 @@ Allow: /
 
 # Exclure les dossiers internes et copies de templates
 Disallow: /innerpages/
+Disallow: /admin
 Disallow: /ClimaNovaEnergie copy/
 Disallow: /climavovaall/
 Disallow: /innerpages/blog?*/
