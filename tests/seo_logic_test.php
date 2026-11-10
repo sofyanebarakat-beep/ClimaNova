@@ -79,6 +79,43 @@ check('pg array round trip', seo_pg_array_parse(seo_pg_array($kw)), $kw);
 check('pg array parses unquoted words', seo_pg_array_parse('{clim,"pompe à chaleur"}'), ['clim', 'pompe à chaleur']);
 check('pg empty array', seo_pg_array_parse('{}'), []);
 
+// Campaign validation
+$okInput = ['name' => 'Climatisation Nice été', 'goal' => '', 'language' => 'fr', 'countries' => 'fr, MC ,fr', 'weekly_target' => '12',
+    'start_date' => '2026-11-16', 'end_date' => '2027-03-01', 'days' => ['1', '2', '3', '4', '5', '6'], 'times' => '17:00, 9:00',
+    'time_zone' => 'Europe/Paris', 'status' => 'active', 'offers' => ['2', '5'], 'automation_enabled' => '1'];
+$v = seo_validate_campaign($okInput, [2, 5, 7]);
+check('valid campaign has no errors', $v['errors'], []);
+check('countries uppercased and deduped', $v['data']['countries'], ['FR', 'MC']);
+check('times normalised and sorted', $v['data']['times'], ['09:00', '17:00']);
+check('days as ints', $v['data']['days'], [1, 2, 3, 4, 5, 6]);
+check('switches parsed', [$v['data']['automation_enabled'], $v['data']['auto_publish']], [true, false]);
+check('empty end date becomes null', seo_validate_campaign(['end_date' => ''] + $okInput, [2, 5])['data']['end_date'], null);
+$err = static fn (array $over, array $usable = [2, 5]) => seo_validate_campaign(array_merge($okInput, $over), $usable)['errors'];
+check('name too short', $err(['name' => 'Clim']), ['Campaign name must be between 5 and 120 characters.']);
+check('name too long', $err(['name' => str_repeat('a', 121)]), ['Campaign name must be between 5 and 120 characters.']);
+check('no offer', $err(['offers' => []]), ['Choose at least one offer to promote.']);
+check('disabled offer refused', $err(['offers' => ['2', '9']]), ['One of the chosen offers is not enabled for promotion — enable it in the Offers tab first.']);
+check('duplicate day', $err(['days' => ['1', '1', '2', '3', '4', '5', '6']]), ['Each publishing day can only be chosen once.']);
+check('day out of range', $err(['days' => ['0', '8', '1', '2', '3', '4', '5', '6']]), ['Publishing days must be weekdays from Monday to Sunday.']);
+check('no days', in_array('Choose at least one publishing day.', $err(['days' => []]), true), true);
+check('bad time format', $err(['times' => '9h, 17:00', 'weekly_target' => '6']), ['“9h” is not a time in HH:mm format (for example 09:00).']);
+check('25:00 rejected', $err(['times' => '25:00', 'weekly_target' => '6']), ['“25:00” is not a time in HH:mm format (for example 09:00).']);
+check('duplicate time', $err(['times' => '09:00, 9:00', 'weekly_target' => '6']), ['The publishing time 09:00 is listed twice.']);
+check('more than 4 times', $err(['times' => '08:00,09:00,10:00,11:00,12:00']), ['Use 4 publishing times or fewer.']);
+check('end before start', $err(['end_date' => '2026-11-15']), ['The end date cannot be before the start date.']);
+check('same start and end ok', $err(['end_date' => '2026-11-16']), []);
+check('invalid date', $err(['start_date' => '2026-02-30']), ['Choose a valid start date.']);
+check('invalid time zone', $err(['time_zone' => 'Paris/France']), ['“Paris/France” is not a valid time zone (for example Europe/Paris).']);
+check('weekly target 13 rejected', $err(['weekly_target' => '13']), ['Weekly article target must be a whole number from 1 to 12.']);
+check('weekly target 0 rejected', $err(['weekly_target' => '0']), ['Weekly article target must be a whole number from 1 to 12.']);
+check('target above slots', $err(['days' => ['1', '2', '3', '4', '5']]), ['A weekly target of 12 needs at least 12 publishing slots; you have 10 (days × times).']);
+check('bad country code', $err(['countries' => 'FR, FRA']), ['“FRA” is not a 2-letter country code (for example FR).']);
+check('no country', $err(['countries' => ' ']), ['Add at least one target country code (for example FR).']);
+check('bad status', $err(['status' => 'archived']), ['Choose a status from the list.']);
+check('bad language', $err(['language' => 'xx']), ['Choose a language from the list.']);
+check('days label weekdays', seo_days_label([5, 1, 2, 3, 4]), 'Mon–Fri');
+check('days label list', seo_days_label([1, 3, 5]), 'Mon, Wed, Fri');
+
 // Migration splitter
 require __DIR__ . '/../db/sql_split.php';
 check('splits simple statements', sql_split_statements("create table a (x int);\n-- note; here\nselect 1;"), ['create table a (x int)', 'select 1']);

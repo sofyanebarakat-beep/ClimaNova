@@ -113,6 +113,94 @@ function seo_assert_offer_usable(int $offerId): void
     }
 }
 
+function seo_pg_bool(?string $v): bool
+{
+    return $v === 't' || $v === 'true';
+}
+
+/** Campaigns with their offers, newest first. */
+function seo_list_campaigns(): array
+{
+    seo_require_admin();
+    $rows = db_query("select c.id, c.name, c.goal, c.status, c.language, c.target_countries, c.weekly_target,
+                             c.start_date, c.end_date, c.publish_days, c.publish_times, c.time_zone,
+                             c.automation_enabled, c.auto_publish, c.updated_at,
+                             coalesce(json_agg(json_build_object('id', o.id, 'name', o.name, 'usable', o.is_active and o.promotion_enabled)
+                                      order by o.seo_priority desc, o.name) filter (where o.id is not null), '[]') as offers
+                        from seo_campaigns c
+                        left join seo_campaign_offers co on co.campaign_id = c.id
+                        left join seo_offers o on o.id = co.offer_id
+                       group by c.id
+                       order by (c.status = 'active') desc, c.created_at desc");
+    foreach ($rows as &$r) {
+        $r['target_countries'] = seo_pg_array_parse($r['target_countries']);
+        $r['publish_days'] = array_map('intval', seo_pg_array_parse($r['publish_days']));
+        $r['publish_times'] = seo_pg_array_parse($r['publish_times']);
+        $r['automation_enabled'] = seo_pg_bool($r['automation_enabled']);
+        $r['auto_publish'] = seo_pg_bool($r['auto_publish']);
+        $r['offers'] = json_decode($r['offers'], true) ?: [];
+        $r['weekly_target'] = (int) $r['weekly_target'];
+    }
+    return $rows;
+}
+
+/**
+ * Creates (id = null) or updates a campaign and its offers in one transaction.
+ * Returns ['id' => …] or ['errors' => [...]] with one sentence per problem.
+ */
+function seo_save_campaign(?int $id, array $input): array
+{
+    seo_require_admin();
+    $v = seo_validate_campaign($input, array_column(seo_usable_offers(), 'id'));
+    if ($v['errors']) return ['errors' => $v['errors']];
+    $d = $v['data'];
+    $fields = [$d['name'], $d['goal'] ?: null, $d['language'], seo_pg_array($d['countries']), $d['weekly_target'],
+        $d['start_date'], $d['end_date'], '{' . implode(',', $d['days']) . '}', seo_pg_array($d['times']),
+        $d['time_zone'], $d['status'], $d['automation_enabled'], $d['auto_publish']];
+    $offers = '{' . implode(',', $d['offers']) . '}';
+
+    if ($id === null) {
+        // Campaign + offer links in a single statement, so both succeed or neither does.
+        $rows = db_query('with c as (
+              insert into seo_campaigns (name, goal, language, target_countries, weekly_target, start_date, end_date,
+                                         publish_days, publish_times, time_zone, status, automation_enabled, auto_publish)
+              values ($1, $2, $3, $4::text[], $5, $6::date, $7::date, $8::smallint[], $9::text[], $10, $11, $12::boolean, $13::boolean)
+              returning id)
+            insert into seo_campaign_offers (campaign_id, offer_id)
+            select c.id, unnest($14::bigint[]) from c
+            returning campaign_id', [...$fields, $offers]);
+        $id = (int) $rows[0]['campaign_id'];
+        seo_log('save_campaign', 'info', "Campaign “{$d['name']}” created.", ['id' => $id]);
+    } else {
+        [$updated] = db_batch([
+            ['update seo_campaigns set name = $2, goal = $3, language = $4, target_countries = $5::text[], weekly_target = $6,
+                    start_date = $7::date, end_date = $8::date, publish_days = $9::smallint[], publish_times = $10::text[],
+                    time_zone = $11, status = $12, automation_enabled = $13::boolean, auto_publish = $14::boolean, updated_at = now()
+              where id = $1 returning id', [$id, ...$fields]],
+            ['delete from seo_campaign_offers where campaign_id = $1::bigint and not (offer_id = any($2::bigint[]))', [$id, $offers]],
+            ['insert into seo_campaign_offers (campaign_id, offer_id)
+              select $1::bigint, unnest($2::bigint[]) where exists (select 1 from seo_campaigns where id = $1::bigint)
+              on conflict do nothing', [$id, $offers]],
+        ]);
+        if (!$updated) return ['errors' => ['This campaign no longer exists.']];
+        seo_log('save_campaign', 'info', "Campaign “{$d['name']}” updated.", ['id' => $id]);
+    }
+    return ['id' => $id];
+}
+
+/** Pause ↔ resume. Only toggles between active and paused; other statuses are left alone. */
+function seo_toggle_campaign(int $id): string
+{
+    seo_require_admin();
+    $rows = db_query("update seo_campaigns
+                         set status = case status when 'active' then 'paused' else 'active' end, updated_at = now()
+                       where id = $1 and status in ('active', 'paused')
+                       returning name, status", [$id]);
+    if (!$rows) throw new InvalidArgumentException('Only active or paused campaigns can be paused or resumed.');
+    seo_log('toggle_campaign', 'info', "Campaign “{$rows[0]['name']}” is now {$rows[0]['status']}.", ['id' => $id]);
+    return $rows[0]['status'];
+}
+
 /**
  * Imports the service catalog (every /services/<slug>/ page in the sitemap) into seo_offers.
  * Upsert only: never deletes rows and never touches the admin's settings
