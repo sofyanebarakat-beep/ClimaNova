@@ -1,0 +1,56 @@
+<?php
+// Fake OpenAI-compatible provider for tests/ai_flow_test.php. Behaviour is chosen by the requested model name.
+// php -S 127.0.0.1:8098 tests/mock_ai_server.php
+$body = json_decode((string) file_get_contents('php://input'), true) ?: [];
+header('Content-Type: application/json');
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Batch API: /files (upload), /batches (create), /batches/{id} (status), /files/{id}/content (output JSONL)
+if ($path === '/files' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $lines = file($_FILES['file']['tmp_name'] ?? '', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+    file_put_contents(sys_get_temp_dir() . '/cn_mock_batch.jsonl', implode("\n", $lines));
+    echo json_encode(['id' => 'file-in-1', 'purpose' => $_POST['purpose'] ?? '', 'lines' => count($lines)]);
+    return;
+}
+if ($path === '/batches' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo json_encode(['id' => 'batch-1', 'status' => 'validating', 'input_file_id' => $body['input_file_id'] ?? null,
+        'completion_window' => $body['completion_window'] ?? null, 'endpoint' => $body['endpoint'] ?? null]);
+    return;
+}
+if ($path === '/batches/batch-1') { echo json_encode(['id' => 'batch-1', 'status' => 'completed', 'output_file_id' => 'file-out-1']); return; }
+if ($path === '/files/file-out-1/content') {
+    $out = [];
+    foreach (file(sys_get_temp_dir() . '/cn_mock_batch.jsonl', FILE_IGNORE_NEW_LINES) ?: [] as $i => $l) {
+        $req = json_decode($l, true);
+        $content = $i === 1 ? 'pas du json' : '{"ok": true, "message": "Brouillon ' . $i . '"}';
+        $out[] = json_encode(['custom_id' => $req['custom_id'], 'response' => ['status_code' => 200, 'body' => [
+            'choices' => [['message' => ['content' => $content], 'finish_reason' => 'stop']], 'usage' => ['prompt_tokens' => 100, 'completion_tokens' => 50]]]]);
+    }
+    echo implode("\n", $out);
+    return;
+}
+$body = $body;
+$rf = $body['response_format'] ?? [];
+$schema = $rf['json_schema']['schema'] ?? [];
+// The helper must always send a strict json_schema whose objects forbid extra properties and require every field.
+if (($rf['type'] ?? '') !== 'json_schema' || ($rf['json_schema']['strict'] ?? false) !== true
+    || ($schema['additionalProperties'] ?? true) !== false || ($schema['required'] ?? []) !== array_keys($schema['properties'] ?? [])) {
+    http_response_code(400);
+    echo '{"error":{"message":"mock: response_format is not strict json_schema"}}';
+    return;
+}
+$model = $body['model'] ?? '';
+$reply = static function (?string $content, string $finish = 'stop') {
+    echo json_encode(['choices' => [['message' => ['role' => 'assistant', 'content' => $content], 'finish_reason' => $finish]],
+        'usage' => ['prompt_tokens' => 1000, 'completion_tokens' => 500]]);
+};
+match ($model) {
+    'mock-ok' => $reply('{"ok": true, "message": "Je fonctionne correctement."}'),
+    'mock-empty' => $reply(''),
+    'mock-notjson' => $reply('Bien sûr ! Voici ma réponse.'),
+    'mock-cutoff' => $reply('{"ok": true, "message": "Je fonc', 'length'),
+    'mock-invalid' => $reply('{"ok": true, "message": ""}'),
+    'mock-401' => [http_response_code(401), print('{"error":{"message":"Incorrect API key"}}')],
+    'mock-429' => [http_response_code(429), print('{"error":{"message":"Rate limit reached"}}')],
+    'mock-500' => [http_response_code(500), print('{"error":{"message":"Server error"}}')],
+    default => [http_response_code(404), print('{"error":{"message":"unknown model"}}')],
+};

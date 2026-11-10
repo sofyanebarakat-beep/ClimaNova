@@ -4,7 +4,8 @@
   "scripts": {
     "build": "for f in admin/*.php admin/_inc/*.php db/*.php tests/*.php; do php -l \"$f\" >/dev/null || exit 1; done && echo \"PHP syntax OK\"",
     "db:migrate": "php db/migrate.php",
-    "test": "php tests/seo_logic_test.php"
+    "test": "php tests/seo_logic_test.php && php tests/ai_logic_test.php",
+    "test:ai": "php -S 127.0.0.1:8098 tests/mock_ai_server.php >/dev/null 2>&1 & M=$!; sleep 1; php tests/ai_batch_test.php; B=$?; php tests/ai_flow_test.php; F=$?; kill $M; [ $B -eq 0 ] && [ $F -eq 0 ]"
   },
   "dependencies": {
     "@neon/config": "^1.14.0",

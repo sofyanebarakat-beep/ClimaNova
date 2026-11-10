@@ -265,3 +265,6 @@ fieldset.field legend { font-size: 13px; font-weight: 600; color: var(--ink); pa
 .field .switch input, .switch input { width: 40px; height: 22px; padding: 0; border: 0; }
 .field .muted, fieldset.field .muted { font-weight: 400; }
 .offer-picks .check { align-items: flex-start; }
+.inline-form { margin: 8px 0 4px; }
+.stack-form select { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+.stack-form input[type=password] { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; }
