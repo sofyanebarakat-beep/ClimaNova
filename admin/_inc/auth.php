@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 require __DIR__ . '/config.php';
+require __DIR__ . '/db.php';
+
+date_default_timezone_set('Europe/Paris');
 
 const SESSION_IDLE_SECONDS = 7200;   // signed out after 2 h without activity
 const MAX_FAILED_ATTEMPTS  = 5;      // per IP address…
@@ -99,9 +102,11 @@ function attempt_login(string $email, string $password): bool
         & password_verify($password, ADMIN_PASSWORD_HASH); // both always evaluated
     if (!$ok) {
         record_failure();
+        log_admin_event('login_failed', $email);
         return false;
     }
     clear_failures();
+    log_admin_event('login', ADMIN_EMAIL);
     session_regenerate_id(true);
     $_SESSION['admin_email'] = ADMIN_EMAIL;
     $_SESSION['last_seen'] = time();

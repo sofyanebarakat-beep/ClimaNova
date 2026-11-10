@@ -3,9 +3,45 @@ declare(strict_types=1);
 require __DIR__ . '/_inc/auth.php';
 require_login();
 
-// Everything here is read from the site's own files: no database.
+// Site figures are read from the site's own files; login history comes from Neon Postgres.
 $root = dirname(__DIR__);
 const SITE = 'https://climanova-energie.fr';
+
+// One-time setup: store the Neon connection string on the server, outside public_html.
+$dbNotice = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_db') {
+    $url = trim((string) ($_POST['database_url'] ?? ''));
+    if (!csrf_valid($_POST['csrf'] ?? null)) {
+        $dbNotice = 'Session expirée, veuillez réessayer.';
+    } elseif (!db_valid_url($url)) {
+        $dbNotice = 'Ce n’est pas une adresse de connexion Neon valide (postgresql://…neon.tech/…).';
+    } else {
+        try {
+            db_save_url($url);
+            header('Location: /admin/dashboard.php#base-de-donnees');
+            exit;
+        } catch (DbError $e) {
+            $dbNotice = $e->getMessage();
+        }
+    }
+}
+
+$db = ['configured' => db_configured(), 'ok' => false, 'error' => '', 'version' => '', 'ms' => 0, 'activity' => []];
+if ($db['configured']) {
+    try {
+        $t = microtime(true);
+        $v = db_query("select split_part(version(), ' ', 2) as v");
+        $db['ms'] = (int) round((microtime(true) - $t) * 1000);
+        $db['version'] = $v[0]['v'] ?? '';
+        $db['activity'] = db_query(
+            'select created_at, email, event, host(ip) as ip from admin_activity order by created_at desc limit 15'
+        );
+        $db['ok'] = true;
+    } catch (DbError $e) {
+        $db['error'] = $e->getMessage();
+    }
+}
+$EVENT_LABELS = ['login' => ['Connexion', 'ok'], 'login_failed' => ['Échec de connexion', 'warn'], 'logout' => ['Déconnexion', 'muted-badge']];
 
 function page_info(string $root, string $url): array
 {
@@ -123,6 +159,47 @@ function issues_cell(array $p): string
         </a>
       <?php endforeach; ?>
     </div>
+  </section>
+
+  <section class="card" id="base-de-donnees">
+    <h2>Base de données (Neon)</h2>
+    <?php if ($dbNotice): ?><div class="alert"><?= h($dbNotice) ?></div><?php endif; ?>
+
+    <?php if (!$db['configured']): ?>
+      <p class="muted">Pas encore connectée. Collez l’adresse de connexion Neon (<code>DATABASE_URL</code>, version « pooled »).
+        Elle est enregistrée sur le serveur, hors du dossier public, et n’est jamais affichée ni envoyée sur GitHub.</p>
+      <form method="post" action="/admin/dashboard.php#base-de-donnees" class="db-form">
+        <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
+        <input type="hidden" name="action" value="save_db">
+        <input type="password" name="database_url" required placeholder="postgresql://…@….neon.tech/neondb?sslmode=require" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Connecter</button>
+      </form>
+    <?php elseif (!$db['ok']): ?>
+      <p><span class="badge warn">Erreur</span> <?= h($db['error']) ?></p>
+    <?php else: ?>
+      <p class="db-status"><span class="badge ok">Connectée</span>
+        <span class="muted">PostgreSQL <?= h($db['version']) ?> · réponse en <?= $db['ms'] ?> ms</span></p>
+      <h3>Historique des connexions</h3>
+      <?php if (!$db['activity']): ?>
+        <p class="muted">Aucune activité enregistrée pour l’instant.</p>
+      <?php else: ?>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Événement</th><th>E-mail</th><th>Adresse IP</th></tr></thead>
+            <tbody>
+            <?php foreach ($db['activity'] as $a): [$label, $cls] = $EVENT_LABELS[$a['event']] ?? [$a['event'], 'muted-badge']; ?>
+              <tr>
+                <td class="nowrap"><?= h(date('d/m/Y H:i', strtotime($a['created_at']))) ?></td>
+                <td><span class="badge <?= $cls ?>"><?= h($label) ?></span></td>
+                <td><?= h($a['email']) ?></td>
+                <td class="muted"><?= h($a['ip'] ?? '—') ?></td>
+              </tr>
+            <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
+    <?php endif; ?>
   </section>
 
   <section class="card">

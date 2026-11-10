@@ -5,6 +5,12 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.climanova-energie\.fr [NC]
 RewriteRule ^ https://climanova-energie.fr%{REQUEST_URI} [R=301,L]
 
+# Never serve secrets or tooling files (the Neon connection string lives in .env.local)
+<FilesMatch "^(\.env.*|package(-lock)?\.json|neon\.ts|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+RewriteRule ^(node_modules|db)(/|$) - [F,L]
+
 # Redirect old /ClimaNova/ paths to root
 RewriteRule ^ClimaNova/(.*)$ /$1 [R=301,L]
 

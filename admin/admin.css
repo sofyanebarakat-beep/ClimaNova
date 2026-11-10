@@ -86,6 +86,14 @@ tr:last-child td { border-bottom: 0; }
 .badge.ok { background: var(--green-tint); color: #027a40; }
 .badge.warn { background: var(--warn-tint); color: #8a5f00; }
 
+h3 { font-size: 14px; color: var(--ink); margin: 18px 0 8px; }
+code { background: var(--bg); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+.badge.muted-badge { background: #f0efec; color: var(--muted); }
+.db-status { margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.db-form { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.db-form input { flex: 1 1 320px; font: inherit; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; }
+.db-form .btn-primary { width: auto; margin-top: 0; }
+
 @media (max-width: 900px) {
   .tiles { grid-template-columns: repeat(2, 1fr); }
   .links { grid-template-columns: repeat(2, 1fr); }
