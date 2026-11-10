@@ -6,19 +6,73 @@ require_once __DIR__ . '/seo_logic.php';
 
 function seo_require_admin(): void
 {
+    if (PHP_SAPI === 'cli') return; // cron jobs and tests run from the command line, never over the web
     if (!is_logged_in()) {
         throw new RuntimeException('Not signed in as an admin.');
     }
 }
 
-function seo_log(string $job, string $status, string $message, ?array $details = null): void
+/**
+ * Writes one finished log row with a plain-language message. Status: success | error | skipped
+ * ('failed' and 'info' are still accepted from older callers). Operation is derived from the job unless given.
+ */
+function seo_log(string $job, string $status, string $message, ?array $details = null, ?string $operation = null): void
 {
     try {
-        db_query('insert into seo_automation_logs (job, status, message, details) values ($1, $2, $3, $4::jsonb)',
-            [$job, $status, $message, $details === null ? null : json_encode($details, JSON_UNESCAPED_UNICODE)]);
+        db_query('insert into seo_automation_logs (job, operation, status, message, details, started_at, finished_at)
+                  values ($1, $2, $3, $4, $5::jsonb, now(), now())',
+            [$job, $operation ?? seo_log_operation($job), $status === 'failed' ? 'error' : $status, $message,
+             $details === null ? null : json_encode($details, JSON_UNESCAPED_UNICODE)]);
     } catch (Throwable $e) {
         error_log('seo_log failed: ' . $e->getMessage());
     }
+}
+
+/** Starts a long job: a 'running' row now, finished later with seo_log_finish(). Returns the row id (0 if logging failed). */
+function seo_log_start(string $job, string $message, ?string $operation = null): int
+{
+    try {
+        return (int) db_query("insert into seo_automation_logs (job, operation, status, message, started_at)
+                               values ($1, $2, 'running', $3, now()) returning id",
+            [$job, $operation ?? seo_log_operation($job), $message])[0]['id'];
+    } catch (Throwable $e) {
+        error_log('seo_log_start failed: ' . $e->getMessage());
+        return 0;
+    }
+}
+
+function seo_log_finish(int $id, string $status, string $message, ?array $details = null): void
+{
+    if ($id <= 0) return;
+    try {
+        db_query('update seo_automation_logs set status = $2, message = $3, details = coalesce($4::jsonb, details), finished_at = now() where id = $1',
+            [$id, $status === 'failed' ? 'error' : $status, $message, $details === null ? null : json_encode($details, JSON_UNESCAPED_UNICODE)]);
+    } catch (Throwable $e) {
+        error_log('seo_log_finish failed: ' . $e->getMessage());
+    }
+}
+
+/** Budget settings with defaults: allowance, thresholds (fractions), hard stop. */
+function seo_budget_settings(array $b): array
+{
+    $thresholds = array_values(array_filter(array_map('floatval', (array) ($b['warning_thresholds'] ?? [])), static fn ($t) => $t > 0 && $t < 1));
+    if (!$thresholds) $thresholds = [((float) ($b['warning_threshold_pct'] ?? 80)) / 100];
+    sort($thresholds);
+    return ['allowance' => (float) ($b['monthly_allowance_usd'] ?? 0), 'thresholds' => $thresholds, 'hard_stop' => (bool) ($b['hard_stop'] ?? true)];
+}
+
+/** Budget summary for a month's usage row + settings, including the highest warning threshold passed. */
+function seo_budget_from(array $settingsValue, ?array $usageRow): array
+{
+    $s = seo_budget_settings($settingsValue);
+    $sum = seo_budget_summary($s['allowance'], (float) ($usageRow['recorded_usd'] ?? 0), (float) ($usageRow['reserved_usd'] ?? 0),
+        $s['thresholds'][0] * 100, $s['hard_stop']);
+    $passed = seo_threshold_passed($sum['committed'], $sum['allowance'], $s['thresholds']);
+    $sum['thresholds'] = $s['thresholds'];
+    $sum['threshold_passed'] = $passed;
+    $sum['warning_pct'] = $passed !== null ? round($passed * 100) : round($s['thresholds'][0] * 100);
+    $sum['requests'] = (int) ($usageRow['requests'] ?? 0);
+    return $sum;
 }
 
 /**
@@ -41,7 +95,7 @@ function seo_dashboard_data(): array
             (select count(*) from seo_articles where status = 'generated')                        as generated,
             (select count(*) from seo_articles where status = 'scheduled')                        as scheduled,
             (select count(*) from seo_articles where status = 'published')                        as published,
-            (select count(*) from seo_automation_logs where status = 'failed')                    as failed_jobs,
+            (select count(*) from seo_automation_logs where status in ('failed', 'error'))        as failed_jobs,
             (select count(*) from seo_offers where is_active)                                     as offers,
             (select count(*) from seo_articles where status = 'scheduled'
                and scheduled_for >= $1::timestamptz and scheduled_for < $2::timestamptz)          as scheduled_week,
@@ -54,15 +108,7 @@ function seo_dashboard_data(): array
     ], true);
 
     $c = array_map('intval', $counts[0] ?? []);
-    $b = json_decode($settings[0]['value'] ?? '{}', true) ?: [];
-    $budget = seo_budget_summary(
-        (float) ($b['monthly_allowance_usd'] ?? 0),
-        (float) ($usage[0]['recorded_usd'] ?? 0),
-        (float) ($usage[0]['reserved_usd'] ?? 0),
-        (float) ($b['warning_threshold_pct'] ?? 80),
-        (bool) ($b['hard_stop'] ?? true),
-    );
-    $budget['requests'] = (int) ($usage[0]['requests'] ?? 0);
+    $budget = seo_budget_from(json_decode($settings[0]['value'] ?? '{}', true) ?: [], $usage[0] ?? null);
 
     return ['counts' => $c, 'budget' => $budget, 'logs' => $logs, 'week' => [$weekStart, $weekEnd]];
 }

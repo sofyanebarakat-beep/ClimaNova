@@ -38,7 +38,87 @@ function seo_budget_summary(float $allowance, float $recorded, float $reserved, 
 function seo_budget_allows(array $summary, float $estimate): bool
 {
     if (!$summary['hard_stop']) return true;
+    if ($summary['committed'] >= $summary['allowance'] - 1e-9) return false; // used up once spend + reservations REACH the limit
     return $summary['committed'] + max(0.0, $estimate) <= $summary['allowance'] + 1e-9;
+}
+
+/**
+ * "0.5, 0.8, 95%" → [0.5, 0.8, 0.95]. Fractions (0–1, exclusive) or percentages (1–99 with or without %).
+ * Returns [thresholds sorted ascending, errors].
+ */
+function seo_parse_thresholds(string $raw): array
+{
+    $out = [];
+    $errors = [];
+    foreach (preg_split('/[\s,;]+/', trim($raw), -1, PREG_SPLIT_NO_EMPTY) as $t) {
+        $pct = str_ends_with($t, '%');
+        $num = rtrim($t, '%');
+        if (!is_numeric($num)) { $errors[] = "“{$t}” is not a number — use values like 0.5, 0.8, 0.95."; continue; }
+        $v = (float) $num;
+        if ($pct || $v >= 1) $v /= 100;
+        if ($v <= 0 || $v >= 1) { $errors[] = "“{$t}” must be between 0 and 1 (or 1% and 99%)."; continue; }
+        $out[(string) round($v, 4)] = round($v, 4);
+    }
+    $out = array_values($out);
+    sort($out);
+    if (!$out && !$errors) $errors[] = 'Add at least one warning threshold, for example 0.8.';
+    if (count($out) > 5) $errors[] = 'Use 5 warning thresholds or fewer.';
+    return [$out, $errors];
+}
+
+/** Highest threshold reached by the share of the allowance already committed (null when none). */
+function seo_threshold_passed(float $committed, float $allowance, array $thresholds): ?float
+{
+    if ($allowance <= 0) return null;
+    $passed = null;
+    foreach ($thresholds as $t) if ($committed / $allowance >= $t - 1e-9) $passed = (float) $t;
+    return $passed;
+}
+
+/** Allowance in USD: 0–10000 with at most 2 decimals, or null. */
+function seo_parse_allowance(string $raw): ?float
+{
+    $s = str_replace(',', '.', trim($raw, " \t\$"));
+    if (!preg_match('/^\d{1,5}(\.\d{1,2})?$/', $s)) return null;
+    $v = (float) $s;
+    return $v <= 10000 ? $v : null;
+}
+
+/* ---------- Automation logs ---------- */
+
+const SEO_LOG_OPERATIONS = [
+    'article_generation' => 'Article generation', 'keyword_research' => 'Keyword research', 'weekly_planning' => 'Weekly planning',
+    'scheduled_generation' => 'Scheduled generation', 'publishing' => 'Publishing', 'weekly_autopilot' => 'Weekly autopilot',
+    'google_sync' => 'Google data sync', 'other' => 'Settings & other',
+];
+const SEO_LOG_STATUSES = ['running' => 'Running', 'success' => 'Success', 'error' => 'Error', 'skipped' => 'Skipped'];
+
+/** Operation for a job name (same rules as migration 009's backfill). */
+function seo_log_operation(string $job): string
+{
+    return match (true) {
+        in_array($job, ['keyword_ideas', 'gsc_ideas', 'add_keyword'], true) => 'keyword_research',
+        in_array($job, ['weekly_plan', 'regenerate_topic', 'add_topic'], true) => 'weekly_planning',
+        str_contains($job, 'article') || str_starts_with($job, 'rewrite') => 'article_generation',
+        str_starts_with($job, 'batch') || str_starts_with($job, 'scheduled_generation') => 'scheduled_generation',
+        str_starts_with($job, 'publish') || str_starts_with($job, 'schedule') || str_starts_with($job, 'unpublish') => 'publishing',
+        str_starts_with($job, 'autopilot') => 'weekly_autopilot',
+        str_starts_with($job, 'gsc') || str_starts_with($job, 'ga4') || str_contains($job, 'analytics') || str_starts_with($job, 'google') => 'google_sync',
+        default => 'other',
+    };
+}
+
+/** Stored status → displayed status (older rows used 'failed' and 'info'). */
+function seo_log_status(string $status): string
+{
+    return match ($status) { 'failed' => 'error', 'info' => 'success', default => $status };
+}
+
+function seo_duration(?string $start, ?string $end): string
+{
+    if (!$start || !$end) return '';
+    $s = max(0, strtotime($end) - strtotime($start));
+    return $s < 60 ? "{$s} s" : (intdiv($s, 60) . ' min ' . ($s % 60) . ' s');
 }
 
 /** Monday 00:00 → next Monday 00:00 of the week containing $now, in the given time zone. */

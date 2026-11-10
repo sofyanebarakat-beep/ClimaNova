@@ -32,7 +32,7 @@ try {
     $error = admin_error($e, 'load the SEO dashboard');
 }
 
-$LOG_BADGE = ['success' => 'ok', 'failed' => 'bad', 'skipped' => 'muted-badge', 'info' => 'muted-badge'];
+$LOG_BADGE = ['success' => 'ok', 'failed' => 'bad', 'error' => 'bad', 'running' => 'warn', 'skipped' => 'muted-badge', 'info' => 'muted-badge'];
 
 seo_header('dashboard', 'SEO Dashboard', 'Campaigns, articles, automation and API spend for ClimaNova Energie at a glance.');
 ?>

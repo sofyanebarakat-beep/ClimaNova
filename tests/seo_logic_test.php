@@ -167,6 +167,28 @@ check('target above slots is capped by slots', count(seo_plan_week(['weekly_targ
 check('topic validation cleans title', [$d['title'], $errs], ['Clim à Nice : 5 conseils', []]);
 check('topic validation errors', seo_validate_topic(['title' => 'Court', 'planned_for' => '2026-13-01'])[1], ['Topic title must be between 10 and 160 characters.', 'Choose a valid date for the topic.']);
 
+// API budget: thresholds, allowance, used up when spend + reservations REACH the limit
+check('thresholds fractions sorted/deduped', seo_parse_thresholds('0.95, 0.5,0.8, 0.5'), [[0.5, 0.8, 0.95], []]);
+check('thresholds accept percentages', seo_parse_thresholds('50%, 80, 95%')[0], [0.5, 0.8, 0.95]);
+check('threshold 0 rejected', seo_parse_thresholds('0, 0.8')[1], ['“0” must be between 0 and 1 (or 1% and 99%).']);
+check('threshold text rejected', seo_parse_thresholds('high')[1], ['“high” is not a number — use values like 0.5, 0.8, 0.95.']);
+check('threshold empty rejected', seo_parse_thresholds('')[1], ['Add at least one warning threshold, for example 0.8.']);
+check('highest threshold passed', seo_threshold_passed(0.85, 1, [0.5, 0.8, 0.95]), 0.8);
+check('no threshold passed', seo_threshold_passed(0.2, 1, [0.5, 0.8]), null);
+check('threshold reached exactly counts', seo_threshold_passed(0.5, 1, [0.5]), 0.5);
+check('allowance parse', [seo_parse_allowance('1'), seo_parse_allowance('5,50'), seo_parse_allowance('$20'), seo_parse_allowance('0')], [1.0, 5.5, 20.0, 0.0]);
+check('allowance invalid', [seo_parse_allowance('-1'), seo_parse_allowance('abc'), seo_parse_allowance('20000'), seo_parse_allowance('1.234')], [null, null, null, null]);
+check('used up at the limit refuses even $0', seo_budget_allows(seo_budget_summary(1, 0.6, 0.4, 80, true), 0.0), false);
+check('reservations alone can use it up', seo_budget_allows(seo_budget_summary(1, 0, 1, 80, true), 0.0), false);
+check('below the limit a $0 request is allowed', seo_budget_allows(seo_budget_summary(1, 0.5, 0, 80, true), 0.0), true);
+check('zero allowance refuses with hard stop', seo_budget_allows(seo_budget_summary(0, 0, 0, 80, true), 0.0), false);
+
+// Automation logs
+check('log operations', array_map('seo_log_operation', ['keyword_ideas', 'weekly_plan', 'generate_article', 'batch_submit', 'publish_due', 'autopilot', 'gsc_sync', 'ga4_sync', 'sync_offers']),
+    ['keyword_research', 'weekly_planning', 'article_generation', 'scheduled_generation', 'publishing', 'weekly_autopilot', 'google_sync', 'google_sync', 'other']);
+check('legacy statuses map', [seo_log_status('failed'), seo_log_status('info'), seo_log_status('running')], ['error', 'success', 'running']);
+check('duration', [seo_duration('2026-11-11 10:00:00', '2026-11-11 10:00:42'), seo_duration('2026-11-11 10:00:00', '2026-11-11 10:03:05'), seo_duration(null, null)], ['42 s', '3 min 5 s', '']);
+
 // Migration splitter
 require __DIR__ . '/../db/sql_split.php';
 check('splits simple statements', sql_split_statements("create table a (x int);\n-- note; here\nselect 1;"), ['create table a (x int)', 'select 1']);

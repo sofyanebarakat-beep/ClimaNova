@@ -32,7 +32,8 @@ function check(string $name, $actual, $expected): void
 $rule = ['type' => 'object', 'props' => ['ok' => ['type' => 'boolean'], 'message' => ['type' => 'string', 'min' => 2, 'max' => 200]]];
 $msgs = [['role' => 'user', 'content' => 'Test']];
 $run = static function (string $model) use ($rule, $msgs) {
-    try { return ['ok', ai_generate('flow_test', $msgs, $rule, 'flow_test', 300, ['model' => $model])]; }
+    putenv("AI_MODEL=$model"); // the configured model (other models are restricted to known OpenAI prices)
+    try { return ['ok', ai_generate('flow_test', $msgs, $rule, 'flow_test', 300)]; }
     catch (AiError $e) { return ['error', $e->getMessage()]; }
 };
 $last = static fn () => db_query("select status, cost_usd::float8 as cost, reserved_usd::float8 as reserved, input_tokens, output_tokens,
@@ -76,7 +77,20 @@ check('no reservation left open', (int) db_query("select count(*) c from seo_api
 db_query("update seo_settings set value = '{\"monthly_allowance_usd\": 0.000001, \"warning_threshold_pct\": 80, \"hard_stop\": true}' where key = 'budget'");
 $before = (int) db_query('select count(*) c from seo_api_usage')[0]['c'];
 [$k, $r] = $run('mock-ok');
-check('budget refusal stops the call', [$k, str_starts_with($r, 'The monthly AI budget would be exceeded')], ['error', true]);
+check('budget refusal stops the call (used up)', [$k, str_starts_with($r, 'The monthly AI budget is used up')], ['error', true]);
+// Exactly at the limit: allowance = current spend → used up, even for a $0 request
+$spent = (float) db_query("select recorded_usd + reserved_usd as c from seo_monthly_usage where month = date_trunc('month', now() at time zone 'Europe/Paris')::date")[0]['c'];
+db_query("update seo_settings set value = jsonb_build_object('monthly_allowance_usd', $1::numeric, 'warning_threshold_pct', 80, 'hard_stop', true) where key = 'budget'", [$spent]);
+putenv('AI_INPUT_COST_PER_MILLION_USD=0');
+putenv('AI_OUTPUT_COST_PER_MILLION_USD=0');
+[$k, $r] = $run('mock-ok');
+check('free request refused when spend reaches the limit', [$k, str_starts_with((string) $r, 'The monthly AI budget is used up')], ['error', true]);
+putenv('AI_INPUT_COST_PER_MILLION_USD=0.15');
+putenv('AI_OUTPUT_COST_PER_MILLION_USD=0.60');
+// Would exceed: room left but the request needs more
+db_query("update seo_settings set value = jsonb_build_object('monthly_allowance_usd', $1::numeric + 0.0000005, 'warning_threshold_pct', 80, 'hard_stop', true) where key = 'budget'", [$spent]);
+[$k, $r] = $run('mock-ok');
+check('request larger than what is left is refused', [$k, str_starts_with((string) $r, 'The monthly AI budget would be exceeded')], ['error', true]);
 check('budget refusal creates no usage row', (int) db_query('select count(*) c from seo_api_usage')[0]['c'], $before);
 // Hard stop off: allowed even over the allowance
 db_query("update seo_settings set value = '{\"monthly_allowance_usd\": 0.000001, \"warning_threshold_pct\": 80, \"hard_stop\": false}' where key = 'budget'");

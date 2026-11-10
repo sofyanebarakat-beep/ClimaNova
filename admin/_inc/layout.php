@@ -29,7 +29,7 @@ function admin_header(string $title, string $active): void
 <meta name="robots" content="noindex, nofollow">
 <title><?= h($title) ?> — Admin ClimaNova</title>
 <link rel="icon" href="/images/69787fd4f36671416d6263df_ClimaNova Energie-favicon.png">
-<link rel="stylesheet" href="/admin/admin.css?v=10">
+<link rel="stylesheet" href="/admin/admin.css?v=11">
 </head>
 <body class="has-sidebar">
 <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">

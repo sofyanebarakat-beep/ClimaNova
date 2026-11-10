@@ -10,10 +10,17 @@ require __DIR__ . '/sql_split.php';
 db_query('create table if not exists schema_migrations (name text primary key, applied_at timestamptz not null default now())');
 $done = array_column(db_query('select name from schema_migrations'), 'name');
 
+// Optional: `php db/migrate.php 009_x.sql` applies only the named file(s), so a teammate's
+// unfinished migration in the same folder is never applied by accident. `--list` shows pending files.
+$only = array_values(array_filter(array_slice($argv, 1), static fn ($a) => $a !== '--list'));
+$listOnly = in_array('--list', $argv, true);
+
 $files = glob(__DIR__ . '/migrations/*.sql') ?: [];
 sort($files);
 foreach ($files as $file) {
     $name = basename($file);
+    if ($only && !in_array($name, $only, true)) continue;
+    if ($listOnly) { echo (in_array($name, $done, true) ? 'applied ' : 'PENDING ') . "$name\n"; continue; }
     if (in_array($name, $done, true)) { echo "skip    $name\n"; continue; }
     $statements = array_map(static fn ($s) => [$s, []], sql_split_statements((string) file_get_contents($file)));
     $statements[] = ['insert into schema_migrations (name) values ($1)', [$name]];
