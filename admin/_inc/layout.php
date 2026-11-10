@@ -12,6 +12,7 @@ function admin_nav(): array
             ['Villes', '/admin/classement.php?cat=villes', 'classement:villes'],
             ['Blog', '/admin/classement.php?cat=blog', 'classement:blog'],
         ]],
+        ['SEO Agent', '/admin/seo', 'seo', '✦'],
         ['Paramètres', '/admin/parametres.php', 'parametres', '⚙'],
     ];
 }
@@ -28,7 +29,7 @@ function admin_header(string $title, string $active): void
 <meta name="robots" content="noindex, nofollow">
 <title><?= h($title) ?> — Admin ClimaNova</title>
 <link rel="icon" href="/images/69787fd4f36671416d6263df_ClimaNova Energie-favicon.png">
-<link rel="stylesheet" href="/admin/admin.css?v=3">
+<link rel="stylesheet" href="/admin/admin.css?v=4">
 </head>
 <body class="has-sidebar">
 <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">

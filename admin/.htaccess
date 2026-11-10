@@ -10,3 +10,6 @@ Header always set Cache-Control "no-store"
 # Configuration and helpers are included by PHP only, never served.
 RewriteEngine On
 RewriteRule ^_inc(/|$) - [F,L]
+
+# Clean URLs for the SEO agent: /admin/seo, /admin/seo-offers, … → the matching .php file
+RewriteRule ^(seo(-[a-z-]+)?)/?$ $1.php [L]

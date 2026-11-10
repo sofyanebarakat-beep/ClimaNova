@@ -57,6 +57,35 @@ function db_valid_url(string $url): bool
  */
 function db_query(string $sql, array $params = []): array
 {
+    return db_rows(db_post(['query' => $sql, 'params' => db_params($params)]));
+}
+
+/**
+ * Runs several statements in ONE request and one transaction; returns one row list per statement.
+ * $statements: [[sql, params], …]. Pass $readOnly for pure reads.
+ */
+function db_batch(array $statements, bool $readOnly = false): array
+{
+    $queries = array_map(static fn ($s) => ['query' => $s[0], 'params' => db_params($s[1] ?? [])], $statements);
+    $headers = ['Neon-Batch-Isolation-Level: ReadCommitted'];
+    if ($readOnly) $headers[] = 'Neon-Batch-Read-Only: true';
+    $data = db_post(['queries' => $queries], $headers);
+    return array_map('db_rows', $data['results'] ?? []);
+}
+
+function db_params(array $params): array
+{
+    return array_map(static fn ($v) => $v === null ? null : (is_bool($v) ? ($v ? 'true' : 'false') : (string) $v), $params);
+}
+
+function db_rows(array $result): array
+{
+    $names = array_map(static fn ($f) => $f['name'], $result['fields'] ?? []);
+    return array_map(static fn ($row) => array_combine($names, $row), $result['rows'] ?? []);
+}
+
+function db_post(array $payload, array $extraHeaders = []): array
+{
     $url = db_url();
     if ($url === null) throw new DbError('Base de données non configurée');
     $host = parse_url($url, PHP_URL_HOST);
@@ -66,17 +95,14 @@ function db_query(string $sql, array $params = []): array
         CURLOPT_POST => true,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 5,
-        CURLOPT_TIMEOUT => 15,
-        CURLOPT_HTTPHEADER => [
+        CURLOPT_TIMEOUT => 20,
+        CURLOPT_HTTPHEADER => array_merge([
             'Content-Type: application/json',
             'Neon-Connection-String: ' . $url,
             'Neon-Raw-Text-Output: true',
             'Neon-Array-Mode: true',
-        ],
-        CURLOPT_POSTFIELDS => json_encode(
-            ['query' => $sql, 'params' => array_map(static fn ($v) => $v === null ? null : (string) $v, $params)],
-            JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE,
-        ),
+        ], $extraHeaders),
+        CURLOPT_POSTFIELDS => json_encode($payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
     ]);
     $body = curl_exec($ch);
     $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
@@ -87,8 +113,23 @@ function db_query(string $sql, array $params = []): array
     if ($status !== 200 || !is_array($data)) {
         throw new DbError('Erreur Neon : ' . (is_array($data) ? ($data['message'] ?? "HTTP $status") : "HTTP $status"));
     }
-    $names = array_map(static fn ($f) => $f['name'], $data['fields'] ?? []);
-    return array_map(static fn ($row) => array_combine($names, $row), $data['rows'] ?? []);
+    return $data;
+}
+
+/**
+ * One clear sentence for an admin. Technical details go to the server log only.
+ */
+function admin_error(Throwable $e, string $doing): string
+{
+    error_log("[admin] $doing: " . get_class($e) . ': ' . $e->getMessage());
+    $msg = $e->getMessage();
+    if ($e instanceof DbError) {
+        if (str_contains($msg, 'non configurée')) return 'The database is not connected yet — add it in Paramètres.';
+        if (str_contains($msg, 'does not exist')) return "Could not $doing because the database is missing a table — run the latest migration.";
+        if (str_contains($msg, 'Connexion')) return "Could not $doing because the database did not respond — please try again in a minute.";
+        return "Could not $doing because the database returned an error — please try again.";
+    }
+    return "Could not $doing — please try again.";
 }
 
 /** Stores the connection string outside the web root. Returns the file written. */

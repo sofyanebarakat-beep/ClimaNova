@@ -2,8 +2,9 @@
   "name": "climanova-site",
   "private": true,
   "scripts": {
-    "build": "for f in admin/*.php admin/_inc/*.php db/*.php; do php -l \"$f\" || exit 1; done",
-    "db:migrate": "php db/migrate.php"
+    "build": "for f in admin/*.php admin/_inc/*.php db/*.php tests/*.php; do php -l \"$f\" >/dev/null || exit 1; done && echo \"PHP syntax OK\"",
+    "db:migrate": "php db/migrate.php",
+    "test": "php tests/seo_logic_test.php"
   },
   "dependencies": {
     "@neon/config": "^1.14.0",
