@@ -80,7 +80,7 @@ function google_save_settings(string $keyJson, string $site, string $property): 
     $siteNorm = seo_normalize_gsc_site($site);
     if ($siteNorm === null) throw new InvalidArgumentException('Search Console site must be "https://example.com/" (URL-prefix property) or "sc-domain:example.com" (domain property).');
     $property = trim($property);
-    if (!preg_match('/^\d{4,15}$/', $property)) throw new InvalidArgumentException('The GA4 property ID is numbers only (Admin → Property details), not the G- measurement ID.');
+    if ($property !== '' && !preg_match('/^\d{4,15}$/', $property)) throw new InvalidArgumentException('The GA4 property ID is numbers only (Admin → Property details), not the G- measurement ID — or leave it empty for now.');
     $keep = ['type' => 'service_account', 'client_email' => $sa['client_email'], 'private_key' => $sa['private_key'],
         'token_uri' => $sa['token_uri'] ?? 'https://oauth2.googleapis.com/token'];
     $lines = ['# Google Search Console + GA4 — written by /admin/seo-analytics. Do not share.',

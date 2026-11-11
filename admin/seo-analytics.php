@@ -86,8 +86,8 @@ seo_header('analytics', 'Analytics', 'Impressions, clicks and visits from Google
         <textarea name="key_json" rows="5" placeholder='{"type": "service_account", …}' autocomplete="off" spellcheck="false"></textarea></label>
       <label>GSC_SITE_URL <span class="muted small">"https://climanova-energie.fr/" for a URL-prefix property (keep the last slash) or "sc-domain:climanova-energie.fr" for a domain property</span>
         <input type="text" name="gsc_site" value="<?= h($cfg['gsc_site'] ?? 'sc-domain:climanova-energie.fr') ?>" required></label>
-      <label>GA4_PROPERTY_ID <span class="muted small">numbers only — Admin → Property details</span>
-        <input type="text" name="ga4_property" value="<?= h($cfg['ga4_property'] ?? '') ?>" inputmode="numeric" pattern="\d{4,15}" required></label>
+      <label>GA4_PROPERTY_ID <span class="muted small">numbers only — Admin → Property details (optional)</span>
+        <input type="text" name="ga4_property" value="<?= h($cfg['ga4_property'] ?? '') ?>" inputmode="numeric" pattern="\d{4,15}" placeholder="optional — leave empty until GA4 is ready"></label>
       <button class="btn btn-primary">Save connection</button>
       <p class="muted small">Stored on the server outside the website folder (never in the public repository).</p>
     </form>

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /** Providers with an OpenAI-compatible Chat Completions API. Prices are USD per 1M tokens. */
 const AI_PROVIDERS = [
     'gemini' => ['label' => 'Google Gemini (free tier)', 'base_url' => 'https://generativelanguage.googleapis.com/v1beta/openai',
-                 'model' => 'gemini-2.5-flash', 'input' => '0', 'output' => '0', 'key_url' => 'https://aistudio.google.com/apikey'],
+                 'model' => 'gemini-3.8-flash', 'input' => '0', 'output' => '0', 'key_url' => 'https://aistudio.google.com/apikey'],
     'groq'   => ['label' => 'Groq (free tier)', 'base_url' => 'https://api.groq.com/openai/v1',
                  'model' => 'openai/gpt-oss-20b', 'input' => '0', 'output' => '0', 'key_url' => 'https://console.groq.com/keys'],
     'openai' => ['label' => 'OpenAI (paid)', 'base_url' => 'https://api.openai.com/v1',
@@ -133,7 +133,11 @@ function ai_validate(mixed $value, array $rule, string $path = 'output'): array
 function ai_classify_response(int $status, ?string $body, array $rule): array
 {
     $json = $body !== null ? json_decode($body, true) : null;
-    $usage = [(int) ($json['usage']['prompt_tokens'] ?? 0), (int) ($json['usage']['completion_tokens'] ?? 0)];
+    // Output = everything billed after the prompt. Gemini leaves its "thinking" tokens out of completion_tokens but counts them in total_tokens.
+    $in = (int) ($json['usage']['prompt_tokens'] ?? 0);
+    $out = (int) ($json['usage']['completion_tokens'] ?? 0);
+    $out = max($out, (int) ($json['usage']['total_tokens'] ?? 0) - $in);
+    $usage = [$in, $out];
     if ($status < 200 || $status >= 300 || !is_array($json) || !isset($json['choices'])) {
         return ['kind' => 'failed', 'data' => null, 'reason' => "http_$status", 'usage' => [0, 0]];
     }

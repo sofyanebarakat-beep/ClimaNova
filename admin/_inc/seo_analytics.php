@@ -149,7 +149,7 @@ function seo_analytics_sync(string $trigger = 'manual'): array
                 $errors[] = 'GA4: ' . $e->getMessage();
             }
         } else {
-            $errors[] = 'GA4: add GA4_PROPERTY_ID.';
+            $parts[] = 'GA4 not connected yet (add the GA4 property ID)';
         }
     } catch (Throwable $e) {
         $errors[] = $e instanceof GoogleError ? $e->getMessage() : admin_error($e, 'sync Google data');

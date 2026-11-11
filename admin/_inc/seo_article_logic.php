@@ -68,10 +68,17 @@ function seo_cut(string $text, int $max): string
     return rtrim($cut, " ,;:–—-");
 }
 
+/**
+ * Is the focus keyword in the text? The exact phrase, or — for a keyword of 2+ significant words — all of its words in natural
+ * French ("entretien chauffage Nice" matches "l'entretien du chauffage à Nice"; singular/plural ignored).
+ */
 function seo_contains_keyword(string $text, string $keyword): bool
 {
     $k = seo_normalize($keyword);
-    return $k !== '' && str_contains(' ' . seo_normalize($text) . ' ', ' ' . $k . ' ');
+    if ($k === '') return false;
+    if (str_contains(' ' . seo_normalize($text) . ' ', ' ' . $k . ' ')) return true;
+    $need = seo_tokens($keyword);
+    return count($need) >= 2 && !array_diff($need, seo_tokens($text));
 }
 
 /** Keyword missing → "Keyword: rest", kept under $max characters. */
