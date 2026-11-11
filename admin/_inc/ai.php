@@ -120,16 +120,23 @@ function ai_generate(string $purpose, array $messages, array $rule, string $sche
 
     // 2. Strict structured-output request.
     $body = ai_request_body($model, $messages, $schema, $schemaName, $maxOutput, (float) ($opts['temperature'] ?? 0.4));
-    $ch = curl_init($cfg['base_url'] . '/chat/completions');
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 10,
-        CURLOPT_TIMEOUT => (int) ($opts['timeout'] ?? 120),
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Authorization: Bearer ' . $cfg['api_key']],
-        CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE),
-    ]);
-    $resp = curl_exec($ch);
-    $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-    $netErr = $resp === false ? curl_error($ch) : null;
+    // A provider that is briefly overloaded (503/502/504, e.g. Gemini's free tier "high demand") gets 2 more tries.
+    // These answers are never billed, and the budget reservation stays open meanwhile.
+    for ($attempt = 1; ; $attempt++) {
+        $ch = curl_init($cfg['base_url'] . '/chat/completions');
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => (int) ($opts['timeout'] ?? 120),
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Authorization: Bearer ' . $cfg['api_key']],
+            CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE),
+        ]);
+        $resp = curl_exec($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $netErr = $resp === false ? curl_error($ch) : null;
+        if ($attempt >= 3 || !in_array($status, [502, 503, 504], true)) break;
+        error_log("[ai] $purpose: provider busy (HTTP $status), retrying ($attempt/2)");
+        sleep($attempt * 3);
+    }
 
     $result = ai_classify_response($status, $resp === false ? null : (string) $resp, $rule);
     $meta = ['provider' => $cfg['provider'], 'http_status' => $status, 'estimate_usd' => $estimate, 'schema' => $schemaName];

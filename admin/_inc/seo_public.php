@@ -192,8 +192,24 @@ function seo_article_jsonld(array $a): array
         'author' => $org, 'publisher' => $org + ['logo' => ['@type' => 'ImageObject', 'url' => SEO_SITE_URL . '/images/climanova-logo-premium.svg']],
         'keywords' => implode(', ', array_filter(array_merge([$a['focus_keyword']], $a['related_keywords']))),
         'wordCount' => $a['word_count'],
+        // GEO: what AI assistants and Google read first — the direct answer, the voice-friendly parts, the cited sources.
+        'isPartOf' => ['@type' => 'Blog', '@id' => SEO_SITE_URL . '/blog/#blog', 'name' => 'Blog ClimaNova Énergie', 'url' => SEO_SITE_URL . '/blog/'],
+        'speakable' => ['@type' => 'SpeakableSpecification', 'cssSelector' => ['h1', '.cn-direct-answer', '.cn-key-takeaway']],
     ]];
-    if (!empty($fi['url'])) $graph[0]['image'] = ['@type' => 'ImageObject', 'url' => $fi['url'], 'width' => (int) ($fi['width'] ?? 0), 'height' => (int) ($fi['height'] ?? 0), 'caption' => $fi['alt'] ?? ''];
+    $md = (string) ($a['content']['markdown'] ?? '');
+    $plainMd = static fn (string $m) => trim(html_entity_decode(preg_replace('/\s+/u', ' ', strip_tags(seo_markdown_to_html($m))), ENT_QUOTES, 'UTF-8'));
+    foreach (seo_md_parse($md)['sections'] as [$h, $body]) {
+        if ($h === seo_labels($a['language'])['quick'] && trim($body) !== '') { $graph[0]['abstract'] = $plainMd($body); break; }
+    }
+    $sources = seo_md_get_sources($md, $a['language']);
+    if ($sources) $graph[0]['citation'] = array_map(static fn ($src) => ['@type' => 'CreativeWork', 'name' => $src['title'], 'url' => $src['url']], $sources);
+    $about = [['@type' => 'Thing', 'name' => $a['focus_keyword']]];
+    if (!empty($a['offer_path'])) $about[] = ['@type' => 'Service', 'name' => $a['offer_name'], 'url' => SEO_SITE_URL . $a['offer_path'], 'provider' => ['@id' => SEO_SITE_URL . '/#organization'], 'areaServed' => ['@type' => 'City', 'name' => 'Nice']];
+    $graph[0]['about'] = $about;
+    if (!empty($fi['url'])) {
+        $graph[0]['image'] = ['@type' => 'ImageObject', 'url' => $fi['url'], 'width' => (int) ($fi['width'] ?? 0), 'height' => (int) ($fi['height'] ?? 0), 'caption' => $fi['alt'] ?? ''];
+        $graph[0]['thumbnailUrl'] = $fi['url'];
+    }
     $graph[] = ['@type' => 'BreadcrumbList', 'itemListElement' => [
         ['@type' => 'ListItem', 'position' => 1, 'name' => 'Accueil', 'item' => SEO_SITE_URL . '/'],
         ['@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => SEO_SITE_URL . '/blog/'],

@@ -47,6 +47,7 @@ RewriteRule ^contact-us/?$ /demande-devis/ [R=301,L]
 
 # SEO agent: sitemap, RSS feed, article images and published articles are served by PHP
 RewriteRule ^sitemap\.xml$ /sitemap.php [L]
+RewriteRule ^llms\.txt$ /llms.php [L]
 RewriteRule ^blog/rss\.xml$ /blog/rss.php [L]
 RewriteRule ^seo-media/([a-z0-9-]+\.(jpg|png|webp))$ /seo-media.php?f=$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-d

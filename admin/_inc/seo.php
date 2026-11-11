@@ -44,7 +44,8 @@ function analyse_page(string $root, string $url): array
     $get = static fn (string $re) => preg_match($re, $html, $m) ? html_entity_decode(trim($m[1]), ENT_QUOTES, 'UTF-8') : '';
 
     $p['title'] = $get('~<title>(.*?)</title>~is');
-    $p['description'] = $get('~<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']~is');
+    // The value ends at the SAME quote that opened it (descriptions often contain apostrophes: « d'eau », « MaPrimeRénov' »).
+    $p['description'] = $get('~<meta\s+name=["\']description["\']\s+content="([^"]*)"~is') ?: $get("~<meta\\s+name=[\"']description[\"']\\s+content='([^']*)'~is");
     $p['published'] = $get('~article:published_time["\']\s+content=["\'](.*?)["\']~i') ?: $get('~"datePublished"\s*:\s*"(.*?)"~');
 
     // Visible text only: drop scripts, styles, JSON-LD and navigation chrome before counting words.

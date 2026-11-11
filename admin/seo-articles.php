@@ -32,6 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         exit;
     }
+    // AI SEO assistant + image descriptions (JSON, called by the editor). Nothing is saved: the editor fills the fields.
+    if ($action === 'ai_seo' || $action === 'ai_alt') {
+        header('Content-Type: application/json; charset=utf-8');
+        if (!csrf_valid($_POST['csrf'] ?? null)) { http_response_code(403); echo json_encode(['error' => 'Your session expired — reload the page.']); exit; }
+        @set_time_limit(180);
+        try {
+            echo json_encode($action === 'ai_seo'
+                ? seo_ai_seo_suggestions($id, ['title' => (string) ($_POST['title'] ?? ''), 'focus_keyword' => (string) ($_POST['focus_keyword'] ?? ''),
+                    'markdown' => (string) ($_POST['markdown'] ?? ''), 'fi_url' => (string) ($_POST['fi_url'] ?? '')])
+                : seo_ai_image_alt($id, (string) ($_POST['url'] ?? ''), (string) ($_POST['context'] ?? '')), JSON_UNESCAPED_UNICODE);
+        } catch (Throwable $e) {
+            http_response_code(400);
+            echo json_encode(['error' => $e instanceof InvalidArgumentException || $e instanceof AiError ? $e->getMessage() : admin_error($e, 'ask the AI')]);
+        }
+        exit;
+    }
     if (!csrf_valid($_POST['csrf'] ?? null)) { $flash('error', 'Your session expired — please try again.'); $back(); }
 
     try {
@@ -151,13 +167,15 @@ if ($editId) {
   <input type="hidden" name="id" value="<?= $a['id'] ?>">
   <input type="hidden" name="sources" id="sources-json" value="<?= h(json_encode($sources, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) ?>">
   <div class="form-grid">
-    <label class="field span-2">Title <input type="text" name="title" value="<?= h($a['title']) ?>" maxlength="180" required></label>
+    <label class="field span-2">Title <input type="text" name="title" id="title" value="<?= h($a['title']) ?>" maxlength="180" required></label>
     <label class="field">Slug <span class="muted small">/blog/<em>slug</em>/ — lowercase, numbers, hyphens</span>
       <input type="text" name="slug" value="<?= h($a['slug']) ?>" pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="90" required></label>
     <label class="field">Focus keyword <input type="text" name="focus_keyword" id="kw" value="<?= h($a['focus_keyword']) ?>" maxlength="80" required></label>
     <label class="field span-2">Meta description <span class="counter" id="meta-count"></span>
       <textarea name="meta_description" id="meta" rows="2" maxlength="240"><?= h($a['meta_description']) ?></textarea>
-      <span><button type="button" class="btn btn-ghost btn-sm" id="add-kw" hidden>Add the keyword for me</button></span></label>
+      <span><button type="button" class="btn btn-ghost btn-sm" id="add-kw" hidden>Add the keyword for me</button>
+        <button type="button" class="btn btn-primary btn-sm" id="ai-seo">✨ Generate SEO with AI</button>
+        <span class="muted small" id="ai-seo-status">SEO title + meta description<?= $fi ? ' + featured image alt text' : '' ?>, from the text below (nothing is saved until you click Save).</span></span></label>
     <label class="field">SEO title <span class="muted small">(optional, under 60 characters)</span> <span class="counter" id="seo-count"></span>
       <input type="text" name="seo_title" id="seo-title" value="<?= h($a['seo_title']) ?>" maxlength="70"></label>
     <label class="field">Offer
@@ -172,7 +190,7 @@ if ($editId) {
         <div class="field">
           <input type="file" id="fi-file" accept="image/jpeg,image/png,image/webp">
           <span class="muted small" id="fi-status"><?= $fi ? h(($fi['width'] ?? '?') . ' × ' . ($fi['height'] ?? '?') . ' px') : '' ?></span>
-          <label class="field">Alt text (what the picture shows) <input type="text" name="fi_alt" id="fi-alt" value="<?= h($fi['alt'] ?? '') ?>" maxlength="200"></label>
+          <label class="field">Alt text (what the picture shows — the AI fills it after upload, check it) <input type="text" name="fi_alt" id="fi-alt" value="<?= h($fi['alt'] ?? '') ?>" maxlength="200"></label>
           <input type="hidden" name="fi_url" id="fi-url" value="<?= h($fi['url'] ?? '') ?>">
           <input type="hidden" name="fi_width" id="fi-width" value="<?= (int) ($fi['width'] ?? 0) ?>">
           <input type="hidden" name="fi_height" id="fi-height" value="<?= (int) ($fi['height'] ?? 0) ?>">
@@ -188,7 +206,7 @@ if ($editId) {
       <div class="img-box">
         <label class="field">Section <select id="si-section"><?php foreach ($sections as $s): ?><option><?= h($s) ?></option><?php endforeach; ?></select></label>
         <label class="field">Image file <input type="file" id="si-file" accept="image/jpeg,image/png,image/webp"></label>
-        <label class="field">Alt text (required) <input type="text" id="si-alt" maxlength="200"></label>
+        <label class="field">Alt text <span class="muted small">(leave empty: the AI looks at the photo and writes it)</span> <input type="text" id="si-alt" maxlength="200"></label>
         <label class="field">Caption (optional) <input type="text" id="si-caption" maxlength="200"></label>
         <button type="button" class="btn btn-ghost" id="si-add">Upload and insert</button>
         <span class="muted small" id="si-status"></span>
@@ -243,6 +261,28 @@ if ($editId) {
   });
   refresh();
 
+  // AI helpers (JSON endpoints on this page).
+  async function askAi(params) {
+    const body = new URLSearchParams({ csrf, id: articleId, ...params });
+    const r = await fetch(location.pathname, { method: 'POST', body, credentials: 'same-origin' });
+    const j = await r.json().catch(() => ({ error: 'The server did not answer — please try again.' }));
+    if (j.error) throw new Error(j.error);
+    return j;
+  }
+  $('ai-seo').addEventListener('click', async () => {
+    const btn = $('ai-seo'), st = $('ai-seo-status');
+    btn.disabled = true; st.textContent = 'The AI is reading the article' + ($('fi-url').value ? ' and looking at the featured image' : '') + '… (up to a minute)';
+    try {
+      const r = await askAi({ action: 'ai_seo', title: $('title').value, focus_keyword: kw.value, markdown: $('md').value, fi_url: $('fi-url').value });
+      seo.value = r.seoTitle; meta.value = r.metaDescription;
+      if (r.featuredAlt) $('fi-alt').value = r.featuredAlt;
+      refresh();
+      [seo, meta].concat(r.featuredAlt ? [$('fi-alt')] : []).forEach((el) => { el.style.background = '#e6fbf1'; setTimeout(() => { el.style.background = ''; }, 2500); });
+      st.textContent = 'Filled in green: check and edit, then Save. Related searches: ' + r.relatedKeywords.join(' · ');
+    } catch (err) { st.textContent = err.message; }
+    btn.disabled = false;
+  });
+
   // One-time signed upload: ask the server for a link, then send the file straight to it.
   async function upload(file, kind) {
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Use a JPG, PNG or WebP image.');
@@ -265,8 +305,14 @@ if ($editId) {
       $('fi-preview').innerHTML = '';
       const img = document.createElement('img'); img.src = r.url; img.width = 260; img.alt = '';
       $('fi-preview').appendChild(img);
-      $('fi-status').textContent = r.width + ' × ' + r.height + ' px' + (r.width < 1200 || r.height < 630 ? ' — smaller than the recommended 1200 × 630' : '') + '. Add alt text, then save.';
-      $('fi-alt').required = true; $('fi-alt').focus();
+      const size = r.width + ' × ' + r.height + ' px' + (r.width < 1200 || r.height < 630 ? ' — smaller than the recommended 1200 × 630' : '');
+      $('fi-alt').required = true;
+      $('fi-status').textContent = size + '. The AI is describing the photo for the alt text…';
+      try {
+        const d = await askAi({ action: 'ai_alt', url: r.url, context: 'Featured image of the article: ' + $('title').value });
+        $('fi-alt').value = d.alt;
+        $('fi-status').textContent = size + '. Alt text written by the AI — check it, then Save.';
+      } catch (err) { $('fi-status').textContent = size + '. Add alt text, then Save. (' + err.message + ')'; $('fi-alt').focus(); }
     } catch (err) { $('fi-status').textContent = err.message; }
     e.target.value = '';
   });
@@ -279,11 +325,18 @@ if ($editId) {
   $('si-add').addEventListener('click', async () => {
     const file = $('si-file').files[0], alt = $('si-alt').value.trim(), cap = $('si-caption').value.trim().replace(/"/g, '”');
     if (!file) { $('si-status').textContent = 'Choose an image file.'; return; }
-    if (!alt) { $('si-status').textContent = 'Alt text is required.'; $('si-alt').focus(); return; }
     $('si-status').textContent = 'Uploading…';
     try {
       const r = await upload(file, 'section');
-      const line = '![' + alt.replace(/[\[\]]/g, '') + '](' + r.url + (cap ? ' "' + cap + '"' : '') + ')';
+      let altText = alt, capText = cap;
+      if (!altText) {
+        $('si-status').textContent = 'The AI is describing the photo…';
+        try {
+          const d = await askAi({ action: 'ai_alt', url: r.url, context: $('si-section').value });
+          altText = d.alt; if (!capText) capText = d.caption.replace(/"/g, '”');
+        } catch (err) { throw new Error('Uploaded, but the alt text could not be written (' + err.message + ') — type it and try again.'); }
+      }
+      const line = '![' + altText.replace(/[\[\]]/g, '') + '](' + r.url + (capText ? ' "' + capText + '"' : '') + ')';
       const md = $('md').value.split('\n');
       const heading = '## ' + $('si-section').value;
       let at = md.findIndex((l) => l.trim() === heading);
@@ -293,7 +346,7 @@ if ($editId) {
       while (end > at + 1 && md[end - 1].trim() === '') end--;
       md.splice(end, 0, '', line);
       $('md').value = md.join('\n');
-      $('si-status').textContent = 'Image inserted — save to keep it.';
+      $('si-status').textContent = 'Image inserted with alt “' + altText + '” — check it in the text, then Save.';
       $('si-file').value = ''; $('si-alt').value = ''; $('si-caption').value = '';
     } catch (err) { $('si-status').textContent = err.message; }
   });

@@ -9,6 +9,7 @@ if (preg_match('~^/admin/(seo(-[a-z-]+)?)/?$~', $path, $m)) {
     return true;
 }
 if ($path === '/sitemap.xml') { require $root . '/sitemap.php'; return true; }
+if ($path === '/llms.txt') { require $root . '/llms.php'; return true; }
 if ($path === '/blog/rss.xml') { require $root . '/blog/rss.php'; return true; }
 if ($path === '/blog/' || $path === '/blog') { require $root . '/blog/index.php'; return true; }
 if (preg_match('~^/seo-media/([a-z0-9-]+\.(jpg|png|webp))$~', $path, $m)) { $_GET['f'] = $m[1]; require $root . '/seo-media.php'; return true; }

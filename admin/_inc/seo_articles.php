@@ -979,3 +979,104 @@ function seo_move_topic(int $topicId, string $date): void
     if (!$rows) throw new InvalidArgumentException('That topic could not be found.');
     seo_log('move_topic', 'info', "Topic “{$rows[0]['title']}” moved to $date.", ['topic_id' => $topicId]);
 }
+
+/* ---------- AI SEO assistant (editor) ---------- */
+
+/**
+ * One of OUR uploaded images as a small JPEG data URL for the AI to look at (max 1024 px, so it stays light).
+ * Returns null for images that are not in our media folder (we never fetch other sites).
+ */
+function seo_image_data_url(string $url): ?string
+{
+    $prefix = SEO_SITE_URL . '/seo-media/';
+    if (!str_starts_with($url, $prefix)) return null;
+    $file = basename(substr($url, strlen($prefix)));
+    if (!preg_match('/^[a-z0-9-]+\.(jpg|png|webp)$/', $file)) return null;
+    $path = seo_media_dir() . '/' . $file;
+    if (!is_file($path)) return null;
+    $bytes = (string) file_get_contents($path);
+    if (function_exists('imagecreatefromstring') && ($im = @imagecreatefromstring($bytes))) {
+        $w = imagesx($im);
+        $h = imagesy($im);
+        $scale = min(1, 1024 / max($w, $h));
+        $out = imagecreatetruecolor(max(1, (int) round($w * $scale)), max(1, (int) round($h * $scale)));
+        imagefill($out, 0, 0, imagecolorallocate($out, 255, 255, 255)); // transparent PNG → white, not black
+        imagecopyresampled($out, $im, 0, 0, 0, 0, imagesx($out), imagesy($out), $w, $h);
+        ob_start();
+        imagejpeg($out, null, 80);
+        $bytes = (string) ob_get_clean();
+        return 'data:image/jpeg;base64,' . base64_encode($bytes);
+    }
+    if (strlen($bytes) > 1_500_000) return null;
+    $mime = ['jpg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'][pathinfo($file, PATHINFO_EXTENSION)];
+    return "data:$mime;base64," . base64_encode($bytes);
+}
+
+function seo_assistant_system(string $lang): string
+{
+    $langName = SEO_LANGUAGES[$lang] ?? 'French';
+    return "You are an SEO and GEO (generative engine optimisation) editor for ClimaNova Energie, a home-energy installer in Nice. Write in $langName for " . SEO_AUDIENCE . '. '
+        . "Never invent prices, guarantees, statistics or credentials. No clickbait, no emojis. Do not wrap your answers in quotation marks, "
+        . "but always keep normal apostrophes inside words (l'entretien, d'un, aujourd'hui).";
+}
+
+/**
+ * Suggests the SEO title, meta description, related keywords and (when the featured image is ours) its alt text,
+ * from what is in the editor now (unsaved changes included). Nothing is saved: the editor fills the fields.
+ */
+function seo_ai_seo_suggestions(int $id, array $draft): array
+{
+    $a = seo_article($id);
+    $title = trim((string) ($draft['title'] ?? $a['title']));
+    $kw = trim((string) ($draft['focus_keyword'] ?? $a['focus_keyword']));
+    if (mb_strlen($kw) < 2) throw new InvalidArgumentException('Fill in the focus keyword first.');
+    $md = (string) ($draft['markdown'] ?? ($a['content']['markdown'] ?? ''));
+    $doc = seo_md_parse($md);
+    $excerpt = mb_substr(trim($doc['intro'] . "\n\n" . implode("\n\n", array_map(static fn ($s) => '## ' . $s[0] . "\n" . $s[1], array_slice($doc['sections'], 0, 4)))), 0, 5000);
+    $image = seo_image_data_url((string) ($draft['fi_url'] ?? ($a['content']['featuredImage']['url'] ?? '')));
+
+    $s = static fn (int $min, int $max) => ['type' => 'string', 'min' => $min, 'max' => $max];
+    $props = ['seoTitle' => $s(20, 75), 'metaDescription' => $s(80, 230), 'relatedKeywords' => ['type' => 'array', 'min' => 3, 'max' => 8, 'items' => $s(2, 80)]];
+    if ($image) $props['featuredAlt'] = $s(5, 150);
+    $task = "Focus keyword: \"$kw\". Article title: \"$title\". Offer page: " . ($a['offer_name'] ?? '') . ".\n"
+        . "- seoTitle: under 60 characters, the focus keyword near the start, specific and enticing; you may end with \" | ClimaNova\" only if it fits.\n"
+        . "- metaDescription: 140 to 160 characters, contains the focus keyword in its first half, states the concrete benefit and ends with a soft call to action. One or two sentences.\n"
+        . "- relatedKeywords: 3 to 8 close variants and questions people search (for GEO and AI assistants).\n"
+        . ($image ? "- featuredAlt: describe what the attached photo actually shows, literally, in one sentence under 125 characters; include the keyword only if it truly fits; do not start with \"image of\" or \"photo de\".\n" : '')
+        . "\nArticle excerpt:\n$excerpt";
+    $user = $image ? [['type' => 'text', 'text' => $task], ['type' => 'image_url', 'image_url' => ['url' => $image]]] : $task;
+    $r = ai_generate('seo_assistant', [
+        ['role' => 'system', 'content' => seo_assistant_system($a['language'])],
+        ['role' => 'user', 'content' => $user],
+    ], ['type' => 'object', 'props' => $props], 'seo_assistant', 700, ['model' => seo_default_model(), 'timeout' => 120]);
+    $d = $r['data'];
+    $seoTitle = trim(strip_tags($d['seoTitle']));
+    if (!seo_contains_keyword($seoTitle, $kw) || mb_strlen($seoTitle) >= 60) $seoTitle = seo_ensure_keyword($seoTitle, $kw, 59);
+    $meta = seo_ensure_keyword(trim(strip_tags($d['metaDescription'])), $kw, 200);
+    seo_log('seo_assistant', 'success', "AI SEO suggestions for article #$id.", ['article_id' => $id, 'usage_id' => $r['usage_id'], 'cost_usd' => $r['cost']]);
+    return [
+        'seoTitle' => $seoTitle, 'metaDescription' => $meta,
+        'relatedKeywords' => array_values(array_unique(array_map('trim', $d['relatedKeywords']))),
+        'featuredAlt' => isset($d['featuredAlt']) ? seo_cut(trim(strip_tags($d['featuredAlt']), " .\"'"), 150) : null,
+        'cost' => $r['cost'],
+    ];
+}
+
+/** Alt text + caption for one of our uploaded images, written by the AI after looking at it. */
+function seo_ai_image_alt(int $id, string $imageUrl, string $context): array
+{
+    $a = seo_article($id);
+    $image = seo_image_data_url($imageUrl);
+    if (!$image) throw new InvalidArgumentException('Only images uploaded here can be described by the AI.');
+    $s = static fn (int $min, int $max) => ['type' => 'string', 'min' => $min, 'max' => $max];
+    $r = ai_generate('image_alt', [
+        ['role' => 'system', 'content' => seo_assistant_system($a['language'])],
+        ['role' => 'user', 'content' => [
+            ['type' => 'text', 'text' => "Article: \"{$a['title']}\" (focus keyword \"{$a['focus_keyword']}\"). Image placed in: \"" . mb_substr($context, 0, 160) . "\".\n"
+                . "- alt: what the photo actually shows, literally, one sentence under 125 characters, useful for a blind reader; add the keyword only if it truly fits; never start with \"image de\" or \"photo de\".\n"
+                . "- caption: a short helpful caption (under 120 characters) linking the photo to the section."],
+            ['type' => 'image_url', 'image_url' => ['url' => $image]],
+        ]],
+    ], ['type' => 'object', 'props' => ['alt' => $s(5, 150), 'caption' => $s(5, 160)]], 'image_alt', 300, ['model' => seo_default_model(), 'timeout' => 90]);
+    return ['alt' => seo_cut(trim(strip_tags($r['data']['alt']), " .\"'"), 150), 'caption' => seo_cut(trim(strip_tags($r['data']['caption']), "\"'"), 160)];
+}
