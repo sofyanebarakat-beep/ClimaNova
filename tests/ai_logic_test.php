@@ -31,6 +31,10 @@ $b4 = ai_request_body('gpt-4o-mini', [], $sch, 'x', 800, 0.3);
 check('others use max_tokens + temperature', [$b4['max_tokens'], $b4['temperature'], isset($b4['reasoning_effort'])], [800, 0.3, false]);
 check('strict json_schema format', [$b4['response_format']['type'], $b4['response_format']['json_schema']['strict']], ['json_schema', true]);
 check('gemini is not gpt-5', ai_is_gpt5('gemini-2.5-flash'), false);
+$gb = ai_request_body('gemini-3.8-flash', [], ['type' => 'object'], 's', 200);
+check('gemini gets low thinking', $gb['reasoning_effort'] ?? null, 'low');
+check('gemini gets thinking room', $gb['max_tokens'], 1224);
+check('openai body unchanged', isset(ai_request_body('gpt-4o-mini', [], ['type' => 'object'], 's', 200)['reasoning_effort']), false);
 check('openai/gpt-5 prefix detected', ai_is_gpt5('openai/gpt-5-nano'), true);
 
 // Strict schema from rules

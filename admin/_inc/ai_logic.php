@@ -41,6 +41,12 @@ function ai_is_gpt5(string $model): bool
     return (bool) preg_match('/^(openai\/)?gpt-5/i', $model);
 }
 
+/** Gemini/Gemma models "think" before answering, and that thinking uses the output-token allowance. */
+function ai_is_gemini(string $model): bool
+{
+    return (bool) preg_match('/^(models\/)?(gemini|gemma)/i', $model);
+}
+
 /**
  * Chat Completions request body. GPT-5 family: max_completion_tokens + reasoning_effort "minimal",
  * no temperature. Others: max_tokens + temperature.
@@ -55,6 +61,11 @@ function ai_request_body(string $model, array $messages, array $schema, string $
     if (ai_is_gpt5($model)) {
         $body['max_completion_tokens'] = $maxOutput;
         $body['reasoning_effort'] = 'minimal';
+    } elseif (ai_is_gemini($model)) {
+        // Keep thinking short and leave it room, so small answers (tests, keyword ideas) are never cut off.
+        $body['max_tokens'] = $maxOutput + 1024;
+        $body['temperature'] = $temperature;
+        $body['reasoning_effort'] = 'low';
     } else {
         $body['max_tokens'] = $maxOutput;
         $body['temperature'] = $temperature;
