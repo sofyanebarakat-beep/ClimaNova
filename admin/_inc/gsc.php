@@ -11,8 +11,20 @@ function gsc_file(): string
     return ($docroot !== '' ? dirname($docroot) : dirname(__DIR__, 3)) . '/.gsc.json';
 }
 
-/** @return array{sa: array, site: string}|null */
+/**
+ * The ONE Google connection for the whole admin (Classement SEO, Paramètres, Keywords, Analytics):
+ * GOOGLE_SERVICE_ACCOUNT_JSON + GSC_SITE_URL from the environment / .env.google, else the older .gsc.json.
+ * @return array{sa: array, site: string}|null
+ */
 function gsc_config(): ?array
+{
+    require_once __DIR__ . '/google.php';
+    $g = google_config();
+    return $g['sa'] && $g['gsc_site'] ? ['sa' => $g['sa'], 'site' => $g['gsc_site']] : null;
+}
+
+/** The older connection file written by Paramètres before .env.google existed. */
+function gsc_legacy_config(): ?array
 {
     static $cfg = false;
     if ($cfg !== false) return $cfg;
@@ -32,9 +44,16 @@ function gsc_save(string $keyJson, string $site): string
         throw new GscError('Ce n’est pas un fichier de clé JSON de compte de service Google.');
     }
     if (!openssl_pkey_get_private($sa['private_key'])) throw new GscError('La clé privée du fichier est illisible.');
-    $site = trim($site);
-    if (!preg_match('~^(sc-domain:[a-z0-9.-]+|https?://[^\s]+/)$~i', $site)) {
+    require_once __DIR__ . '/google.php';
+    $site = seo_normalize_gsc_site($site) ?? '';
+    if ($site === '') {
         throw new GscError('Propriété invalide : « sc-domain:climanova-energie.fr » ou « https://climanova-energie.fr/ ».');
+    }
+    // Same shared connection as the Analytics tab (keeps the GA4 property ID already saved).
+    try {
+        google_save_settings($keyJson, $site, (string) (google_config()['ga4_property'] ?? ''));
+    } catch (InvalidArgumentException $e) {
+        throw new GscError($e->getMessage());
     }
     $keep = ['client_email' => $sa['client_email'], 'private_key' => $sa['private_key'], 'token_uri' => $sa['token_uri'] ?? 'https://oauth2.googleapis.com/token'];
     $file = gsc_file();
@@ -86,7 +105,7 @@ function gsc_query(array $dimensions, string $start, string $end, int $rowLimit 
     $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
     $data = json_decode($body, true);
     if ($status === 403 || $status === 404) {
-        throw new GscError("Le compte {$cfg['sa']['client_email']} n'a pas accès à « {$cfg['site']} ». Ajoutez-le dans Search Console → Paramètres → Utilisateurs.");
+        throw new GscError("Le compte {$cfg['sa']['client_email']} n'a pas accès à « {$cfg['site']} ». Ajoutez-le dans Search Console → Paramètres → Utilisateurs, ou vérifiez le type de propriété : « https://climanova-energie.fr/ » (préfixe d’URL) n’est pas la même que « sc-domain:climanova-energie.fr » (domaine).");
     }
     if ($status !== 200) throw new GscError('Erreur Google : ' . ($data['error']['message'] ?? "HTTP $status"));
     return $data['rows'] ?? [];

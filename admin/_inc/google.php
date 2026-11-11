@@ -51,7 +51,7 @@ function google_config(): array
         $d = json_decode($json, true);
         if (is_array($d) && !empty($d['client_email']) && !empty($d['private_key'])) $sa = $d;
     }
-    $legacy = gsc_config();
+    $legacy = gsc_legacy_config();
     if (!$sa && $legacy) $sa = $legacy['sa'];
     $site = google_env('GSC_SITE_URL') ?? ($legacy['site'] ?? null);
     $prop = google_env('GA4_PROPERTY_ID');
