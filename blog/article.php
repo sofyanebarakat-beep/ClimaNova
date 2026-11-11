@@ -15,6 +15,6 @@ if (!str_ends_with((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PAT
     exit;
 }
 header('Content-Type: text/html; charset=utf-8');
-header('Cache-Control: public, max-age=300');
+header('Cache-Control: no-cache'); // always fresh: a newly published article shows at once
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s', (int) strtotime((string) max($a['updated_at'], $a['published_at']))) . ' GMT');
 echo seo_render_article_page($a);

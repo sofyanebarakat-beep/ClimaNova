@@ -170,7 +170,7 @@ function seo_article_card_html(array $a): string
     $date = seo_ymd_to_fr(substr((string) $a['published_at'], 0, 10));
     return '<div role="listitem" class="w-dyn-item" data-category="' . $e(seo_offer_category($a['offer_slug'] ?? null)) . '">'
         . '<a href="/blog/' . $e($a['slug']) . '/" class="blog-widget w-inline-block"><div class="blog-widget-image-block">'
-        . '<img src="' . $e($fi['url'] ?? '') . '" loading="lazy" alt="' . $e($fi['alt'] ?? '') . '" class="blog-widget-image" width="' . (int) ($fi['width'] ?? 1200) . '" height="' . (int) ($fi['height'] ?? 630) . '">'
+        . '<img src="' . $e($fi['url'] ?? '') . '" loading="lazy" alt="' . $e($fi['alt'] ?? '') . '" class="blog-widget-image cn-anim-in-origin" width="' . (int) ($fi['width'] ?? 1200) . '" height="' . (int) ($fi['height'] ?? 630) . '" style="object-fit:cover;width:100%;height:100%;">'
         . '</div><div class="blog-widget-content-block"><div class="blog-widget-content-block-inner"><div class="blog-slide-meta-block">'
         . '<div class="text-md">' . $e($date) . '</div><div class="blog-slide-meta-divider"></div><div class="text-md">' . seo_read_minutes($a['word_count']) . ' min de lecture</div></div>'
         . '<div class="blog-widget-text-block"><h2 class="h4-style">' . $e($a['title']) . '</h2><p class="text-md">' . $e($a['meta_description']) . '</p></div></div>'

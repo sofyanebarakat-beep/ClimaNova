@@ -6,7 +6,7 @@ require_once __DIR__ . '/../admin/_inc/seo_public.php';
 
 $html = (string) file_get_contents(__DIR__ . '/index.html');
 header('Content-Type: text/html; charset=utf-8');
-header('Cache-Control: public, max-age=300');
+header('Cache-Control: no-cache'); // always fresh: a newly published article shows at once
 $articles = seo_published_articles();
 $cards = seo_static_blog_cards($html);
 if ($articles && $cards) {
