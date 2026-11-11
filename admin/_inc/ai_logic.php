@@ -12,6 +12,12 @@ const AI_PROVIDERS = [
                  'model' => 'gpt-4o-mini', 'input' => '0.15', 'output' => '0.60', 'key_url' => 'https://platform.openai.com/api-keys'],
 ];
 
+/** Known OpenAI model prices (USD per 1M tokens: input, output), used when an article picks a model other than the configured one. */
+const AI_MODEL_PRICES = [
+    'gpt-4o-mini' => [0.15, 0.60], 'gpt-4.1-mini' => [0.40, 1.60], 'gpt-4.1-nano' => [0.10, 0.40],
+    'gpt-4o' => [2.50, 10.00], 'gpt-4.1' => [2.00, 8.00],
+];
+
 /** Rough token count: ~3 characters per token for French text (deliberately on the high side). */
 function ai_estimate_tokens(string $text): int
 {

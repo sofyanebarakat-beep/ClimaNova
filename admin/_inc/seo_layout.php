@@ -21,6 +21,7 @@ function seo_header(string $tab, string $title, string $subtitle): void
 {
     admin_header($title . ' · SEO', 'seo');
     ?>
+<link rel="stylesheet" href="/admin/seo-extra.css?v=1">
 <div class="seo-head">
   <h1><?= h($title) ?></h1>
   <p class="muted"><?= h($subtitle) ?></p>

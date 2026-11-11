@@ -1,0 +1,2 @@
+# The blog list is blog/index.php (static index.html + published SEO articles).
+DirectoryIndex index.php index.html

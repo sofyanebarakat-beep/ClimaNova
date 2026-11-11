@@ -1,5 +1,6 @@
 import { renderHeader } from "../components/site-header.js";
 import { renderFooter } from "../components/site-footer.js";
+import { initAnalytics } from "./analytics.js";
 
 const COMPONENTS = {
   "site-header": renderHeader,
@@ -460,6 +461,7 @@ async function initRelatedArticles() {
   }
 }
 
+initAnalytics();
 mountComponents();
 initBlogShareLinks();
 initProjectCarousels();

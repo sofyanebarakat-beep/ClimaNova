@@ -101,6 +101,13 @@ function ai_generate(string $purpose, array $messages, array $rule, string $sche
     $model = $opts['model'] ?? $cfg['model'];
     $inP = (float) $cfg['input_price'];
     $outP = (float) $cfg['output_price'];
+    if ($model !== $cfg['model']) {
+        // Another model than the configured one: only known OpenAI models, priced from AI_MODEL_PRICES.
+        if ($cfg['provider'] !== 'openai' || !isset(AI_MODEL_PRICES[$model])) {
+            throw new AiError("The model $model cannot be used with the AI provider set in Paramètres — choose {$cfg['model']}.");
+        }
+        [$inP, $outP] = AI_MODEL_PRICES[$model];
+    }
 
     // 1. Estimate and reserve (atomic budget check in the database).
     $schema = ai_schema_from_rules($rule);
