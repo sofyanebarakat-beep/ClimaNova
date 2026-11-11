@@ -5,4 +5,4 @@
 declare(strict_types=1);
 
 const ADMIN_EMAIL = 'sofyanebarakat@gmail.com';
-const ADMIN_PASSWORD_HASH = '$2y$12$Z8PT9vbirb9kVhPEabq54OCbinTRn2c7qP8rugXMvstgPiaD6cZdq';
+const ADMIN_PASSWORD_HASH = '$2y$12$mdjJ./oKDVcgqG14rauAiuYI65vFhowIA2Lx8pFkfUwrzsvwhLVLi';
