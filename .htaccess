@@ -30,6 +30,21 @@ RewriteRule ^services/kitchen-upgrade/?$ /services/renovation-energetique/ [R=30
 RewriteRule ^services/plumbing-leak-repairs/?$ /services/plomberie/ [R=301,L]
 RewriteRule ^services/roof-and-wall-repair/?$ /services/renovation-energetique/ [R=301,L]
 
+# Search Console clean-up: old template copies and duplicates.
+# Full site copies and fake template pages → 410 Gone (Google drops them for good).
+RewriteRule ^(ClimaNovaEnergie.copy|climavovaall)(/|$) - [G,L]
+RewriteRule ^template-pages/(changelog|style-guide)(\.html)?/?$ - [G,L]
+RewriteRule ^projects/(?!index\.html$)[^/]+/?$ - [G,L]
+# Duplicate /innerpages/ copies → the real pages.
+RewriteRule ^innerpages/(about-us|faq|privacy-policy|terms-conditions)(/.*)?$ /$1/ [R=301,L]
+RewriteRule ^innerpages/contact-us(/.*)?$ /demande-devis/ [R=301,L]
+RewriteRule ^innerpages/services(/.*)?$ /services/ [R=301,L]
+RewriteRule ^innerpages/blog /blog/ [R=301,L]
+RewriteRule ^innerpages/projects /projects/ [R=301,L]
+RewriteRule ^innerpages/?.*$ / [R=301,L]
+# The old contact page only redirected with a meta refresh: make it a real 301.
+RewriteRule ^contact-us/?$ /demande-devis/ [R=301,L]
+
 # SEO agent: sitemap, RSS feed, article images and published articles are served by PHP
 RewriteRule ^sitemap\.xml$ /sitemap.php [L]
 RewriteRule ^blog/rss\.xml$ /blog/rss.php [L]

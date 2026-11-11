@@ -1,14 +1,9 @@
-// Google Analytics 4 for the public site (never loaded in /admin).
-// Consent mode v2: analytics and ads storage are DENIED by default for visitors in the EU/EEA, the UK and Switzerland
-// (Google applies the region rule from the visitor's location) until they accept cookies in the banner below.
-// Set the measurement ID (Admin → Data streams → G-XXXXXXX) to turn tracking on; while empty nothing is loaded.
-export const GA4_MEASUREMENT_ID = "";
+// Cookie consent banner for Google Tag Manager / GA4 (public site only, never /admin).
+// The tags themselves are in components/tracking-head.html (put on every page by scripts/inject-tracking.php):
+// consent is DENIED by default for visitors in the EU/EEA, the UK and Switzerland until they accept here.
+// GA4 (G-KRKT1F5KXS) is loaded by the Tag Manager container GTM-56FJN7F5 — do not add a second GA4 tag.
 
-const CONSENT_KEY = "cn_cookie_consent"; // "granted" | "denied"
-const CONSENT_REGIONS = [
-  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL",
-  "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO", "GB", "CH",
-];
+const CONSENT_KEY = "cn_cookie_consent"; // "granted" | "denied" — also read by the head snippet on the next page load
 
 function storedConsent() {
   try { return localStorage.getItem(CONSENT_KEY); } catch { return null; }
@@ -23,7 +18,7 @@ function consentState(value) {
   return { ad_storage: v, analytics_storage: v, ad_user_data: v, ad_personalization: v };
 }
 
-function showBanner(gtag) {
+function showBanner() {
   if (document.getElementById("cn-cookie-banner")) return;
   const bar = document.createElement("div");
   bar.id = "cn-cookie-banner";
@@ -40,30 +35,15 @@ function showBanner(gtag) {
     const value = e.target?.dataset?.consent;
     if (!value) return;
     saveConsent(value);
-    gtag("consent", "update", consentState(value));
+    if (typeof window.gtag === "function") window.gtag("consent", "update", consentState(value));
+    else (window.dataLayer = window.dataLayer || []).push(["consent", "update", consentState(value)]);
     bar.remove();
   });
   document.body.appendChild(bar);
 }
 
 export function initAnalytics() {
-  if (!GA4_MEASUREMENT_ID || location.pathname.startsWith("/admin")) return;
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = gtag;
-
-  // Defaults must be set before the tag loads. Denied in the listed regions, granted elsewhere.
-  gtag("consent", "default", { ...consentState("denied"), region: CONSENT_REGIONS, wait_for_update: 500 });
-  gtag("consent", "default", consentState("granted"));
-  const saved = storedConsent();
-  if (saved) gtag("consent", "update", consentState(saved));
-
-  gtag("js", new Date());
-  gtag("config", GA4_MEASUREMENT_ID);
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA4_MEASUREMENT_ID);
-  document.head.appendChild(s);
-
-  if (!saved) showBanner(gtag);
+  if (location.pathname.startsWith("/admin")) return;
+  if (typeof window.gtag !== "function") return; // page without the tracking snippet: nothing to consent to
+  if (!storedConsent()) showBanner();
 }

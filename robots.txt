@@ -1,14 +1,9 @@
 User-agent: *
 Allow: /
 
-# Exclure les dossiers internes et copies de templates
-Disallow: /innerpages/
+# Espace admin et API (les anciennes copies du site répondent 410/301 pour que Google les retire)
 Disallow: /admin
 Disallow: /api
-Disallow: /ClimaNovaEnergie copy/
-Disallow: /climavovaall/
-Disallow: /innerpages/blog?*/
-Disallow: /innerpages/projects?*/
 
 
 Sitemap: https://climanova-energie.fr/sitemap.xml

@@ -1,6 +1,6 @@
 import { renderHeader } from "../components/site-header.js";
 import { renderFooter } from "../components/site-footer.js";
-import { initAnalytics } from "./analytics.js";
+import { initAnalytics } from "./analytics.js?v=20261111-2";
 
 const COMPONENTS = {
   "site-header": renderHeader,

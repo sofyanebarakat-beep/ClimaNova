@@ -208,6 +208,13 @@ function seo_article_jsonld(array $a): array
     return ['@context' => 'https://schema.org', '@graph' => $graph];
 }
 
+/** Google Tag Manager + consent defaults, the same blocks scripts/inject-tracking.php puts on static pages. */
+function seo_tracking_snippet(string $part): string
+{
+    $f = seo_site_root() . '/components/tracking-' . ($part === 'body' ? 'body' : 'head') . '.html';
+    return is_file($f) ? rtrim((string) file_get_contents($f)) : '';
+}
+
 /** Article body HTML (shared by the public page and the admin preview). */
 function seo_article_body_html(array $a): string
 {
@@ -235,6 +242,7 @@ function seo_render_article_page(array $a): string
 <html lang="<?= $e($a['language']) ?>">
 <head>
 <meta charset="utf-8">
+<?= seo_tracking_snippet('head') ?>
 <title><?= $e($pageTitle) ?></title>
 <meta name="description" content="<?= $e($a['meta_description']) ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -280,6 +288,7 @@ function seo_render_article_page(array $a): string
 </style>
 </head>
 <body>
+<?= seo_tracking_snippet('body') ?>
 <div class="page-wrapper">
   <div data-component="site-header"></div>
   <main class="main-wrapper">
@@ -328,7 +337,7 @@ function seo_render_article_page(array $a): string
   </main>
   <div data-component="site-footer"></div>
 </div>
-<script type="module" src="/js/core/main.js?v=20261111-1"></script>
+<script type="module" src="/js/core/main.js?v=20261111-2"></script>
 </body>
 </html>
 <?php
