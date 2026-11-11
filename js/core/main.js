@@ -1,6 +1,6 @@
 import { renderHeader } from "../components/site-header.js";
 import { renderFooter } from "../components/site-footer.js";
-import { initAnalytics } from "./analytics.js?v=20261111-2";
+import { initAnalytics } from "./analytics.js?v=20261111-3";
 
 const COMPONENTS = {
   "site-header": renderHeader,
@@ -317,7 +317,8 @@ function initBlogListing() {
   let currentPage = 1;
 
   function refreshCards() {
-    const matchingCards = cards.filter((card) => card.dataset.featuredSource !== "true" && (activeCategory === "all" || card.dataset.category === activeCategory));
+    // Rule: every article is listed in the grid — the newest one is ALSO shown "À la une" above it.
+    const matchingCards = cards.filter((card) => activeCategory === "all" || card.dataset.category === activeCategory);
     const totalPages = Math.max(1, Math.ceil(matchingCards.length / pageSize));
     currentPage = Math.min(currentPage, totalPages);
 

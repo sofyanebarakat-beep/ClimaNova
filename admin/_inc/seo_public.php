@@ -308,7 +308,7 @@ function seo_render_article_page(array $a): string
 <div class="page-wrapper">
   <div data-component="site-header"></div>
   <main class="main-wrapper">
-    <section class="blog-details-banner-section">
+    <section class="blog-details-banner-section"<?php if ($img && preg_match('~^https://[^\s"\'()<>]+$~', $img)): ?> style="background-image: url('<?= $e($img) ?>');"<?php endif; ?>>
       <div class="blog-details-banner-gradient"></div>
       <div class="container">
         <div class="blog-details-banner-content-wrapper">
@@ -353,7 +353,7 @@ function seo_render_article_page(array $a): string
   </main>
   <div data-component="site-footer"></div>
 </div>
-<script type="module" src="/js/core/main.js?v=20261111-2"></script>
+<script type="module" src="/js/core/main.js?v=20261111-3"></script>
 </body>
 </html>
 <?php
