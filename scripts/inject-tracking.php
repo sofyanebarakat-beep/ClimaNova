@@ -19,7 +19,7 @@ foreach ($it as $f) {
     $rel = substr($f->getPathname(), strlen($root) + 1);
     if (preg_match($skip, $rel) || basename($rel) === 'googlef9e69acee68e5e5a.html') continue;
     $html = (string) file_get_contents($f->getPathname());
-    if (!str_contains($html, '/js/core/main.js') && $rel !== 'link/index.html' && $rel !== 'template-pages/license.html') continue;
+    if (!str_contains($html, 'js/core/main.js') && $rel !== 'link/index.html' && $rel !== 'template-pages/license.html') continue;
     $files[] = $rel;
 }
 sort($files);
