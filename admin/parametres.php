@@ -117,8 +117,8 @@ $gscCfg = gsc_config();
 $gsc = ['ok' => false, 'msg' => 'Non connecté'];
 if ($gscCfg) {
     try {
-        $rows = gsc_query(['date'], date('Y-m-d', strtotime('-9 days')), date('Y-m-d', strtotime('-2 days')), 10);
-        $gsc = ['ok' => true, 'msg' => count($rows) . ' jour(s) de données sur 7 · ' . $gscCfg['site']];
+        $rows = gsc_query(['date'], date('Y-m-d', strtotime('-8 days')), date('Y-m-d', strtotime('-2 days')), 10); // 7 days (Google lags ~2 days)
+        $gsc = ['ok' => true, 'msg' => count($rows) . ' jour(s) de données sur les 7 derniers · ' . $gscCfg['site']];
     } catch (Throwable $e) {
         $gsc = ['ok' => false, 'msg' => $e->getMessage()];
     }
