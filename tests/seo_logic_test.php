@@ -189,6 +189,24 @@ check('log operations', array_map('seo_log_operation', ['keyword_ideas', 'weekly
 check('legacy statuses map', [seo_log_status('failed'), seo_log_status('info'), seo_log_status('running')], ['error', 'success', 'running']);
 check('duration', [seo_duration('2026-11-11 10:00:00', '2026-11-11 10:00:42'), seo_duration('2026-11-11 10:00:00', '2026-11-11 10:03:05'), seo_duration(null, null)], ['42 s', '3 min 5 s', '']);
 
+// Automation
+$secret = str_repeat('s', 40);
+check('bearer parsing', [seo_parse_bearer('Bearer abc'), seo_parse_bearer('bearer  abc '), seo_parse_bearer('Basic abc'), seo_parse_bearer(null)], ['abc', 'abc', null, null]);
+check('right token accepted', seo_cron_token_ok($secret, $secret), true);
+check('wrong token refused', seo_cron_token_ok($secret, $secret . 'x'), false);
+check('empty token refused', seo_cron_token_ok($secret, ''), false);
+check('short secret refused even when matching', seo_cron_token_ok('short-secret', 'short-secret'), false);
+check('missing secret refused', seo_cron_token_ok(null, 'anything'), false);
+check('next monday from Wednesday', seo_next_monday(new DateTimeImmutable('2026-11-11 10:00', new DateTimeZone('Europe/Paris'))), '2026-11-16');
+check('next monday from Monday is the following one', seo_next_monday(new DateTimeImmutable('2026-11-16 08:00', new DateTimeZone('Europe/Paris'))), '2026-11-23');
+check('next monday uses Paris time (Sunday 23:30 UTC = Monday)', seo_next_monday(new DateTimeImmutable('2026-11-15 23:30', new DateTimeZone('UTC'))), '2026-11-23');
+check('due window 14 days', seo_due_window(new DateTimeImmutable('2026-11-11 22:00', new DateTimeZone('Europe/Paris'))), ['2026-11-11', '2026-11-25']);
+check('send allowance counts queued and drafted', [seo_week_send_allowance(6, 2, 3), seo_week_send_allowance(6, 4, 4), seo_week_send_allowance(3, 0, 0)], [1, 0, 3]);
+$due = [['id' => 1, 'campaign_id' => 7, 'week_start' => '2026-11-16'], ['id' => 2, 'campaign_id' => 7, 'week_start' => '2026-11-16'],
+        ['id' => 3, 'campaign_id' => 7, 'week_start' => '2026-11-23'], ['id' => 4, 'campaign_id' => 8, 'week_start' => '2026-11-16']];
+check('pick respects each week allowance', array_column(seo_pick_due_topics($due, ['7|2026-11-16' => 1, '7|2026-11-23' => 5, '8|2026-11-16' => 0]), 'id'), [1, 3]);
+check('pick respects the run maximum', count(seo_pick_due_topics($due, ['7|2026-11-16' => 9, '7|2026-11-23' => 9, '8|2026-11-16' => 9], 2)), 2);
+
 // Migration splitter
 require __DIR__ . '/../db/sql_split.php';
 check('splits simple statements', sql_split_statements("create table a (x int);\n-- note; here\nselect 1;"), ['create table a (x int)', 'select 1']);

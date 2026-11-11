@@ -497,3 +497,60 @@ function seo_validate_topic(array $in): array
     if (!seo_valid_date($date)) $e[] = 'Choose a valid date for the topic.';
     return [['title' => $title, 'angle' => $angle, 'planned_for' => $date], $e];
 }
+
+/* ---------- Automation ---------- */
+
+/** "Bearer abc" → "abc", or null. */
+function seo_parse_bearer(?string $header): ?string
+{
+    return $header !== null && preg_match('/^\s*Bearer\s+(\S+)\s*$/i', $header, $m) ? $m[1] : null;
+}
+
+/**
+ * Cron authorisation: the configured secret must be at least 32 characters, and the token must match it.
+ * Compared in constant time (hashes of equal length, so even the length is not leaked).
+ */
+function seo_cron_token_ok(?string $secret, ?string $token): bool
+{
+    if ($secret === null || strlen($secret) < 32 || $token === null || $token === '') return false;
+    return hash_equals(hash('sha256', $secret), hash('sha256', $token));
+}
+
+/** The Monday that starts the NEXT week (Paris time), e.g. Wednesday 11 Nov → Monday 16 Nov; Monday 16 → Monday 23. */
+function seo_next_monday(DateTimeImmutable $now, string $tz = 'Europe/Paris'): string
+{
+    return $now->setTimezone(new DateTimeZone($tz))->modify('next monday')->format('Y-m-d');
+}
+
+/** Topics planned within [today, today + $days] (inclusive) are due for drafting. */
+function seo_due_window(DateTimeImmutable $now, int $days = 14, string $tz = 'Europe/Paris'): array
+{
+    $today = $now->setTimezone(new DateTimeZone($tz))->setTime(0, 0);
+    return [$today->format('Y-m-d'), $today->modify("+$days days")->format('Y-m-d')];
+}
+
+/**
+ * How many more topics of one campaign-week may be sent for drafting:
+ * weekly target minus topics already waiting in a batch or already drafted.
+ */
+function seo_week_send_allowance(int $weeklyTarget, int $queued, int $drafted): int
+{
+    return max(0, $weeklyTarget - $queued - $drafted);
+}
+
+/**
+ * Picks which due approved topics to send, respecting each campaign-week's allowance.
+ * $topics: [['id', 'campaign_id', 'week_start', …]] ordered by planned date. $allowance: ["campaignId|week" => n].
+ */
+function seo_pick_due_topics(array $topics, array $allowance, int $max = 50): array
+{
+    $picked = [];
+    foreach ($topics as $t) {
+        $k = $t['campaign_id'] . '|' . $t['week_start'];
+        if (($allowance[$k] ?? 0) <= 0) continue;
+        $allowance[$k]--;
+        $picked[] = $t;
+        if (count($picked) >= $max) break;
+    }
+    return $picked;
+}

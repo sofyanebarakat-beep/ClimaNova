@@ -204,7 +204,7 @@ function seo_generate_week(string $root, int $campaignId, string $monday): array
     if (!$ctx['offers']) throw new InvalidArgumentException('This campaign has no enabled offer — enable one in the Offers tab first.');
     if (!seo_valid_date($monday) || seo_monday($monday) !== $monday) throw new InvalidArgumentException('Choose a Monday for the weekly plan.');
     [$planned, $kw] = db_batch([
-        ["select planned_for as date, offer_id from seo_topics where campaign_id = $1 and week_start = $2::date and status <> 'rejected'", [$campaignId, $monday]],
+        ["select planned_for as date, offer_id from seo_topics where campaign_id = $1 and week_start = $2::date and status not in ('rejected', 'skipped')", [$campaignId, $monday]],
         ['select id, keyword, offer_id from seo_keywords where campaign_id = $1 and used_at is null
            and (offer_id is null or offer_id = any($2::bigint[])) order by priority desc, created_at', [$campaignId, '{' . implode(',', array_column($ctx['offers'], 'id')) . '}']],
     ], true);

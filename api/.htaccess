@@ -1,0 +1,7 @@
+# Cron endpoints. LiteSpeed/Apache do not always pass the Authorization header to PHP: forward it explicitly.
+Options -Indexes
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule ^(seo-generate|seo-publish)/?$ $1.php [L]
+Header always set X-Robots-Tag "noindex, nofollow"

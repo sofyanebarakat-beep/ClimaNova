@@ -99,7 +99,8 @@ try {
 }
 $gscIdeas = $_SESSION['gsc_ideas'][$cid] ?? null;
 $unused = array_filter($keywords, static fn ($k) => $k['used_at'] === null);
-$TOPIC_BADGE = ['proposed' => 'warn', 'approved' => 'ok', 'used' => 'muted-badge', 'rejected' => 'bad'];
+$TOPIC_BADGE = ['proposed' => 'warn', 'approved' => 'ok', 'queued' => 'ok', 'used' => 'muted-badge', 'skipped' => 'bad', 'rejected' => 'bad'];
+$planned = count(array_filter($topics, static fn ($t) => $t['status'] !== 'skipped')); // skipped topics do not count toward the target
 $weekEnd = (new DateTimeImmutable($week))->modify('+6 days');
 $fmt = static fn (string $d) => (new DateTimeImmutable($d))->format('D j M');
 
@@ -206,7 +207,7 @@ seo_header('keywords', 'Keywords & Topics', 'Find keywords with AI and free Sear
 
 <!-- ============ Section 2: Weekly plan ============ -->
 <section class="card" id="weekly-plan">
-  <div class="card-head"><h2>2 · Weekly plan</h2><span class="muted small">Week of <?= h($fmt($week)) ?> – <?= h($weekEnd->format('D j M Y')) ?> · <?= count($topics) ?>/<?= (int) $ctx['weekly_target'] ?> topics</span></div>
+  <div class="card-head"><h2>2 · Weekly plan</h2><span class="muted small">Week of <?= h($fmt($week)) ?> – <?= h($weekEnd->format('D j M Y')) ?> · <?= $planned ?>/<?= (int) $ctx['weekly_target'] ?> topics</span></div>
   <div class="toolbar">
     <form method="get" action="/admin/seo-keywords-topics#weekly-plan" class="row-form">
       <input type="hidden" name="campaign" value="<?= $cid ?>">
@@ -216,7 +217,7 @@ seo_header('keywords', 'Keywords & Topics', 'Find keywords with AI and free Sear
     <form method="post" action="<?= h($back()) ?>">
       <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
       <input type="hidden" name="action" value="generate_week">
-      <button type="submit" class="btn btn-primary" <?= $ctx['offers'] && count($topics) < (int) $ctx['weekly_target'] ? '' : 'disabled' ?>>✦ Generate weekly plan</button>
+      <button type="submit" class="btn btn-primary" <?= $ctx['offers'] && $planned < (int) $ctx['weekly_target'] ? '' : 'disabled' ?>>✦ Generate weekly plan</button>
     </form>
     <span class="muted small">Fills up to <?= (int) $ctx['weekly_target'] ?> topics, rotating offers week to week and using each unused keyword once (<?= count($unused) ?> left).</span>
   </div>

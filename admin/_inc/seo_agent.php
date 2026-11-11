@@ -7,6 +7,7 @@ require_once __DIR__ . '/seo_logic.php';
 function seo_require_admin(): void
 {
     if (PHP_SAPI === 'cli') return; // cron jobs and tests run from the command line, never over the web
+    if (defined('SEO_CRON_AUTHORIZED') && SEO_CRON_AUTHORIZED === true) return; // set only by seo_cron_guard() after the Bearer secret check
     if (!is_logged_in()) {
         throw new RuntimeException('Not signed in as an admin.');
     }

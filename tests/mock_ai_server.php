@@ -5,21 +5,34 @@ $body = json_decode((string) file_get_contents('php://input'), true) ?: [];
 header('Content-Type: application/json');
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // Batch API: /files (upload), /batches (create), /batches/{id} (status), /files/{id}/content (output JSONL)
+$state = sys_get_temp_dir() . '/cn_mock_batches.json';
+$db = is_file($state) ? (json_decode((string) file_get_contents($state), true) ?: []) : [];
+$save = function () use (&$db, $state) { file_put_contents($state, json_encode($db)); };
 if ($path === '/files' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $lines = file($_FILES['file']['tmp_name'] ?? '', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
-    file_put_contents(sys_get_temp_dir() . '/cn_mock_batch.jsonl', implode("\n", $lines));
-    echo json_encode(['id' => 'file-in-1', 'purpose' => $_POST['purpose'] ?? '', 'lines' => count($lines)]);
+    $id = 'file-in-' . (count($db['files'] ?? []) + 1);
+    $db['files'][$id] = $lines;
+    $save();
+    echo json_encode(['id' => $id, 'purpose' => $_POST['purpose'] ?? '', 'lines' => count($lines)]);
     return;
 }
 if ($path === '/batches' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo json_encode(['id' => 'batch-1', 'status' => 'validating', 'input_file_id' => $body['input_file_id'] ?? null,
+    if (getenv('MOCK_BATCH_CREATE_FAILS') === '1') { http_response_code(500); echo '{"error":{"message":"mock create failure"}}'; return; }
+    $id = 'batch-' . (count($db['batches'] ?? []) + 1);
+    $db['batches'][$id] = ['input' => $body['input_file_id'] ?? null];
+    $save();
+    echo json_encode(['id' => $id, 'status' => 'validating', 'input_file_id' => $body['input_file_id'] ?? null,
         'completion_window' => $body['completion_window'] ?? null, 'endpoint' => $body['endpoint'] ?? null]);
     return;
 }
-if ($path === '/batches/batch-1') { echo json_encode(['id' => 'batch-1', 'status' => 'completed', 'output_file_id' => 'file-out-1']); return; }
-if ($path === '/files/file-out-1/content') {
+if (preg_match('~^/batches/(batch-\d+)$~', $path, $m) && isset($db['batches'][$m[1]])) {
+    echo json_encode(['id' => $m[1], 'status' => 'completed', 'output_file_id' => 'file-out-' . substr($m[1], 6)]);
+    return;
+}
+if (preg_match('~^/files/file-out-(\d+)/content$~', $path, $m)) {
+    $in = $db['batches']['batch-' . $m[1]]['input'] ?? null;
     $out = [];
-    foreach (file(sys_get_temp_dir() . '/cn_mock_batch.jsonl', FILE_IGNORE_NEW_LINES) ?: [] as $i => $l) {
+    foreach ($db['files'][$in] ?? [] as $i => $l) {
         $req = json_decode($l, true);
         $content = $i === 1 ? 'pas du json' : '{"ok": true, "message": "Brouillon ' . $i . '"}';
         $out[] = json_encode(['custom_id' => $req['custom_id'], 'response' => ['status_code' => 200, 'body' => [

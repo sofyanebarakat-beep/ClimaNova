@@ -4,10 +4,38 @@ require __DIR__ . '/_inc/auth.php';
 require __DIR__ . '/_inc/seo.php';
 require __DIR__ . '/_inc/gsc.php';
 require __DIR__ . '/_inc/ai.php';
+require __DIR__ . '/_inc/seo_cron.php';
 require __DIR__ . '/_inc/layout.php';
 require_login();
 
 $notice = ['db' => '', 'gsc' => '', 'ai' => ''];
+$notice['cron'] = '';
+$cronFlash = $_SESSION['cron_flash'] ?? null;
+unset($_SESSION['cron_flash']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($_POST['action'] ?? '', ['cron_toggle', 'cron_secret'], true)) {
+    if (!csrf_valid($_POST['csrf'] ?? null)) {
+        $notice['cron'] = 'Session expirée, veuillez réessayer.';
+    } else {
+        try {
+            if ($_POST['action'] === 'cron_toggle') {
+                $on = ($_POST['enabled'] ?? '') === 'true';
+                if ($on && strlen((string) seo_cron_env('CRON_SECRET')) < 32) throw new InvalidArgumentException('Generate a cron secret before turning the automation on.');
+                seo_cron_save(['SEO_AUTOMATION_ENABLED' => $on ? 'true' : 'false']);
+                seo_log('automation_settings', 'success', 'SEO automation turned ' . ($on ? 'on' : 'off') . '.', null, 'other');
+                $_SESSION['cron_flash'] = ['success', 'SEO automation is now ' . ($on ? 'ON' : 'OFF') . '.'];
+            } else {
+                $secret = rtrim(strtr(base64_encode(random_bytes(36)), '+/', '-_'), '=');   // 48 characters
+                seo_cron_save(['CRON_SECRET' => $secret]);
+                seo_log('automation_settings', 'success', 'A new cron secret was generated (the previous one stopped working).', null, 'other');
+                $_SESSION['cron_flash'] = ['secret', $secret];
+            }
+        } catch (Throwable $e) {
+            $_SESSION['cron_flash'] = ['error', admin_error($e, 'save the automation settings')];
+        }
+    }
+    header('Location: /admin/parametres.php#automation');
+    exit;
+}
 $aiTest = $_SESSION['ai_test'] ?? null;
 unset($_SESSION['ai_test']);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($_POST['action'] ?? '', ['save_ai', 'test_ai'], true)) {
@@ -112,6 +140,53 @@ try {
     error_log('ai month usage: ' . $e->getMessage());
 }
 ?>
+<?php
+$cronOn = seo_automation_enabled();
+$cronSecret = (string) seo_cron_env('CRON_SECRET');
+$cronRuns = [];
+try {
+    $cronRuns = db_query("select distinct on (job) job, status, message, coalesce(finished_at, created_at) as at from seo_automation_logs
+                          where job in ('batch_collect', 'autopilot', 'scheduled_generation', 'publish_job') order by job, id desc");
+} catch (Throwable $e) {
+    error_log('cron runs: ' . $e->getMessage());
+}
+?>
+<section class="card" id="automation">
+  <div class="card-head">
+    <h2>SEO automation</h2>
+    <span class="badge <?= $cronOn ? 'ok' : 'muted-badge' ?>"><?= $cronOn ? 'On' : 'Off' ?></span>
+  </div>
+  <?php if ($cronFlash && $cronFlash[0] === 'secret'): ?>
+    <div class="success"><strong>New cron secret — copy it now, it will not be shown again:</strong><br>
+      <code class="secret" id="cron-secret"><?= h($cronFlash[1]) ?></code>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cron-secret').textContent).then(()=>this.textContent='Copied')">Copy</button>
+      <br><span class="small">Paste it in GitHub → your repository → Settings → Secrets and variables → Actions → <strong>New repository secret</strong>, name <code>CRON_SECRET</code>.</span></div>
+  <?php elseif ($cronFlash): ?><div class="<?= $cronFlash[0] === 'success' ? 'success' : 'alert' ?>"><?= h($cronFlash[1]) ?></div><?php endif; ?>
+  <?php if ($notice['cron']): ?><div class="alert"><?= h($notice['cron']) ?></div><?php endif; ?>
+  <p class="muted small">Every 3 hours, a GitHub Actions workflow calls <code>/api/seo-generate</code> (collect drafts, plan next week, send due topics for drafting)
+    and <code>/api/seo-publish</code> (schedule and publish approved articles). Drafts always wait for you on the Weekly Check page; nothing is published
+    without your approval and a featured image. Both endpoints do nothing unless automation is ON and the caller sends this secret.</p>
+  <dl class="kv">
+    <dt>Cron secret</dt><dd><?= strlen($cronSecret) >= 32 ? 'Set · ending in <code>…' . h(substr($cronSecret, -4)) . '</code>' : '<span class="badge warn">Not set</span>' ?></dd>
+    <?php foreach (['batch_collect' => 'Collect drafts', 'autopilot' => 'Weekly autopilot', 'scheduled_generation' => 'Send for drafting', 'publish_job' => 'Publishing'] as $job => $label):
+        $run = array_values(array_filter($cronRuns, static fn ($r) => $r['job'] === $job))[0] ?? null; ?>
+      <dt><?= h($label) ?></dt><dd class="small"><?= $run ? h(date('d/m H:i', strtotime($run['at']))) . ' · ' . h(seo_log_status($run['status'])) . ' — ' . h(mb_strimwidth($run['message'], 0, 140, '…')) : '<span class="muted">never ran</span>' ?></dd>
+    <?php endforeach; ?>
+  </dl>
+  <div class="toolbar">
+    <form method="post" action="/admin/parametres.php#automation">
+      <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>"><input type="hidden" name="action" value="cron_toggle">
+      <input type="hidden" name="enabled" value="<?= $cronOn ? 'false' : 'true' ?>">
+      <button class="btn <?= $cronOn ? 'btn-ghost' : 'btn-primary' ?>"><?= $cronOn ? 'Turn automation OFF' : 'Turn automation ON' ?></button>
+    </form>
+    <form method="post" action="/admin/parametres.php#automation" onsubmit="return <?= strlen($cronSecret) >= 32 ? "confirm('The current secret will stop working. Continue?')" : 'true' ?>">
+      <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>"><input type="hidden" name="action" value="cron_secret">
+      <button class="btn btn-ghost"><?= strlen($cronSecret) >= 32 ? 'Generate a new secret' : 'Generate cron secret' ?></button>
+    </form>
+    <a class="small" href="/admin/seo-logs">Automation logs →</a>
+  </div>
+</section>
+
 <section class="card" id="moteur-ia">
   <div class="card-head">
     <h2>AI engine</h2>

@@ -1,0 +1,50 @@
+# Calls the SEO automation endpoints every 3 hours.
+# Setup: GitHub → Settings → Secrets and variables → Actions → New repository secret
+#   CRON_SECRET = the same value as on the server (/admin → Paramètres → Automation).
+# Without the secret this workflow stays idle. The server also does nothing unless SEO_AUTOMATION_ENABLED is "true".
+name: SEO automation
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # every 3 hours, off the hour
+  workflow_dispatch: {}
+
+permissions: {}
+
+concurrency:
+  group: seo-automation
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+      SITE: ${{ vars.SEO_SITE_URL || 'https://climanova-energie.fr' }}
+    steps:
+      - name: Stay idle without a secret
+        id: check
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET is not set — nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate (collect batches, weekly autopilot, send due topics)
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 900 -X POST \
+            -A "ClimaNova-SEO-Cron/1.0" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$SITE/api/seo-generate"
+          echo
+
+      - name: Publish (schedule approved articles, publish due ones)
+        if: always() && steps.check.outputs.skip != 'true'
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 600 -X POST \
+            -A "ClimaNova-SEO-Cron/1.0" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$SITE/api/seo-publish"
+          echo
