@@ -270,6 +270,7 @@ function seo_article_system_prompt(string $lang, string $tone, int $words): stri
 /** Validates the generator form. Returns [clean, campaign, offer]. */
 function seo_generation_input(array $in): array
 {
+    seo_require_admin();
     $campaignId = (int) ($in['campaign_id'] ?? 0);
     $offerId = (int) ($in['offer_id'] ?? 0);
     $kw = trim(preg_replace('/\s+/u', ' ', (string) ($in['keyword'] ?? '')));
@@ -302,6 +303,7 @@ function seo_generation_input(array $in): array
 /** One sentence if this focus keyword overlaps another (non-rejected) article's keyword, else null. */
 function seo_keyword_taken(string $keyword, ?int $excludeId = null): ?string
 {
+    seo_require_admin();
     foreach (db_query("select id, focus_keyword from seo_articles where id <> coalesce($1::bigint, -1) and status <> 'rejected' and focus_keyword is not null", [$excludeId]) as $r) {
         if (seo_overlaps($keyword, $r['focus_keyword'])) return "The focus keyword overlaps article #{$r['id']} (“{$r['focus_keyword']}”) — choose a different keyword.";
     }
@@ -352,6 +354,7 @@ function seo_article_prepare(array $input, ?int $articleId = null): array
  */
 function seo_article_finish(array $prep, array $a, float $aiCost, ?int $usageId): array
 {
+    seo_require_admin();
     @set_time_limit(300);
     ['g' => $g, 'offer' => $offer, 'existing' => $existing, 'related' => $related, 'article_id' => $articleId] = $prep;
     $notes = [];
@@ -365,7 +368,7 @@ function seo_article_finish(array $prep, array $a, float $aiCost, ?int $usageId)
         $s['paragraphs'] = array_map(static fn ($p) => seo_restrict_links($p, $allowed), $s['paragraphs']);
     }
     unset($s);
-    foreach ($a['faq'] as &$f) { $f['question'] = strip_tags($f['question']); $f['answer'] = seo_restrict_links($f['answer'], $allowed); }
+    foreach ($a['faq'] as &$f) { $f['question'] = strip_tags(preg_replace('/\[([^\]]*)\]\([^)]*\)/u', '$1', $f['question'])); $f['answer'] = seo_restrict_links($f['answer'], $allowed); }
     unset($f);
 
     // Keyword in title and meta description: "keyword: rest", title ≤ 180, meta ≤ 240.
@@ -446,6 +449,7 @@ function seo_generate_article(array $input, ?int $articleId = null): array
 /** Generator settings for a topic: its campaign, offer and keyword (or title), campaign language, 1000 words, professional tone. */
 function seo_topic_generation_input(int $topicId, array $overrides = []): array
 {
+    seo_require_admin();
     $t = db_query('select t.id, t.campaign_id, t.offer_id, t.title, k.keyword, c.language from seo_topics t
                    join seo_campaigns c on c.id = t.campaign_id left join seo_keywords k on k.id = t.keyword_id where t.id = $1', [$topicId]);
     if (!$t) throw new InvalidArgumentException('That topic could not be found.');
@@ -527,6 +531,7 @@ function seo_rewrite_section(int $id, string $heading): void
 /** Saves new Markdown (and featured image) for an article, keeping the previous version; recomputes quality. */
 function seo_store_content(array $a, string $md, ?array $featured, ?string $status, string $reason, float $extraCost = 0.0): array
 {
+    seo_require_admin();
     $content = ['markdown' => $md];
     if ($featured) $content['featuredImage'] = $featured;
     $q = seo_quality_checks(['title' => $a['title'], 'meta_description' => $a['meta_description'], 'focus_keyword' => $a['focus_keyword'],
@@ -725,7 +730,10 @@ function seo_schedule_article(int $id, ?string $localTime): DateTimeImmutable
     $sched = seo_campaign_schedule($a);
     $tz = new DateTimeZone($sched['time_zone']);
     for ($try = 0; $try < 3; $try++) {
-        $occupied = array_column(db_query("select scheduled_for from seo_articles where status = 'scheduled' and id <> $1", [$id]), 'scheduled_for');
+        // Slots taken = scheduled/publishing articles; the weekly cap also counts what was already published.
+        $occupied = array_column(db_query("select coalesce(case when status = 'published' then published_at end, scheduled_for) as at from seo_articles
+            where id <> $1 and (status in ('scheduled', 'publishing') and scheduled_for is not null
+                               or status = 'published' and published_at > now() - interval '8 days')", [$id]), 'at');
         if ($localTime === null) {
             $slot = seo_next_free_slot($sched, $occupied, new DateTimeImmutable('now'));
             if (!$slot) throw new InvalidArgumentException('No free publishing slot was found in the campaign’s dates — check its days, times and end date.');

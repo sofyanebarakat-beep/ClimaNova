@@ -6,6 +6,11 @@ require __DIR__ . '/_inc/auth.php';
 require __DIR__ . '/_inc/seo_articles.php';
 
 header('Content-Type: application/json; charset=utf-8');
+if (!is_logged_in()) { // the signed link is only usable from a signed-in admin's browser
+    http_response_code(401);
+    echo json_encode(['error' => 'Sign in as an admin to upload images.']);
+    exit;
+}
 if (!in_array($_SERVER['REQUEST_METHOD'], ['PUT', 'POST'], true)) {
     http_response_code(405);
     echo json_encode(['error' => 'Use PUT to upload the file.']);

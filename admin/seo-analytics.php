@@ -19,8 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } elseif ($action === 'connect') {
         try {
-            google_save_settings((string) ($_POST['key_json'] ?? ''), (string) ($_POST['gsc_site'] ?? ''), (string) ($_POST['ga4_property'] ?? ''));
-            seo_log('analytics_connect', 'info', 'Google connection settings saved.');
+            seo_save_google_connection((string) ($_POST['key_json'] ?? ''), (string) ($_POST['gsc_site'] ?? ''), (string) ($_POST['ga4_property'] ?? ''));
             $r = ['ok' => true, 'message' => 'Google connection saved. Click “Sync Google data” to test it.'];
         } catch (Throwable $e) {
             $r = ['ok' => false, 'message' => $e instanceof InvalidArgumentException ? $e->getMessage() : admin_error($e, 'save the Google connection')];

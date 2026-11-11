@@ -505,6 +505,7 @@ function seo_quality_checks(array $a): array
         [$faq >= 3, "The FAQ has $faq question(s); it needs at least 3."],
         [$noAlt === 0, "$noAlt image(s) in the article have no alt text."],
         [is_array($fi) && !empty($fi['url']) && trim((string) ($fi['alt'] ?? '')) !== '', 'Add a featured image with alt text.'],
+        [seo_link_counts($md)['external'] >= 1, 'Add at least one external source (an https link).'],
     ];
     $passed = count(array_filter($checks, static fn ($c) => $c[0]));
     return [

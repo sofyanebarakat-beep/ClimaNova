@@ -117,7 +117,7 @@ check('wrap section', str_contains($wrapped, "<div class=\"cn-direct-answer\">\n
 // Quality checks
 $body = str_repeat("La climatisation à Nice est une solution efficace pour votre maison et elle permet de mieux vivre l'été. ", 40);
 $good = seo_build_markdown(array_merge($ai, ['sections' => [['heading' => 'Climatisation à Nice : pourquoi ?', 'paragraphs' => [$body, 'P2', 'P3']]]]),
-    'fr', [], [], 'Climatisation', '/services/climatisation/');
+    'fr', [], [['title' => 'ADEME', 'url' => 'https://www.ademe.fr/']], 'Climatisation', '/services/climatisation/');
 $q = seo_quality_checks(['title' => 'Climatisation à Nice : le guide', 'meta_description' => str_pad('Climatisation à Nice : tout savoir ', 120, 'x'),
     'focus_keyword' => 'climatisation à Nice', 'markdown' => $good, 'featured_image' => ['url' => 'https://x/i.jpg', 'alt' => 'Clim'],
     'language' => 'fr', 'target_words' => 1000, 'offer_path' => '/services/climatisation/']);
@@ -126,6 +126,7 @@ check('good score 100', $q['score'], 100);
 $q2 = seo_quality_checks(['title' => 'Court', 'meta_description' => 'trop court', 'focus_keyword' => 'pompe à chaleur', 'markdown' => "# Court\n\nTexte [à compléter].",
     'featured_image' => null, 'language' => 'fr', 'target_words' => 2000, 'offer_path' => '/services/chauffage/']);
 check('bad article fails many', count($q2['notes']) >= 9, true);
+check('needs an external source', in_array('Add at least one external source (an https link).', $q2['notes'], true), true);
 check('needs featured image note', in_array('Add a featured image with alt text.', $q2['notes'], true), true);
 check('min words = half target', (bool) array_filter($q2['notes'], static fn ($n) => str_contains($n, 'at least 1000')), true);
 

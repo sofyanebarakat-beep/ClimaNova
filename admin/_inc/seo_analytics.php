@@ -7,17 +7,19 @@ require_once __DIR__ . '/google.php';
 
 const SEO_SYNC_STALE_HOURS = 20;
 
-function seo_analytics_state(): array
-{
-    $r = db_query("select value from seo_settings where key = 'analytics_sync'");
-    return json_decode((string) ($r[0]['value'] ?? '{}'), true) ?: [];
-}
-
 /** True when the last sync attempt is older than 20 hours (or never happened). */
 function seo_analytics_stale(array $state): bool
 {
     $last = $state['last_attempt_at'] ?? null;
     return !$last || strtotime($last) < time() - SEO_SYNC_STALE_HOURS * 3600;
+}
+
+/** Saves the Google connection (admin only). */
+function seo_save_google_connection(string $keyJson, string $site, string $property): void
+{
+    seo_require_admin();
+    google_save_settings($keyJson, $site, $property);
+    seo_log('analytics_connect', 'info', 'Google connection settings saved.');
 }
 
 /** Path → [article_id, offer_id] for every SEO article slug and offer page. */
